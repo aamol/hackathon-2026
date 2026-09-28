@@ -41,11 +41,12 @@
 | asset | 18 | asset, creative, insight |
 | asset-core | 1 | asset, resource |
 | asset-types | 90 | asset, creative, insight |
-| creative-core | 41 | creative |
+| creative-core | 32 | creative |
+| creative-types | 15 | creative |
 | insight-core | 21 | insight |
 | relation | 8 | asset, creative, insight, resource |
-| resource-manager | 46 | asset, insight, resource |
-| resource-types | 2 | asset |
+| resource-manager | 25 | asset, insight, resource |
+| resource-types | 21 | asset, resource |
 | user | 2 | asset, insight |
 | wss-app-events | 7 | creative |
 

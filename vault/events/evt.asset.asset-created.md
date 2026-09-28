@@ -14,22 +14,22 @@ edges:
 - type: HAS_FIELD
   to: fld.asset.asset-created.asset-public
   evidence: Unite/packages/asset-types/src/index.ts:814
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-created.entity-ids
   evidence: Unite/packages/asset-types/src/index.ts:813
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-created.entity-type
   evidence: Unite/packages/asset-types/src/index.ts:812
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-created.record
   evidence: Unite/packages/asset-types/src/index.ts:811
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 ---
 # AssetCreated

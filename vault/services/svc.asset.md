@@ -75,14 +75,14 @@ edges:
   via: package:asset
 - type: CONSUMES
   to: evt.resource.resource-available
-  evidence: Unite/packages/resource-types/src/types.ts:414
+  evidence: Unite/services/asset/serverless.yml:246
   confidence: 0.6
-  via: package:resource-types
+  via: serverless.yml
 - type: CONSUMES
   to: evt.resource.resource-failed
-  evidence: Unite/packages/resource-types/src/types.ts:415
+  evidence: Unite/services/asset/serverless.yml:246
   confidence: 0.6
-  via: package:resource-types
+  via: serverless.yml
 - type: CONSUMES
   to: evt.wssbrandx.asset-brand-check-status-updated
   evidence: Unite/services/asset/serverless.yml:270

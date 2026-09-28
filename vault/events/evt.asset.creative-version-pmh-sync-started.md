@@ -13,47 +13,47 @@ edges:
 - type: HAS_FIELD
   to: fld.asset.creative-version-pmh-sync-started.created-by
   evidence: Unite/packages/asset-types/src/pmh.ts:151
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.creative-version-pmh-sync-started.creative-id
   evidence: Unite/packages/asset-types/src/pmh.ts:152
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.creative-version-pmh-sync-started.display-name
   evidence: Unite/packages/asset-types/src/pmh.ts:154
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.creative-version-pmh-sync-started.entity-type
   evidence: Unite/packages/asset-types/src/pmh.ts:149
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.creative-version-pmh-sync-started.id
   evidence: Unite/packages/asset-types/src/pmh.ts:148
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.creative-version-pmh-sync-started.project-id
   evidence: Unite/packages/asset-types/src/pmh.ts:147
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.creative-version-pmh-sync-started.results
   evidence: Unite/packages/asset-types/src/pmh.ts:153
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.creative-version-pmh-sync-started.status
   evidence: Unite/packages/asset-types/src/pmh.ts:155
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.creative-version-pmh-sync-started.submission-uuid
   evidence: Unite/packages/asset-types/src/pmh.ts:150
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 ---
 # CreativeVersionPmhSyncStarted

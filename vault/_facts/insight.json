@@ -364,12 +364,12 @@
       "name": "canvas-suggestions-queue",
       "physical_name": "canvas-suggestions-queue-${self:custom.T.STAGE}",
       "owner_service": "insight",
-      "dlq": "q.canvas-suggestions-queue-dlq"
+      "dlq": "q.canvas-suggestions-dlq"
     },
     {
-      "id": "q.canvas-suggestions-queue-dlq",
+      "id": "q.canvas-suggestions-dlq",
       "type": "queue",
-      "name": "canvas-suggestions-queue-dlq",
+      "name": "canvas-suggestions-dlq",
       "physical_name": "canvas-suggestions-dlq-${self:custom.T.STAGE}",
       "owner_service": "insight"
     },
@@ -878,245 +878,245 @@
       "pii_confidence": 1.0
     },
     {
-      "id": "test.insight.application-handlers-events-ddb-ddb-event-notification-spec",
+      "id": "test.insight.svc-application-handlers-events-ddb-ddb-event-notification-spec",
       "type": "test",
       "name": "ddb-event-notification.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/events/ddb/ddb-event-notification.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-events-eb-eventbridge-spec",
+      "id": "test.insight.svc-application-handlers-events-eb-eventbridge-spec",
       "type": "test",
       "name": "eventbridge.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.subscribers-group-generation-publisher-spec",
+      "id": "test.insight.svc-subscribers-group-generation-publisher-spec",
       "type": "test",
       "name": "group-generation-publisher.spec.ts",
       "file": "Unite/services/insight/src/subscribers/group-generation-publisher.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.eventbridge-asset-created-listener-spec",
+      "id": "test.insight.svc-eventbridge-asset-created-listener-spec",
       "type": "test",
       "name": "asset-created-listener.spec.ts",
       "file": "Unite/services/insight/src/eventbridge/asset-created-listener.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.subscribers-insight-generation-worker-spec",
+      "id": "test.insight.svc-subscribers-insight-generation-worker-spec",
       "type": "test",
       "name": "insight-generation-worker.spec.ts",
       "file": "Unite/services/insight/src/subscribers/insight-generation-worker.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.subscribers-insight-editing-worker-spec",
+      "id": "test.insight.svc-subscribers-insight-editing-worker-spec",
       "type": "test",
       "name": "insight-editing-worker.spec.ts",
       "file": "Unite/services/insight/src/subscribers/insight-editing-worker.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-sqs-image-prompt-generation-worker-spec",
+      "id": "test.insight.svc-application-handlers-sqs-image-prompt-generation-worker-spec",
       "type": "test",
       "name": "image-prompt-generation-worker.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/sqs/image-prompt-generation-worker.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.subscribers-canvas-deleted-dynamo-listener-spec",
+      "id": "test.insight.svc-subscribers-canvas-deleted-dynamo-listener-spec",
       "type": "test",
       "name": "canvas-deleted-dynamo-listener.spec.ts",
       "file": "Unite/services/insight/src/subscribers/canvas-deleted-dynamo-listener.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-sqs-canvas-suggestions-spec",
+      "id": "test.insight.svc-application-handlers-sqs-canvas-suggestions-spec",
       "type": "test",
       "name": "canvas-suggestions.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/sqs/canvas-suggestions.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.subscribers-insight-conversation-worker-spec",
+      "id": "test.insight.svc-subscribers-insight-conversation-worker-spec",
       "type": "test",
       "name": "insight-conversation-worker.spec.ts",
       "file": "Unite/services/insight/src/subscribers/insight-conversation-worker.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.subscribers-insight-bulk-operation-worker-spec",
+      "id": "test.insight.svc-subscribers-insight-bulk-operation-worker-spec",
       "type": "test",
       "name": "insight-bulk-operation-worker.spec.ts",
       "file": "Unite/services/insight/src/subscribers/insight-bulk-operation-worker.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-insights-create-insight-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-insights-create-insight-spec",
       "type": "test",
       "name": "create-insight.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/insights/create-insight.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-insights-delete-insight-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-insights-delete-insight-spec",
       "type": "test",
       "name": "delete-insight.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/insights/delete-insight.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-insights-insight-bulk-ops-update-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-insights-insight-bulk-ops-update-spec",
       "type": "test",
       "name": "insight-bulk-ops-update.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/insights/insight-bulk-ops-update.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-insights-list-insights-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-insights-list-insights-spec",
       "type": "test",
       "name": "list-insights.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/insights/list-insights.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-insights-insight-bulk-ops-delete-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-insights-insight-bulk-ops-delete-spec",
       "type": "test",
       "name": "insight-bulk-ops-delete.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/insights/insight-bulk-ops-delete.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-insights-update-insight-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-insights-update-insight-spec",
       "type": "test",
       "name": "update-insight.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/insights/update-insight.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-custom-groups-group-insights-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-group-insights-spec",
       "type": "test",
       "name": "group-insights.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/group-insights.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-custom-groups-ungroup-insights-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-ungroup-insights-spec",
       "type": "test",
       "name": "ungroup-insights.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/ungroup-insights.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-custom-groups-delete-custom-group-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-delete-custom-group-spec",
       "type": "test",
       "name": "delete-custom-group.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/delete-custom-group.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-custom-groups-rename-custom-group-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-rename-custom-group-spec",
       "type": "test",
       "name": "rename-custom-group.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/rename-custom-group.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-custom-groups-create-group-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-create-group-spec",
       "type": "test",
       "name": "create-group.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/create-group.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-image-prompts-build-image-prompt-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-image-prompts-build-image-prompt-spec",
       "type": "test",
       "name": "build-image-prompt.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/image-prompts/build-image-prompt.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-canvas-delete-canvas-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-canvas-delete-canvas-spec",
       "type": "test",
       "name": "delete-canvas.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/canvas/delete-canvas.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-canvas-list-canvases-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-canvas-list-canvases-spec",
       "type": "test",
       "name": "list-canvases.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/canvas/list-canvases.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-canvas-update-canvas-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-canvas-update-canvas-spec",
       "type": "test",
       "name": "update-canvas.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/canvas/update-canvas.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-canvas-create-canvas-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-canvas-create-canvas-spec",
       "type": "test",
       "name": "create-canvas.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/canvas/create-canvas.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-group-summaries-revert-summary-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-group-summaries-revert-summary-spec",
       "type": "test",
       "name": "revert-summary.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/revert-summary.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-group-summaries-generate-summary-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-group-summaries-generate-summary-spec",
       "type": "test",
       "name": "generate-summary.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/generate-summary.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-group-summaries-update-summary-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-group-summaries-update-summary-spec",
       "type": "test",
       "name": "update-summary.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/update-summary.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-group-summaries-get-summary-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-group-summaries-get-summary-spec",
       "type": "test",
       "name": "get-summary.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/get-summary.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-group-summaries-delete-summary-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-group-summaries-delete-summary-spec",
       "type": "test",
       "name": "delete-summary.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/delete-summary.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-suggestions-canvas-form-suggest-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-suggestions-canvas-form-suggest-spec",
       "type": "test",
       "name": "canvas-form-suggest.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/suggestions/canvas-form-suggest.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.application-handlers-http-v1-suggestions-autocomplete-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-suggestions-autocomplete-spec",
       "type": "test",
       "name": "autocomplete.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/suggestions/autocomplete.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.subscribers-search-index-spec",
+      "id": "test.insight.svc-subscribers-search-index-spec",
       "type": "test",
       "name": "search-index.spec.ts",
       "file": "Unite/services/insight/src/subscribers/search-index.spec.ts",
@@ -2062,7 +2062,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-events-ddb-ddb-event-notification-spec",
+      "from": "test.insight.svc-application-handlers-events-ddb-ddb-event-notification-spec",
       "type": "TESTS",
       "to": "fn.insight.ddb-event-notification-processor",
       "evidence": "Unite/services/insight/src/application/handlers/events/ddb/ddb-event-notification.spec.ts:28",
@@ -2071,7 +2071,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-events-eb-eventbridge-spec",
+      "from": "test.insight.svc-application-handlers-events-eb-eventbridge-spec",
       "type": "TESTS",
       "to": "fn.insight.eventbridge-insight-listener-handler",
       "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.spec.ts:32",
@@ -2080,7 +2080,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.insight.subscribers-group-generation-publisher-spec",
+      "from": "test.insight.svc-subscribers-group-generation-publisher-spec",
       "type": "TESTS",
       "to": "fn.insight.group-generation-publisher-handler",
       "evidence": "Unite/services/insight/src/subscribers/group-generation-publisher.spec.ts:69",
@@ -2089,7 +2089,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.insight.eventbridge-asset-created-listener-spec",
+      "from": "test.insight.svc-eventbridge-asset-created-listener-spec",
       "type": "TESTS",
       "to": "fn.insight.asset-created-listener-handler",
       "evidence": "Unite/services/insight/src/eventbridge/asset-created-listener.spec.ts:26",
@@ -2098,7 +2098,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.insight.subscribers-insight-generation-worker-spec",
+      "from": "test.insight.svc-subscribers-insight-generation-worker-spec",
       "type": "TESTS",
       "to": "fn.insight.insight-generation-worker-handler",
       "evidence": "Unite/services/insight/src/subscribers/insight-generation-worker.spec.ts:62",
@@ -2107,7 +2107,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.insight.subscribers-insight-editing-worker-spec",
+      "from": "test.insight.svc-subscribers-insight-editing-worker-spec",
       "type": "TESTS",
       "to": "fn.insight.insight-editing-worker-handler",
       "evidence": "Unite/services/insight/src/subscribers/insight-editing-worker.spec.ts:38",
@@ -2116,7 +2116,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-sqs-image-prompt-generation-worker-spec",
+      "from": "test.insight.svc-application-handlers-sqs-image-prompt-generation-worker-spec",
       "type": "TESTS",
       "to": "fn.insight.image-prompt-generation-worker-handler",
       "evidence": "Unite/services/insight/src/application/handlers/sqs/image-prompt-generation-worker.spec.ts:115",
@@ -2125,7 +2125,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.insight.subscribers-canvas-deleted-dynamo-listener-spec",
+      "from": "test.insight.svc-subscribers-canvas-deleted-dynamo-listener-spec",
       "type": "TESTS",
       "to": "fn.insight.canvas-deleted-dynamo-listener",
       "evidence": "Unite/services/insight/src/subscribers/canvas-deleted-dynamo-listener.spec.ts:28",
@@ -2134,7 +2134,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-sqs-canvas-suggestions-spec",
+      "from": "test.insight.svc-application-handlers-sqs-canvas-suggestions-spec",
       "type": "TESTS",
       "to": "fn.insight.canvas-suggestions-worker-handler",
       "evidence": "Unite/services/insight/src/application/handlers/sqs/canvas-suggestions.spec.ts:154",
@@ -2143,7 +2143,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.insight.subscribers-insight-conversation-worker-spec",
+      "from": "test.insight.svc-subscribers-insight-conversation-worker-spec",
       "type": "TESTS",
       "to": "fn.insight.insight-conversation-worker-handler",
       "evidence": "Unite/services/insight/src/subscribers/insight-conversation-worker.spec.ts:37",
@@ -2152,7 +2152,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.insight.subscribers-insight-bulk-operation-worker-spec",
+      "from": "test.insight.svc-subscribers-insight-bulk-operation-worker-spec",
       "type": "TESTS",
       "to": "fn.insight.insight-bulk-operation-worker-handler",
       "evidence": "Unite/services/insight/src/subscribers/insight-bulk-operation-worker.spec.ts:22",
@@ -2161,214 +2161,214 @@
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-insights-create-insight-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-insights-create-insight-spec",
       "type": "TESTS",
       "to": "api.insight.post-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/create-insight.spec.ts:47",
       "snippet": "createInsight",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-insights-delete-insight-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-insights-delete-insight-spec",
       "type": "TESTS",
       "to": "api.insight.delete-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/delete-insight.spec.ts:78",
       "snippet": "delete-insight processor",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-insights-insight-bulk-ops-update-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-insights-insight-bulk-ops-update-spec",
       "type": "TESTS",
       "to": "api.insight.post-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/insight-bulk-ops-update.spec.ts:53",
       "snippet": "insightBulkOpsHandler",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-insights-list-insights-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-insights-list-insights-spec",
       "type": "TESTS",
       "to": "api.insight.get-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/list-insights.spec.ts:103",
       "snippet": "listInsightsHandler",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-insights-insight-bulk-ops-delete-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-insights-insight-bulk-ops-delete-spec",
       "type": "TESTS",
       "to": "api.insight.post-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/insight-bulk-ops-delete.spec.ts:54",
       "snippet": "insightBulkOpsHandler",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-insights-update-insight-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-insights-update-insight-spec",
       "type": "TESTS",
       "to": "api.insight.put-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/update-insight.spec.ts:125",
       "snippet": "update-insight processor",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-custom-groups-group-insights-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-group-insights-spec",
       "type": "TESTS",
       "to": "api.insight.post-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/group-insights.spec.ts:50",
       "snippet": "groupInsights",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-custom-groups-ungroup-insights-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-ungroup-insights-spec",
       "type": "TESTS",
       "to": "api.insight.delete-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/ungroup-insights.spec.ts:82",
       "snippet": "ungroup-insights processor",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-custom-groups-delete-custom-group-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-delete-custom-group-spec",
       "type": "TESTS",
       "to": "api.insight.delete-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/delete-custom-group.spec.ts:79",
       "snippet": "delete-custom-group processor",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-custom-groups-rename-custom-group-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-rename-custom-group-spec",
       "type": "TESTS",
       "to": "api.insight.put-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/rename-custom-group.spec.ts:93",
       "snippet": "rename-custom-group processor",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-custom-groups-create-group-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-create-group-spec",
       "type": "TESTS",
       "to": "api.insight.post-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/create-group.spec.ts:48",
       "snippet": "createGroup",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-image-prompts-build-image-prompt-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-image-prompts-build-image-prompt-spec",
       "type": "TESTS",
       "to": "api.insight.post-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/image-prompts/build-image-prompt.spec.ts:107",
       "snippet": "build-image-prompt processor",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-canvas-delete-canvas-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-canvas-delete-canvas-spec",
       "type": "TESTS",
       "to": "api.insight.delete-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/canvas/delete-canvas.spec.ts:82",
       "snippet": "delete-canvas processor",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-canvas-list-canvases-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-canvas-list-canvases-spec",
       "type": "TESTS",
       "to": "api.insight.get-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/canvas/list-canvases.spec.ts:81",
       "snippet": "listCanvasesHandler",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-canvas-update-canvas-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-canvas-update-canvas-spec",
       "type": "TESTS",
       "to": "api.insight.put-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/canvas/update-canvas.spec.ts:171",
       "snippet": "update-canvas processor",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-canvas-create-canvas-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-canvas-create-canvas-spec",
       "type": "TESTS",
       "to": "api.insight.post-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/canvas/create-canvas.spec.ts:107",
       "snippet": "create-canvas processor",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-group-summaries-revert-summary-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-group-summaries-revert-summary-spec",
       "type": "TESTS",
       "to": "api.insight.post-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/revert-summary.spec.ts:37",
       "snippet": "revertSummary handler",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-group-summaries-generate-summary-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-group-summaries-generate-summary-spec",
       "type": "TESTS",
       "to": "api.insight.post-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/generate-summary.spec.ts:76",
       "snippet": "generateSummary",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-group-summaries-update-summary-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-group-summaries-update-summary-spec",
       "type": "TESTS",
       "to": "api.insight.put-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/update-summary.spec.ts:129",
       "snippet": "update-summary processor",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-group-summaries-get-summary-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-group-summaries-get-summary-spec",
       "type": "TESTS",
       "to": "api.insight.get-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/get-summary.spec.ts:67",
       "snippet": "getSummary handler",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-group-summaries-delete-summary-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-group-summaries-delete-summary-spec",
       "type": "TESTS",
       "to": "api.insight.delete-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/delete-summary.spec.ts:79",
       "snippet": "delete-summary processor",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-suggestions-canvas-form-suggest-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-suggestions-canvas-form-suggest-spec",
       "type": "TESTS",
       "to": "api.insight.post-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/suggestions/canvas-form-suggest.spec.ts:312",
       "snippet": "processor",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.application-handlers-http-v1-suggestions-autocomplete-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-suggestions-autocomplete-spec",
       "type": "TESTS",
       "to": "api.insight.get-v1-insight-proxy",
       "evidence": "Unite/services/insight/src/application/handlers/http/v1/suggestions/autocomplete.spec.ts:101",
       "snippet": "autocomplete handler",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.subscribers-search-index-spec",
+      "from": "test.insight.svc-subscribers-search-index-spec",
       "type": "TESTS",
       "to": "fn.insight.search-index-listener",
       "evidence": "Unite/services/insight/src/subscribers/search-index.spec.ts:24",

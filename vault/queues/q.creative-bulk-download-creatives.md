@@ -3,7 +3,7 @@ id: q.creative-bulk-download-creatives
 type: queue
 name: creative-bulk-download-creatives
 dlq: q.creative-bulk-download-creatives-dlq
-owner_service: svc.creative
+owner_service: creative
 physical_name: creative-${self:custom.T.STAGE}-bulk-download-creatives
 generated_at: '2026-09-28T09:40:26Z'
 contract_version: '0.2'

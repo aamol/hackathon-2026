@@ -13,22 +13,22 @@ edges:
 - type: HAS_FIELD
   to: fld.asset.asset-hard-deleted.asset-public
   evidence: Unite/packages/asset-types/src/index.ts:814
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-hard-deleted.entity-ids
   evidence: Unite/packages/asset-types/src/index.ts:813
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-hard-deleted.entity-type
   evidence: Unite/packages/asset-types/src/index.ts:812
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-hard-deleted.record
   evidence: Unite/packages/asset-types/src/index.ts:811
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 ---
 # AssetHardDeleted

@@ -3,7 +3,7 @@ id: q.creative-html-export-preview-asset
 type: queue
 name: creative-html-export-preview-asset
 dlq: q.creative-events-dlq
-owner_service: svc.creative
+owner_service: creative
 physical_name: creative-${self:custom.T.STAGE}-html-export-preview-asset
 generated_at: '2026-09-28T09:40:26Z'
 contract_version: '0.2'

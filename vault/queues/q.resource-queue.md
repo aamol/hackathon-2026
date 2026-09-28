@@ -14,7 +14,7 @@ edges:
   to: fld.resource-queue.resource-type
   evidence: Unite/packages/resource-types/src/types.ts:305
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 ---
 # resource-queue
 

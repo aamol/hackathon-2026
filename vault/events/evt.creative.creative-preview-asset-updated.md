@@ -13,27 +13,27 @@ edges:
   to: fld.creative.creative-preview-asset-updated.correlation-id
   evidence: Unite/packages/creative-types/src/types/html-export.types.ts:89
   confidence: 0.8
-  via: package:creative-core
+  via: package:creative-types
 - type: HAS_FIELD
   to: fld.creative.creative-preview-asset-updated.creative-id
   evidence: Unite/packages/creative-types/src/types/html-export.types.ts:91
   confidence: 0.8
-  via: package:creative-core
+  via: package:creative-types
 - type: HAS_FIELD
   to: fld.creative.creative-preview-asset-updated.creative-version-id
   evidence: Unite/packages/creative-types/src/types/html-export.types.ts:92
   confidence: 0.8
-  via: package:creative-core
+  via: package:creative-types
 - type: HAS_FIELD
   to: fld.creative.creative-preview-asset-updated.preview-asset-id
   evidence: Unite/packages/creative-types/src/types/html-export.types.ts:93
   confidence: 0.8
-  via: package:creative-core
+  via: package:creative-types
 - type: HAS_FIELD
   to: fld.creative.creative-preview-asset-updated.project-id
   evidence: Unite/packages/creative-types/src/types/html-export.types.ts:90
   confidence: 0.8
-  via: package:creative-core
+  via: package:creative-types
 ---
 # CreativePreviewAssetUpdated
 

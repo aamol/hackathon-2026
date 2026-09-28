@@ -18,62 +18,62 @@ edges:
   to: fld.dynamodb.resource-resources.budget
   evidence: Unite/packages/resource-types/src/types.ts:235
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.callbacks
   evidence: Unite/packages/resource-types/src/types.ts:207
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.context
   evidence: Unite/packages/resource-types/src/types.ts:234
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.created
   evidence: Unite/packages/resource-types/src/types.ts:152
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.global-passes
   evidence: Unite/packages/resource-types/src/types.ts:222
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.global-usage-event
   evidence: Unite/packages/resource-types/src/types.ts:216
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.history-group
   evidence: Unite/packages/resource-types/src/types.ts:227
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.history-index
   evidence: Unite/packages/resource-types/src/types.ts:229
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.history-timestamp
   evidence: Unite/packages/resource-types/src/types.ts:228
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.input
   evidence: Unite/packages/resource-types/src/types.ts:160
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.last-updated
   evidence: Unite/packages/resource-types/src/types.ts:153
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.last-updated-region
   evidence: Unite/packages/resource-types/src/types.ts:162
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.output
   evidence: Unite/packages/asset-core/src/db/create-asset-from-resource-id.ts:249
@@ -83,42 +83,42 @@ edges:
   to: fld.dynamodb.resource-resources.output
   evidence: Unite/packages/resource-types/src/types.ts:161
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.percentage
   evidence: Unite/packages/resource-types/src/types.ts:159
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.queue-position
   evidence: Unite/packages/resource-types/src/types.ts:205
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.resource-group-id
   evidence: Unite/packages/resource-types/src/types.ts:154
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.resource-id
   evidence: Unite/packages/resource-types/src/types.ts:156
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.resource-type
   evidence: Unite/packages/resource-types/src/types.ts:157
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.timeout-at
   evidence: Unite/packages/resource-types/src/types.ts:212
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.version
   evidence: Unite/packages/resource-types/src/types.ts:158
   confidence: 0.8
-  via: package:resource-manager
+  via: package:resource-types
 ---
 # resource-resources
 

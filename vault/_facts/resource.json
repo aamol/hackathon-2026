@@ -281,7 +281,7 @@
       "name": "WPP Open"
     },
     {
-      "id": "test.resource.handlers-http-spec",
+      "id": "test.resource.svc-handlers-http-spec",
       "type": "test",
       "name": "http.spec.ts",
       "file": "Unite/services/resource/src/handlers/http.spec.ts",
@@ -1114,7 +1114,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:305",
       "snippet": "resourceType",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "svc.resource",
@@ -1126,7 +1126,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.resource.handlers-http-spec",
+      "from": "test.resource.svc-handlers-http-spec",
       "type": "TESTS",
       "to": "api.resource.post-v1-resource-request-resource-group-id",
       "evidence": "Unite/services/resource/src/handlers/http.spec.ts:6",
@@ -1135,7 +1135,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.resource.handlers-http-spec",
+      "from": "test.resource.svc-handlers-http-spec",
       "type": "TESTS",
       "to": "api.resource.options-v1-resource-request-resource-group-id",
       "evidence": "Unite/services/resource/src/handlers/http.spec.ts:6",
@@ -1144,7 +1144,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.resource.handlers-http-spec",
+      "from": "test.resource.svc-handlers-http-spec",
       "type": "TESTS",
       "to": "api.resource.post-v1-okta-resource-request-resource-group-id",
       "evidence": "Unite/services/resource/src/handlers/http.spec.ts:6",
@@ -1177,7 +1177,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:152",
       "snippet": "created",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1186,7 +1186,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:153",
       "snippet": "lastUpdated",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1195,7 +1195,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:154",
       "snippet": "resourceGroupId",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1204,7 +1204,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:156",
       "snippet": "resourceId",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1213,7 +1213,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:157",
       "snippet": "resourceType",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1222,7 +1222,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:158",
       "snippet": "version",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1231,7 +1231,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:159",
       "snippet": "percentage",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1240,7 +1240,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:160",
       "snippet": "input",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1249,7 +1249,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:161",
       "snippet": "output",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1258,7 +1258,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:162",
       "snippet": "_lastUpdatedRegion",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1267,7 +1267,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:205",
       "snippet": "queuePosition",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1276,7 +1276,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:207",
       "snippet": "callbacks",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1285,7 +1285,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:212",
       "snippet": "timeoutAt",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1294,7 +1294,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:216",
       "snippet": "globalUsageEvent",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1303,7 +1303,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:222",
       "snippet": "globalPasses",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1312,7 +1312,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:227",
       "snippet": "historyGroup",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1321,7 +1321,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:228",
       "snippet": "historyTimestamp",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1330,7 +1330,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:229",
       "snippet": "historyIndex",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1339,7 +1339,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:234",
       "snippet": "context",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1348,7 +1348,7 @@
       "evidence": "Unite/packages/resource-types/src/types.ts:235",
       "snippet": "budget",
       "confidence": 0.8,
-      "via": "package:resource-manager"
+      "via": "package:resource-types"
     },
     {
       "from": "svc.resource",

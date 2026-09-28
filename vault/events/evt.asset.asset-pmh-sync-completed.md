@@ -12,47 +12,47 @@ edges:
 - type: HAS_FIELD
   to: fld.asset.asset-pmh-sync-completed.created-by
   evidence: Unite/packages/asset-types/src/pmh.ts:151
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-pmh-sync-completed.creative-id
   evidence: Unite/packages/asset-types/src/pmh.ts:152
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-pmh-sync-completed.display-name
   evidence: Unite/packages/asset-types/src/pmh.ts:154
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-pmh-sync-completed.entity-type
   evidence: Unite/packages/asset-types/src/pmh.ts:149
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-pmh-sync-completed.id
   evidence: Unite/packages/asset-types/src/pmh.ts:148
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-pmh-sync-completed.project-id
   evidence: Unite/packages/asset-types/src/pmh.ts:147
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-pmh-sync-completed.results
   evidence: Unite/packages/asset-types/src/pmh.ts:153
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-pmh-sync-completed.status
   evidence: Unite/packages/asset-types/src/pmh.ts:155
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset.asset-pmh-sync-completed.submission-uuid
   evidence: Unite/packages/asset-types/src/pmh.ts:150
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 ---
 # AssetPmhSyncCompleted

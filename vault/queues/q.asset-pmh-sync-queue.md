@@ -13,42 +13,42 @@ edges:
 - type: HAS_FIELD
   to: fld.asset-pmh-sync-queue.created-by
   evidence: Unite/packages/asset-types/src/pmh.ts:61
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset-pmh-sync-queue.creative-id
   evidence: Unite/packages/asset-types/src/pmh.ts:81
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset-pmh-sync-queue.creative-name
   evidence: Unite/packages/asset-types/src/pmh.ts:86
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset-pmh-sync-queue.entity-type
   evidence: Unite/packages/asset-types/src/pmh.ts:60
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset-pmh-sync-queue.id
   evidence: Unite/packages/asset-types/src/pmh.ts:58
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset-pmh-sync-queue.project-id
   evidence: Unite/packages/asset-types/src/pmh.ts:57
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset-pmh-sync-queue.submission-uuid
   evidence: Unite/packages/asset-types/src/pmh.ts:59
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 - type: HAS_FIELD
   to: fld.asset-pmh-sync-queue.wpp-object-url
   evidence: Unite/packages/asset-types/src/pmh.ts:87
-  confidence: 0.9
+  confidence: 0.8
   via: package:asset-types
 ---
 # asset-pmh-sync-queue
