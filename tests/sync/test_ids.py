@@ -88,18 +88,20 @@ def test_field_id():
         (
             "asset",
             "Unite/services/asset/src/handlers/create-asset.spec.ts",
-            "test.asset.handlers-create-asset-spec",
+            "test.asset.svc-handlers-create-asset-spec",
         ),
         (
             "asset",
             "Unite/services/asset/src/handlers/internal/create-asset.spec.ts",
-            "test.asset.handlers-internal-create-asset-spec",
+            "test.asset.svc-handlers-internal-create-asset-spec",
         ),
         (
             "insight",
             "Unite/packages/insight-core/src/eventbridge/asset-created.spec.ts",
-            "test.insight.eventbridge-asset-created-spec",
+            "test.insight.insight-core-eventbridge-asset-created-spec",
         ),
+        ("resource", "Unite/packages/filesign/src/utils.spec.ts", "test.resource.filesign-utils-spec"),
+        ("resource", "Unite/packages/validator/src/utils.spec.ts", "test.resource.validator-utils-spec"),
         (
             "resource",
             "Unite/services/resource/test/sqs.integration.test.ts",
@@ -107,7 +109,7 @@ def test_field_id():
         ),
     ],
 )
-def test_test_id_uses_path_after_last_src_segment(service, path, expected):
+def test_test_id_uses_origin_and_path_after_last_src_segment(service, path, expected):
     assert ids.test_id(service, path) == expected
 
 
@@ -115,6 +117,13 @@ def test_test_id_disambiguates_same_file_name_in_different_directories():
     outer = ids.test_id("asset", "Unite/services/asset/src/handlers/create-asset.spec.ts")
     inner = ids.test_id("asset", "Unite/services/asset/src/handlers/internal/create-asset.spec.ts")
     assert outer != inner
+
+
+def test_test_id_disambiguates_same_path_in_different_packages():
+    filesign = ids.test_id("resource", "Unite/packages/filesign/src/utils.spec.ts")
+    validator = ids.test_id("resource", "Unite/packages/validator/src/utils.spec.ts")
+    service = ids.test_id("resource", "Unite/services/resource/src/utils.spec.ts")
+    assert len({filesign, validator, service}) == 3
 
 
 def test_unresolved_id_is_deterministic_and_short():

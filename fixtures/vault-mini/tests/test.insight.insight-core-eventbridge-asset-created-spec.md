@@ -1,5 +1,5 @@
 ---
-id: test.insight.eventbridge-asset-created-spec
+id: test.insight.insight-core-eventbridge-asset-created-spec
 type: test
 name: asset-created.spec.ts
 file: Unite/packages/insight-core/src/eventbridge/asset-created.spec.ts

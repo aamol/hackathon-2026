@@ -26,6 +26,8 @@ _NON_ALPHANUMERIC = re.compile(r"[^A-Za-z0-9]+")
 _STAGE_PLACEHOLDER = re.compile(r"\$\{[^}]*stage[^}]*\}", re.IGNORECASE)
 _SOURCE_FILE_EXTENSION = re.compile(r"\.(ts|tsx|js|mjs|cjs)$")
 _SRC_SEGMENT_MARKER = "/src/"
+_TEST_ORIGIN = re.compile(r"^Unite/(?P<kind>services|packages)/(?P<directory>[^/]+)/")
+_SERVICE_TEST_ORIGIN = "svc"
 _FIFO_SUFFIX = ".fifo"
 _SERVICE_SOURCE_PREFIX = "service."
 _UNRESOLVED_HASH_LENGTH = 6
@@ -94,10 +96,22 @@ def field_id(owner_id: str, field_path: str) -> str:
 
 
 def test_id(service: str, file_path: str) -> str:
+    """`test.<svc>.<origin>-<path after last /src/>`; origin keeps same-named specs in different packages apart."""
     src_index = file_path.rfind(_SRC_SEGMENT_MARKER)
-    relative_path = file_path[src_index + len(_SRC_SEGMENT_MARKER):] if src_index != -1 else file_path
+    origin = _test_origin(file_path)
+    if src_index == -1 or origin is None:
+        relative_path = file_path
+    else:
+        relative_path = f"{origin}/{file_path[src_index + len(_SRC_SEGMENT_MARKER):]}"
     relative_path = _SOURCE_FILE_EXTENSION.sub("", relative_path)
     return f"test.{slug(service)}.{slug(relative_path)}"
+
+
+def _test_origin(file_path: str) -> str | None:
+    match = _TEST_ORIGIN.match(file_path)
+    if match is None:
+        return None
+    return _SERVICE_TEST_ORIGIN if match["kind"] == "services" else match["directory"]
 
 
 def external_id(name: str) -> str:

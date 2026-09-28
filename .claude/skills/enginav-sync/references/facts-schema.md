@@ -32,7 +32,7 @@ Never put `edges`, `sources`, `generated_at` or `contract_version` on a node (th
 
 `name`: human label: service folder, `METHOD /path` for apis, raw detail-type for events (see Normalization rules #7), id suffix for tables and queues (see Normalization rules #6), property name for fields, file name for tests.
 
-`test` id: built from the path after the last `/src/` segment (or the whole path if there is no `/src/`), extension stripped, slugged — this disambiguates files that share a name in different directories, e.g. `Unite/services/asset/src/handlers/create-asset.spec.ts` → `test.asset.handlers-create-asset-spec` vs. `Unite/services/asset/src/handlers/internal/create-asset.spec.ts` → `test.asset.handlers-internal-create-asset-spec` (see Normalization rules).
+`test` id: `test.<svc>.<origin>-<path after the last /src/>`, extension stripped, slugged. `<origin>` = the package directory for files under `Unite/packages/<dir>/`, `svc` for files under `Unite/services/<svc>/`; a path with no `/src/` (or outside services/packages) uses the whole path instead. This keeps same-named specs apart across directories and packages, e.g. `Unite/services/asset/src/handlers/create-asset.spec.ts` → `test.asset.svc-handlers-create-asset-spec`, `Unite/packages/insight-core/src/eventbridge/asset-created.spec.ts` → `test.insight.insight-core-eventbridge-asset-created-spec`, `Unite/packages/filesign/src/utils.spec.ts` → `test.resource.filesign-utils-spec` vs. `Unite/packages/validator/src/utils.spec.ts` → `test.resource.validator-utils-spec`, `Unite/services/resource/test/sqs.integration.test.ts` → `test.resource.unite-services-resource-test-sqs-integration-test`. Always build it with `python -m sync.ids test <svc> <file>`.
 
 ## Edge types
 | edge | from → to |

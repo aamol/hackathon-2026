@@ -19,7 +19,7 @@
     {"id": "fld.dynamodb.insight-entities.entity-id", "type": "field", "name": "entityId",
      "owner": "tbl.dynamodb.insight-entities", "data_type": "string", "pii": false, "pii_category": "none",
      "pii_confidence": 1.0},
-    {"id": "test.insight.eventbridge-asset-created-spec", "type": "test", "name": "asset-created.spec.ts",
+    {"id": "test.insight.insight-core-eventbridge-asset-created-spec", "type": "test", "name": "asset-created.spec.ts",
      "file": "Unite/packages/insight-core/src/eventbridge/asset-created.spec.ts", "framework": "jest"}
   ],
   "edges": [
@@ -44,7 +44,7 @@
     {"from": "tbl.dynamodb.insight-entities", "type": "HAS_FIELD", "to": "fld.dynamodb.insight-entities.entity-id",
      "evidence": "Unite/packages/insight-core/src/repository.ts:12", "snippet": "entityId",
      "confidence": 0.8, "via": "package:insight-core"},
-    {"from": "test.insight.eventbridge-asset-created-spec", "type": "TESTS", "to": "svc.insight",
+    {"from": "test.insight.insight-core-eventbridge-asset-created-spec", "type": "TESTS", "to": "svc.insight",
      "evidence": "Unite/packages/insight-core/src/eventbridge/asset-created.spec.ts:1",
      "snippet": "processAssetCreatedEvent", "confidence": 0.8, "via": "package:insight-core"}
   ]
