@@ -18,7 +18,7 @@ Unite = TypeScript on AWS Serverless. Each service = `services/<svc>/` with `ser
 | `events[].eventBridge.pattern: {source, detail-type, detail}` | one event node per (source × detail-type) + CONSUMES; `detail` → `filter`. No detail-type → event id with detail-type `any` and note it in the reply |
 | `events[].sqs: {arn}` | queue node (name from the arn literal or `!GetAtt` resource) + CONSUMES |
 | `functions.<fn>.environment` / `provider.environment` | env map only (no edge): `TABLE_NAME: ${self:custom.T.INSIGHT_ENTITY.TABLE_NAME}` → `insight-${self:custom.T.STAGE}-Entities` |
-| `events[].schedule` / `stream` / `s3` / `websocket` | skip for now (not in contract v0.2) |
+| `events[].schedule` / `stream` / `s3` / `websocket` | no trigger edge (not in contract v0.2); the function still gets an fn node + EXPOSES per Normalization rule 1 (unless it also has an http event) |
 | `AWS::SNS::Subscription` with `FilterPolicy` feeding an SQS queue | queue node + CONSUMES, **and** event node(s) for the event(s) the filter selects + CONSUMES (`filter` = the `FilterPolicy`, flattened) — same treatment as an eventBridge pattern (see facts-schema.md's Normalization rules #9) |
 
 ## Code → edges (grep over the scope, then open each hit)
