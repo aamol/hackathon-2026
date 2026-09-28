@@ -19,6 +19,7 @@ Unite = TypeScript on AWS Serverless. Each service = `services/<svc>/` with `ser
 | `events[].sqs: {arn}` | queue node (name from the arn literal or `!GetAtt` resource) + CONSUMES |
 | `functions.<fn>.environment` / `provider.environment` | env map only (no edge): `TABLE_NAME: ${self:custom.T.INSIGHT_ENTITY.TABLE_NAME}` → `insight-${self:custom.T.STAGE}-Entities` |
 | `events[].schedule` / `stream` / `s3` / `websocket` | skip for now (not in contract v0.2) |
+| `AWS::SNS::Subscription` with `FilterPolicy` feeding an SQS queue | queue node + CONSUMES, **and** event node(s) for the event(s) the filter selects + CONSUMES (`filter` = the `FilterPolicy`, flattened) — same treatment as an eventBridge pattern (see facts-schema.md's Normalization rules #9) |
 
 ## Code → edges (grep over the scope, then open each hit)
 | edge | grep (regex) | resolve |
@@ -30,7 +31,7 @@ Unite = TypeScript on AWS Serverless. Each service = `services/<svc>/` with `ser
 | READS/WRITES via wrapper | repository/helper functions taking a table name (e.g. `getItem(tableName, …)`) | follow one level into the wrapper to classify read vs write |
 | CALLS function | `InvokeCommand\|invokeLambda\(` | `FunctionName` → env var → t.yml (e.g. `REGIONAL_FUNCTION_ARNS.<region>.AGENT_LAMBDA_FUNCTION` = `function:agentexec-${STAGE}-useAgent` → `function agentexec useAgent`) |
 | DEPENDS_ON external | imports of 3rd-party SDKs: `@google/genai`, `openai`, `@anthropic-ai/sdk`, `stripe`, `@azure/`, `launchdarkly` | one external node per SDK |
-| CALLS api | `fetch\(\|axios` | only if the URL resolves to a Unite API path; otherwise unresolved |
+| CALLS api | `fetch\(\|axios` | URL resolves to a Unite API path → CALLS api; else the target system is identifiable (base-URL env var or client name) → `external` node + CALLS; else target system itself is unknown → `unresolved`; a runtime/user-supplied URL is not an edge at all — skip it (see facts-schema.md's Normalization rules #4) |
 
 ## Real examples
 - Consumer: `services/insight/serverless.yml` ~L200-235: `assetCreated` listens to `source: service.asset.${STAGE}`, `detail-type: AssetCreated`, `detail.record.sourceType: RESOURCE_MANAGER`; `resourceFailedListener` listens to `service.resource.${STAGE}` / `resource.failed`
