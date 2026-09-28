@@ -1,6 +1,8 @@
 import json
 import re
 
+import pytest
+
 from sync.validate import main, stale_facts_warnings, validate_vault
 from tests.sync.factories import asset_facts, build_vault_dir, init_git_repo, insight_facts, write_fake_unite
 
@@ -79,3 +81,14 @@ def test_cli_exit_codes(tmp_path):
     assert main([str(vault)]) == 0
     (vault / "events" / "evt.asset.asset-created.md").unlink()
     assert main([str(vault)]) == 1
+
+
+def test_read_frontmatter_turns_unreadable_files_into_note_errors(tmp_path):
+    from sync.validate import NoteError, read_frontmatter
+
+    binary = tmp_path / "binary.md"
+    binary.write_bytes(b"---\n\xff\xfe\n---\n")
+    with pytest.raises(NoteError, match="cannot read"):
+        read_frontmatter(binary)
+    with pytest.raises(NoteError, match="cannot read"):
+        read_frontmatter(tmp_path / "missing.md")

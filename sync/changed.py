@@ -54,6 +54,9 @@ def main(argv: list[str] | None = None) -> int:
     except (UniteGitError, ValueError) as error:
         print(f"ERROR {error}", file=sys.stderr)
         return 2
+    except KeyError as error:  # a facts file for a service with no package.json under services/
+        print(f"ERROR {error.args[0]}", file=sys.stderr)
+        return 2
     if not services:
         print("vault is up to date", file=sys.stderr)
     for service in services:

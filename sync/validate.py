@@ -23,7 +23,10 @@ class NoteError(Exception):
 
 
 def read_frontmatter(path: Path) -> dict:
-    text = path.read_text(encoding="utf-8")
+    try:
+        text = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError) as error:
+        raise NoteError(f"cannot read note: {error}") from error
     if not text.startswith(FRONTMATTER_OPEN):
         raise NoteError("missing frontmatter")
     end = text.find(FRONTMATTER_CLOSE, len(FRONTMATTER_OPEN) - 1)

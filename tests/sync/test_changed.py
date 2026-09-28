@@ -61,3 +61,10 @@ def test_cli_prints_services(unite, facts_dir, capsys):
 def test_cli_unknown_commit_is_an_error(unite, facts_dir):
     (facts_dir / "svc1.json").write_text(json.dumps({"source_commit": "deadbeef"}))
     assert main(["--unite", str(unite), "--vault", str(facts_dir.parent)]) == 2
+
+
+def test_cli_facts_for_service_without_package_is_an_error(unite, facts_dir, capsys):
+    (facts_dir / "ghost.json").write_text((facts_dir / "svc1.json").read_text())
+    (unite / "services" / "svc1" / "handler.ts").write_text("export {};\n")
+    assert main(["--unite", str(unite), "--vault", str(facts_dir.parent)]) == 2
+    assert capsys.readouterr().err == "ERROR no package.json for service 'ghost' under services/\n"

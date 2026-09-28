@@ -50,7 +50,9 @@ Never put `edges`, `sources`, `generated_at` or `contract_version` on a node (th
 Edges may only start at nodes this file owns:
 - `svc.<service>` itself
 - ids starting `api.<service>.`, `fn.<service>.`, `test.<service>.`
-- events whose `source` is this service, queues it owns (its own queue resource) — their HAS_FIELD; tables it WRITES (their HAS_FIELD)
+- events whose `source` names this service (`service.<service>`) — their HAS_FIELD
+- queues with `owner_service: "<service>"` (bare service folder name, never `svc.<service>`) or that this service CONSUMES — their HAS_FIELD
+- tables this service WRITES — their HAS_FIELD
 Every node an edge references (both ends) must be declared in this file's `nodes`, shared ones too (repeat the event/table node with the same properties the producer uses).
 Consumers never write HAS_FIELD for someone else's event or queue; publishing to another service's queue or event gives PUBLISHES only, no field nodes for it (see Normalization rules #2).
 

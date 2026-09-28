@@ -3,7 +3,7 @@ import copy
 import pytest
 
 from sync.facts import FactsError, check_facts, load_facts, main, parse_facts
-from tests.sync.factories import insight_facts
+from tests.sync.factories import asset_facts, insight_facts
 
 
 def messages(checked) -> str:
@@ -288,3 +288,51 @@ def test_test_id_uses_the_facts_service():
     data["edges"] = []
     text = messages(check_facts(parse_facts(data, "test"), None))
     assert "expected test.asset.insight-core-repo-spec" in text
+
+
+def _queue_ownership_data(owner_service: str, edge_type: str) -> dict:
+    data = insight_facts()
+    queue = dict(QUEUE_NODE, owner_service=owner_service)
+    data["nodes"] += [queue, dict(FIELD_NODE)]
+    data["edges"] = [
+        {"from": "svc.insight", "type": edge_type, "to": queue["id"],
+         "evidence": "Unite/services/insight/serverless.yml:8", "snippet": "- service.asset",
+         "confidence": 1.0, "via": "serverless.yml"},
+        {"from": queue["id"], "type": "HAS_FIELD", "to": FIELD_NODE["id"],
+         "evidence": "Unite/services/insight/serverless.yml:8", "snippet": "- service.asset",
+         "confidence": 1.0, "via": "serverless.yml"},
+    ]
+    return data
+
+
+@pytest.mark.parametrize(
+    "owner_service, edge_type, owned",
+    [
+        ("insight", "PUBLISHES", True),
+        ("asset", "CONSUMES", True),
+        ("asset", "PUBLISHES", False),
+    ],
+)
+def test_queue_fields_need_owner_service_or_consumes(owner_service, edge_type, owned):
+    text = messages(check_facts(parse_facts(_queue_ownership_data(owner_service, edge_type), "test"), None))
+    assert ("not owned" not in text) is owned
+
+
+def _event_ownership_data(service: str) -> dict:
+    data = asset_facts()
+    data["service"] = service
+    data["nodes"][0].update(id=f"svc.{service}", name=service, path=f"Unite/services/{service}")
+    for edge in data["edges"]:
+        if edge["from"] == "svc.asset":
+            edge["from"] = f"svc.{service}"
+    return data
+
+
+def test_event_fields_are_owned_by_the_event_source_service():
+    assert check_facts(parse_facts(_event_ownership_data("asset"), "test"), None).problems == ()
+
+
+def test_publishing_another_services_event_does_not_own_its_fields():
+    text = messages(check_facts(parse_facts(_event_ownership_data("creative"), "test"), None))
+    assert "evt.asset.asset-created HAS_FIELD" in text
+    assert "not owned" in text

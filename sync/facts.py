@@ -32,8 +32,9 @@ ALLOWED_EDGES: dict[str, tuple[frozenset[str], frozenset[str]]] = {
 }
 # A service owns ids with these prefixes followed by its own slug, e.g. api.<svc>.*
 OWNED_ID_PREFIXES = ("api", "fn", "test")
-# ...and the targets of these edges from its service node (so it may declare their fields).
-OWNERSHIP_EDGES = frozenset({"PUBLISHES", "WRITES"})
+# ...plus the tables it WRITES, events whose source is this service, and queues it owns
+# (owner_service) or consumes, so it may declare their fields.
+TABLE_OWNERSHIP_EDGE = "WRITES"
 # via -> the one confidence allowed for direct evidence; anything else must be inferred (<= INFERRED_CONFIDENCE_MAX).
 DECLARATIVE_VIAS = frozenset({"serverless.yml", "t.yml"})
 SERVICE_CODE_VIA = "service-code"
@@ -113,9 +114,17 @@ def owned_ids(facts: FactsFile) -> set[str]:
     service_node = ids.service_id(facts.service)
     service_slug = ids.slug(facts.service)
     prefixes = tuple(f"{prefix}.{service_slug}." for prefix in OWNED_ID_PREFIXES)
+    edges_from_service = [edge for edge in facts.edges if edge["from"] == service_node]
+    consumed = {edge["to"] for edge in edges_from_service if edge["type"] == "CONSUMES"}
     owned = {service_node}
-    owned |= {node["id"] for node in facts.nodes if node["id"].startswith(prefixes)}
-    owned |= {edge["to"] for edge in facts.edges if edge["from"] == service_node and edge["type"] in OWNERSHIP_EDGES}
+    owned |= {edge["to"] for edge in edges_from_service if edge["type"] == TABLE_OWNERSHIP_EDGE}
+    for node in facts.nodes:
+        if node["id"].startswith(prefixes):
+            owned.add(node["id"])
+        elif node["type"] == "event" and ids.source_service(node["source"]) == service_slug:
+            owned.add(node["id"])
+        elif node["type"] == "queue" and (node.get("owner_service") == facts.service or node["id"] in consumed):
+            owned.add(node["id"])
     return owned
 
 
