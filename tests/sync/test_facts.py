@@ -1,3 +1,5 @@
+import copy
+
 import pytest
 
 from sync.facts import FactsError, check_facts, load_facts, main, parse_facts
@@ -208,3 +210,81 @@ def test_confidence_within_via_tier_is_accepted(via, evidence, confidence):
     data = insight_facts()
     data["edges"][1].update(via=via, evidence=evidence, confidence=confidence)
     assert _edge_messages(data) == ""
+
+
+API_NODE = {"id": "api.insight.get-v1-insights-id", "type": "api", "name": "GET /v1/insights/{id}",
+            "service": "insight", "method": "GET", "path": "/v1/insights/{id}",
+            "handler": "Unite/services/insight/src/handlers/get.ts:1"}
+FUNCTION_NODE = {"id": "fn.insight.asset-created", "type": "function", "name": "assetCreated",
+                 "service": "insight", "function_key": "assetCreated"}
+QUEUE_NODE = {"id": "q.insight-generation", "type": "queue", "name": "insight-generation",
+              "physical_name": "insight-${self:custom.T.STAGE}-generation.fifo", "fifo": True,
+              "owner_service": "insight", "dlq": "q.insight-generation-dlq"}
+FIELD_NODE = {"id": "fld.insight-generation.insight-id", "type": "field", "name": "insightId",
+              "owner": "q.insight-generation", "data_type": "string"}
+TEST_NODE = {"id": "test.insight.insight-core-repo-spec", "type": "test", "name": "repo.spec.ts",
+             "file": "Unite/packages/insight-core/src/repo.spec.ts", "framework": "jest"}
+UNRESOLVED_NODE = {"id": "unres.insight.a1b2c3", "type": "unresolved", "name": "process.env.X",
+                   "raw": "process.env.X", "reason": "runtime url", "candidates": ["ext.pmh"]}
+EXTRA_NODES = [API_NODE, FUNCTION_NODE, QUEUE_NODE, FIELD_NODE, TEST_NODE, UNRESOLVED_NODE]
+
+
+def _node_messages(*changes: tuple[int, dict]) -> str:
+    data = insight_facts()
+    data["nodes"] += copy.deepcopy(EXTRA_NODES)
+    for index, update in changes:
+        data["nodes"][index].update(update)
+    return messages(check_facts(parse_facts(data, "test"), None))
+
+
+def test_nodes_whose_ids_match_their_properties_are_accepted():
+    assert _node_messages() == ""
+
+
+@pytest.mark.parametrize(
+    "index, update, expected",
+    [
+        (3, {"service": "svc.insight"}, "service"),
+        (4, {"service": "Insight"}, "service"),
+        (5, {"owner_service": "svc.insight"}, "owner_service"),
+        (5, {"dlq": "insight-generation-dlq"}, "dlq"),
+        (6, {"owner": "insight-generation"}, "owner"),
+        (8, {"candidates": ["pmh api"]}, "candidates"),
+    ],
+)
+def test_node_property_format_is_enforced(index, update, expected):
+    assert expected in _node_messages((index, update))
+
+
+@pytest.mark.parametrize(
+    "index, update, expected_id",
+    [
+        (0, {"path": "Unite/services/asset"}, "svc.asset"),
+        (3, {"path": "/v1/insight/{id}"}, "api.insight.get-v1-insight-id"),
+        (3, {"method": "POST"}, "api.insight.post-v1-insights-id"),
+        (4, {"function_key": "assetDeleted"}, "fn.insight.asset-deleted"),
+        (1, {"detail_type": "AssetDeleted"}, "evt.asset.asset-deleted"),
+        (1, {"source": "service.resource"}, "evt.resource.asset-created"),
+        (5, {"physical_name": "insight-${self:custom.T.STAGE}-generation-dlq"}, "q.insight-generation-dlq"),
+        (2, {"physical_name": "insight-${self:custom.T.STAGE}-Relations"}, "tbl.dynamodb.insight-relations"),
+        (7, {"file": "Unite/packages/insight-core/src/repo/other.spec.ts"},
+         "test.insight.insight-core-repo-other-spec"),
+    ],
+)
+def test_node_id_must_match_its_properties(index, update, expected_id):
+    assert f"id does not match its properties (expected {expected_id})" in _node_messages((index, update))
+
+
+def test_field_id_must_start_with_its_owner():
+    text = _node_messages((6, {"owner": "q.other-queue"}))
+    assert "id does not match its properties (expected fld.other-queue.<field path>)" in text
+
+
+def test_test_id_uses_the_facts_service():
+    data = insight_facts()
+    data["service"] = "asset"
+    data["nodes"][0].update(id="svc.asset", name="asset", path="Unite/services/asset")
+    data["nodes"].append(dict(TEST_NODE))
+    data["edges"] = []
+    text = messages(check_facts(parse_facts(data, "test"), None))
+    assert "expected test.asset.insight-core-repo-spec" in text

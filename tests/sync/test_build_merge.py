@@ -25,13 +25,15 @@ def test_shared_node_is_merged_across_facts_files():
 
 
 def test_conflicting_property_keeps_first_service_and_warns():
-    insight = insight_facts()
-    insight["nodes"][1]["detail_type"] = "AssetCreatedV2"
-    nodes, problems = merge([checked(insight), checked(asset_facts())])
-    assert nodes["evt.asset.asset-created"].properties["detail_type"] == "AssetCreated"
+    insight, asset = insight_facts(), asset_facts()
+    # bus is not part of the id, so both files stay valid while disagreeing about it
+    insight["nodes"][1]["bus"] = "insight-bus"
+    asset["nodes"][1]["bus"] = "default"
+    nodes, problems = merge([checked(insight), checked(asset)])
+    assert nodes["evt.asset.asset-created"].properties["bus"] == "default"
     assert len(problems) == 1
     assert problems[0].severity == "warning"
-    assert "detail_type" in problems[0].message
+    assert "bus" in problems[0].message
 
 
 def test_generated_at_is_newest_extraction_of_its_sources():

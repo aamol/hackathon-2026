@@ -169,7 +169,7 @@ def _check_nodes(facts: FactsFile) -> tuple[list[dict], list[Problem]]:
             problems.append(Problem("error", where, "declared twice"))
             continue
         seen.add(node["id"])
-        message = _node_error(node, validator)
+        message = _node_error(node, validator, facts.service)
         if message:
             problems.append(Problem("error", where, message))
         else:
@@ -177,14 +177,47 @@ def _check_nodes(facts: FactsFile) -> tuple[list[dict], list[Problem]]:
     return valid, problems
 
 
-def _node_error(node: dict, validator: jsonschema.Draft202012Validator) -> str | None:
+def _node_error(node: dict, validator: jsonschema.Draft202012Validator, service: str) -> str | None:
     if ids.type_of(node["id"]) != node["type"]:
         return f"id prefix does not match type {node['type']!r}"
     # Validate as the note it will become, so type-specific properties are enforced early.
     candidate = {**node, "generated_at": PLACEHOLDER_TIMESTAMP, "contract_version": CONTRACT_VERSION,
                  "sources": ["check"], "edges": []}
     errors = sorted(validator.iter_errors(candidate), key=lambda error: error.json_path)
-    return format_schema_error(errors[0]) if errors else None
+    if errors:
+        return format_schema_error(errors[0])
+    return _id_mismatch_error(node, service)
+
+
+def _id_mismatch_error(node: dict, service: str) -> str | None:
+    """Rebuild the id from the node's own properties so a hand-edited id cannot drift from them."""
+    node_type = node["type"]
+    if node_type == "field":
+        expected_prefix = "fld." + node["owner"].split(".", 1)[1] + "."
+        if not node["id"].startswith(expected_prefix):
+            return f"id does not match its properties (expected {expected_prefix[:-1]}.<field path>)"
+        return None
+    expected = _expected_id(node, service)
+    if expected is not None and expected != node["id"]:
+        return f"id does not match its properties (expected {expected})"
+    return None
+
+
+def _expected_id(node: dict, service: str) -> str | None:
+    node_type = node["type"]
+    if node_type == "service":
+        return ids.service_id(node["path"].rstrip("/").rsplit("/", 1)[-1])
+    if node_type == "api":
+        return ids.api_id(node["service"], node["method"], node["path"])
+    if node_type == "function":
+        return ids.function_id(node["service"], node["function_key"])
+    if node_type == "event":
+        return ids.event_id(node["source"], node["detail_type"])
+    if node_type in ("queue", "table"):
+        return ids.BUILDERS[node_type](node["physical_name"])
+    if node_type == "test":
+        return ids.test_id(service, node["file"])
+    return None  # external and unresolved ids are not derivable from their properties
 
 
 def _edge_errors(edge: dict, declared: set[str], owned: set[str], unite_root: Path | None) -> list[str]:
