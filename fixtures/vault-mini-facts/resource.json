@@ -1,0 +1,35 @@
+{
+  "facts_version": "0.2",
+  "service": "resource",
+  "source_commit": "0000000",
+  "extracted_at": "2026-09-28T12:00:00Z",
+  "nodes": [
+    {"id": "svc.resource", "type": "service", "name": "resource", "path": "Unite/services/resource",
+     "packages": ["resource-manager"],
+     "summary": "Tracks long-running resource jobs and announces their outcome on EventBridge."},
+    {"id": "api.resource.post-v1-resources", "type": "api", "name": "POST /v1/resources", "service": "resource",
+     "method": "POST", "path": "/v1/resources", "handler": "Unite/services/resource/src/http.ts:12"},
+    {"id": "evt.resource.resource-failed", "type": "event", "name": "resource.failed",
+     "source": "service.resource", "detail_type": "resource.failed", "bus": "unite-bus"},
+    {"id": "fld.resource.resource-failed.resource-id", "type": "field", "name": "resourceId",
+     "owner": "evt.resource.resource-failed", "data_type": "string", "pii": false, "pii_category": "none",
+     "pii_confidence": 1.0},
+    {"id": "fld.resource.resource-failed.created-by", "type": "field", "name": "createdBy",
+     "owner": "evt.resource.resource-failed", "data_type": "string", "pii": true, "pii_category": "email",
+     "pii_confidence": 0.9}
+  ],
+  "edges": [
+    {"from": "svc.resource", "type": "EXPOSES", "to": "api.resource.post-v1-resources",
+     "evidence": "Unite/services/resource/serverless.yml:40", "snippet": "path: /v1/resources",
+     "confidence": 1.0, "via": "serverless.yml"},
+    {"from": "svc.resource", "type": "PUBLISHES", "to": "evt.resource.resource-failed",
+     "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:9",
+     "snippet": "DetailType.RESOURCE_FAILED", "confidence": 0.8, "via": "package:resource-manager"},
+    {"from": "evt.resource.resource-failed", "type": "HAS_FIELD", "to": "fld.resource.resource-failed.resource-id",
+     "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:60",
+     "snippet": "resourceId", "confidence": 0.8, "via": "package:resource-manager"},
+    {"from": "evt.resource.resource-failed", "type": "HAS_FIELD", "to": "fld.resource.resource-failed.created-by",
+     "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:61",
+     "snippet": "createdBy", "confidence": 0.8, "via": "package:resource-manager"}
+  ]
+}

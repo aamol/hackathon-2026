@@ -1,0 +1,39 @@
+{
+  "facts_version": "0.2",
+  "service": "asset",
+  "source_commit": "0000000",
+  "extracted_at": "2026-09-28T12:00:00Z",
+  "nodes": [
+    {"id": "svc.asset", "type": "service", "name": "asset", "path": "Unite/services/asset",
+     "packages": ["asset", "resource-manager"],
+     "summary": "Stores creative assets and emits AssetCreated when a resource finishes."},
+    {"id": "api.asset.get-v1-assets-id", "type": "api", "name": "GET /v1/assets/{id}", "service": "asset",
+     "method": "GET", "path": "/v1/assets/{id}", "handler": "Unite/services/asset/src/http.ts:20"},
+    {"id": "evt.asset.asset-created", "type": "event", "name": "AssetCreated",
+     "source": "service.asset", "detail_type": "AssetCreated"},
+    {"id": "fld.asset.asset-created.asset-id", "type": "field", "name": "assetId",
+     "owner": "evt.asset.asset-created", "data_type": "string", "pii": false, "pii_category": "none",
+     "pii_confidence": 1.0},
+    {"id": "evt.resource.resource-failed", "type": "event", "name": "resource.failed",
+     "source": "service.resource", "detail_type": "resource.failed"},
+    {"id": "unres.asset.a1b2c3", "type": "unresolved", "name": "process.env.PMH_ENDPOINT",
+     "raw": "process.env.PMH_ENDPOINT", "reason": "env var not set in serverless.yml or t.yml"}
+  ],
+  "edges": [
+    {"from": "svc.asset", "type": "EXPOSES", "to": "api.asset.get-v1-assets-id",
+     "evidence": "Unite/services/asset/serverless.yml:55", "snippet": "path: /v1/assets/{id}",
+     "confidence": 1.0, "via": "serverless.yml"},
+    {"from": "svc.asset", "type": "CONSUMES", "to": "evt.resource.resource-failed",
+     "evidence": "Unite/services/asset/serverless.yml:246", "snippet": "- service.resource.${self:custom.T.STAGE}",
+     "confidence": 1.0, "via": "serverless.yml", "filter": {"resourceCallbackSource": ["update_resource"]}},
+    {"from": "svc.asset", "type": "PUBLISHES", "to": "evt.asset.asset-created",
+     "evidence": "Unite/packages/asset/src/events/asset-created.ts:30", "snippet": "AssetCreated",
+     "confidence": 0.8, "via": "package:asset"},
+    {"from": "evt.asset.asset-created", "type": "HAS_FIELD", "to": "fld.asset.asset-created.asset-id",
+     "evidence": "Unite/packages/asset/src/events/asset-created.ts:31", "snippet": "assetId",
+     "confidence": 0.8, "via": "package:asset"},
+    {"from": "svc.asset", "type": "CALLS", "to": "unres.asset.a1b2c3",
+     "evidence": "Unite/packages/asset/src/services/pmh/client.ts:14", "snippet": "process.env.PMH_ENDPOINT",
+     "confidence": 0.5, "via": "package:asset"}
+  ]
+}
