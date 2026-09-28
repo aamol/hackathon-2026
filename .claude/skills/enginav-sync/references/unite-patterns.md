@@ -11,11 +11,11 @@ Unite = TypeScript on AWS Serverless. Each service = `services/<svc>/` with `ser
 | `${self:provider.region}`, `${aws:accountId}`, `${cf:…}`, `${cachedSsm:…}`, `!Sub`, `!GetAtt`, `!Ref` | keep raw; resolve only if the literal part names the resource |
 | `!GetAtt <Logical>.Arn` | the `resources.Resources.<Logical>.Properties` of this serverless.yml (e.g. `QueueName`, `TableName`) |
 
-## Declarative (serverless.yml) → edges, confidence 1.0, via serverless.yml
+## Declarative (serverless.yml) → edges, confidence 1.0 (unless the row says otherwise), via serverless.yml
 | look for | emit |
 |---|---|
 | `functions.<fn>.events[].http: {method, path}` | api node (`handler` = the function's `handler:` → file `src/…` + line of the exported name) + EXPOSES |
-| `events[].eventBridge.pattern: {source, detail-type, detail}` | one event node per (source × detail-type) + CONSUMES; `detail` → `filter`. No detail-type → event id with detail-type `any` and note it in the reply |
+| `events[].eventBridge.pattern: {source, detail-type, detail}` | one event node per (source × detail-type) + CONSUMES; `detail` → `filter`. No detail-type → one CONSUMES per detail-type the handler actually handles, evidence at the `source:` line, confidence 0.6 (facts-schema.md's Normalization rules #11); never a `detail-type any` event when the handler's cases are knowable |
 | `events[].sqs: {arn}` | queue node (name from the arn literal or `!GetAtt` resource) + CONSUMES |
 | `functions.<fn>.environment` / `provider.environment` | env map only (no edge): `TABLE_NAME: ${self:custom.T.INSIGHT_ENTITY.TABLE_NAME}` → `insight-${self:custom.T.STAGE}-Entities` |
 | `events[].schedule` / `stream` / `s3` / `websocket` | no trigger edge (not in contract v0.2); the function still gets an fn node + EXPOSES per Normalization rule 1 (unless it also has an http event) |
