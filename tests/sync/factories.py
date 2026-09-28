@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import copy
+import subprocess
 from pathlib import Path
 
 # Line numbers matter: facts below point at these exact lines.
@@ -86,3 +87,30 @@ def write_fake_unite(root: Path) -> Path:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(content)
     return root
+
+
+def build_vault_dir(vault_dir: Path, datasets: list[dict]) -> None:
+    from sync.build_vault import merge, write_vault
+    from sync.facts import check_facts, parse_facts
+
+    nodes, _ = merge([check_facts(parse_facts(data, data["service"]), None) for data in datasets])
+    write_vault(nodes, vault_dir)
+
+
+def _git(root: Path, *args: str) -> str:
+    result = subprocess.run(["git", "-C", str(root), *args], check=True, capture_output=True, text=True)
+    return result.stdout.strip()
+
+
+def init_git_repo(root: Path) -> str:
+    root.mkdir(parents=True, exist_ok=True)
+    _git(root, "init", "-q")
+    _git(root, "config", "user.email", "test@example.com")
+    _git(root, "config", "user.name", "test")
+    return commit_all(root, "init")
+
+
+def commit_all(root: Path, message: str) -> str:
+    _git(root, "add", "-A")
+    _git(root, "commit", "-q", "--allow-empty", "-m", message)
+    return _git(root, "rev-parse", "HEAD")
