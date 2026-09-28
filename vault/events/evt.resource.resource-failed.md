@@ -4,9 +4,11 @@ type: event
 name: resource.failed
 detail_type: resource.failed
 source: service.resource
-generated_at: '2026-09-28T08:25:35Z'
+generated_at: '2026-09-28T09:36:30Z'
 contract_version: '0.2'
 sources:
+- asset
+- insight
 - resource
 edges:
 - type: HAS_FIELD

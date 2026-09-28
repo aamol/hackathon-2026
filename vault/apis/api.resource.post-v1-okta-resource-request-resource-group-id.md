@@ -7,7 +7,7 @@ handler: Unite/services/resource/src/handlers/http.ts:97
 method: POST
 path: /v1/okta/resource/request/{ResourceGroupId}
 service: resource
-generated_at: '2026-09-28T08:25:35Z'
+generated_at: '2026-09-28T09:35:50Z'
 contract_version: '0.2'
 sources:
 - resource

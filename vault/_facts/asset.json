@@ -2,7 +2,7 @@
   "facts_version": "0.2",
   "service": "asset",
   "source_commit": "1207f6f735f0",
-  "extracted_at": "2026-09-28T08:40:45Z",
+  "extracted_at": "2026-09-28T09:36:30Z",
   "nodes": [
     {
       "id": "svc.asset",
@@ -48,84 +48,12 @@
       "summary": "Digital asset management service: CRUD/listing/tagging/bulk APIs for assets, ingests resource-manager and rasterizer outputs into persistent asset records via EventBridge/SQS, and syncs assets and creative versions to the WSS-only PMH integration."
     },
     {
-      "id": "fn.asset.create-asset",
-      "type": "function",
-      "name": "createAsset",
-      "service": "asset",
-      "function_key": "createAsset",
-      "handler": "Unite/services/asset/src/handlers/create-asset.ts:15"
-    },
-    {
       "id": "fn.asset.create-asset-from-resource-id",
       "type": "function",
       "name": "createAssetFromResourceId",
       "service": "asset",
       "function_key": "createAssetFromResourceId",
       "handler": "Unite/services/asset/src/handlers/create-asset-from-resource-id.ts:6"
-    },
-    {
-      "id": "fn.asset.get-asset-by-id",
-      "type": "function",
-      "name": "getAssetById",
-      "service": "asset",
-      "function_key": "getAssetById",
-      "handler": "Unite/services/asset/src/handlers/get-asset-by-id.ts:15"
-    },
-    {
-      "id": "fn.asset.get-asset-file",
-      "type": "function",
-      "name": "getAssetFile",
-      "service": "asset",
-      "function_key": "getAssetFile",
-      "handler": "Unite/services/asset/src/handlers/get-asset-file.ts:62"
-    },
-    {
-      "id": "fn.asset.get-asset-usage",
-      "type": "function",
-      "name": "getAssetUsage",
-      "service": "asset",
-      "function_key": "getAssetUsage",
-      "handler": "Unite/services/asset/src/handlers/get-asset-usage.ts:24"
-    },
-    {
-      "id": "fn.asset.get-asset-by-source-id",
-      "type": "function",
-      "name": "getAssetBySourceId",
-      "service": "asset",
-      "function_key": "getAssetBySourceId",
-      "handler": "Unite/services/asset/src/handlers/get-asset-by-source-id.ts:31"
-    },
-    {
-      "id": "fn.asset.update-asset",
-      "type": "function",
-      "name": "updateAsset",
-      "service": "asset",
-      "function_key": "updateAsset",
-      "handler": "Unite/services/asset/src/handlers/update-asset.ts:51"
-    },
-    {
-      "id": "fn.asset.delete-asset",
-      "type": "function",
-      "name": "deleteAsset",
-      "service": "asset",
-      "function_key": "deleteAsset",
-      "handler": "Unite/services/asset/src/handlers/delete-asset.ts:14"
-    },
-    {
-      "id": "fn.asset.get-assets",
-      "type": "function",
-      "name": "getAssets",
-      "service": "asset",
-      "function_key": "getAssets",
-      "handler": "Unite/services/asset/src/handlers/get-assets.ts:87"
-    },
-    {
-      "id": "fn.asset.get-tags",
-      "type": "function",
-      "name": "getTags",
-      "service": "asset",
-      "function_key": "getTags",
-      "handler": "Unite/services/asset/src/handlers/get-tags.ts:12"
     },
     {
       "id": "fn.asset.process-enrich-asset-queue",
@@ -160,22 +88,6 @@
       "handler": "Unite/services/asset/src/handlers/event-bridge-handler.ts:28"
     },
     {
-      "id": "fn.asset.bulk-update-asset",
-      "type": "function",
-      "name": "bulkUpdateAsset",
-      "service": "asset",
-      "function_key": "bulkUpdateAsset",
-      "handler": "Unite/services/asset/src/handlers/bulk-update-asset.ts:30"
-    },
-    {
-      "id": "fn.asset.bulk-delete-asset",
-      "type": "function",
-      "name": "bulkDeleteAsset",
-      "service": "asset",
-      "function_key": "bulkDeleteAsset",
-      "handler": "Unite/services/asset/src/handlers/bulk-delete-asset.ts:31"
-    },
-    {
       "id": "fn.asset.get-creative-export-assets-internal",
       "type": "function",
       "name": "getCreativeExportAssetsInternal",
@@ -206,30 +118,6 @@
       "service": "asset",
       "function_key": "createAssetInternal",
       "handler": "Unite/services/asset/src/handlers/internal/create-asset.ts:14"
-    },
-    {
-      "id": "fn.asset.bulk-download-assets",
-      "type": "function",
-      "name": "bulkDownloadAssets",
-      "service": "asset",
-      "function_key": "bulkDownloadAssets",
-      "handler": "Unite/services/asset/src/handlers/bulk-download-assets.ts:21"
-    },
-    {
-      "id": "fn.asset.route-post-handler",
-      "type": "function",
-      "name": "routePostHandler",
-      "service": "asset",
-      "function_key": "routePostHandler",
-      "handler": "Unite/services/asset/src/application/handlers/api/route-post-handler.ts:25"
-    },
-    {
-      "id": "fn.asset.route-get-handler",
-      "type": "function",
-      "name": "routeGetHandler",
-      "service": "asset",
-      "function_key": "routeGetHandler",
-      "handler": "Unite/services/asset/src/application/handlers/api/route-get-handler.ts:23"
     },
     {
       "id": "fn.asset.dynamo-router-handler",
@@ -392,7 +280,7 @@
     {
       "id": "tbl.dynamodb.asset-assets",
       "type": "table",
-      "name": "Assets",
+      "name": "asset-assets",
       "db": "dynamodb",
       "physical_name": "asset-${self:custom.T.STAGE}-Assets",
       "defined_in": "Unite/services/asset/serverless.yml:511",
@@ -404,7 +292,7 @@
     {
       "id": "tbl.dynamodb.resource-resources",
       "type": "table",
-      "name": "Resources",
+      "name": "resource-resources",
       "db": "dynamodb",
       "physical_name": "resource-${self:custom.T.STAGE}-Resources",
       "defined_in": "Unite/services/resource/serverless.yml:314",
@@ -416,14 +304,14 @@
     {
       "id": "tbl.dynamodb.user-user-table",
       "type": "table",
-      "name": "UserTable",
+      "name": "user-user-table",
       "db": "dynamodb",
       "physical_name": "user-${self:custom.T.STAGE}-UserTable"
     },
     {
       "id": "tbl.dynamodb.relation-relation-generic",
       "type": "table",
-      "name": "Relation-Generic",
+      "name": "relation-relation-generic",
       "db": "dynamodb",
       "physical_name": "relation-${self:custom.T.STAGE}-Relation-Generic"
     },
@@ -740,7 +628,7 @@
     {
       "id": "q.asset-enrich-asset-queue",
       "type": "queue",
-      "name": "EnrichAsset-queue",
+      "name": "asset-enrich-asset-queue",
       "physical_name": "asset-${self:custom.T.STAGE}-EnrichAsset-queue.fifo",
       "fifo": true,
       "owner_service": "asset"
@@ -748,7 +636,7 @@
     {
       "id": "q.asset-pmh-sync-queue",
       "type": "queue",
-      "name": "PmhSync-queue",
+      "name": "asset-pmh-sync-queue",
       "physical_name": "asset-${self:custom.T.STAGE}-PmhSync-queue.fifo",
       "fifo": true,
       "owner_service": "asset"
@@ -756,7 +644,7 @@
     {
       "id": "q.asset-rasterizer-events",
       "type": "queue",
-      "name": "rasterizer-events",
+      "name": "asset-rasterizer-events",
       "physical_name": "asset-${self:custom.T.STAGE}-rasterizer-events",
       "fifo": false,
       "owner_service": "asset"
@@ -1486,262 +1374,179 @@
       "authorizer": "CUSTOM"
     },
     {
-      "id": "unres.asset.68da31",
-      "type": "unresolved",
-      "name": "fetch(pmhApiBaseUrl + PMH path) -> PMH (Print Media Hub) external API",
-      "raw": "fetch(pmhApiBaseUrl + PMH path) -> PMH (Print Media Hub) external API",
-      "reason": "fetch() target is the external Print Media Hub (PMH) API base URL (PMH_API_BASE_URL env var, a WSS-only integration; see t.yml PMH), not a Unite service path, and not one of the declared 3rd-party SDKs either."
-    },
-    {
-      "id": "unres.asset.756098",
-      "type": "unresolved",
-      "name": "fetch(uploadUrl) -> caller-provided PMH/GCS signed upload URL",
-      "raw": "fetch(uploadUrl) -> caller-provided PMH/GCS signed upload URL",
-      "reason": "uploadUrl is a runtime value returned by createPmhUploadUrl (the PMH API's response), not a static Unite path or literal host; the destination host varies per call and cannot be resolved statically."
-    },
-    {
-      "id": "test.asset.bulk-delete-asset-spec",
+      "id": "test.asset.handlers-bulk-delete-asset-spec",
       "type": "test",
       "name": "bulk-delete-asset.spec.ts",
       "file": "Unite/services/asset/src/handlers/bulk-delete-asset.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.bulk-download-assets-spec",
+      "id": "test.asset.handlers-bulk-download-assets-spec",
       "type": "test",
       "name": "bulk-download-assets.spec.ts",
       "file": "Unite/services/asset/src/handlers/bulk-download-assets.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.bulk-update-asset-spec",
+      "id": "test.asset.handlers-bulk-update-asset-spec",
       "type": "test",
       "name": "bulk-update-asset.spec.ts",
       "file": "Unite/services/asset/src/handlers/bulk-update-asset.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.create-asset-from-resource-id-spec",
+      "id": "test.asset.handlers-create-asset-from-resource-id-spec",
       "type": "test",
       "name": "create-asset-from-resource-id.spec.ts",
       "file": "Unite/services/asset/src/handlers/create-asset-from-resource-id.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.create-asset-spec",
+      "id": "test.asset.handlers-create-asset-spec",
       "type": "test",
       "name": "create-asset.spec.ts",
       "file": "Unite/services/asset/src/handlers/create-asset.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.delete-asset-spec",
+      "id": "test.asset.handlers-delete-asset-spec",
       "type": "test",
       "name": "delete-asset.spec.ts",
       "file": "Unite/services/asset/src/handlers/delete-asset.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.dynamo-router-spec",
+      "id": "test.asset.handlers-dynamo-router-spec",
       "type": "test",
       "name": "dynamo-router.spec.ts",
       "file": "Unite/services/asset/src/handlers/dynamo-router.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.event-bridge-spec",
+      "id": "test.asset.handlers-event-bridge-spec",
       "type": "test",
       "name": "event-bridge.spec.ts",
       "file": "Unite/services/asset/src/handlers/event-bridge.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.get-asset-by-id-spec",
+      "id": "test.asset.handlers-get-asset-by-id-spec",
       "type": "test",
       "name": "get-asset-by-id.spec.ts",
       "file": "Unite/services/asset/src/handlers/get-asset-by-id.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.get-asset-file-spec",
+      "id": "test.asset.handlers-get-asset-file-spec",
       "type": "test",
       "name": "get-asset-file.spec.ts",
       "file": "Unite/services/asset/src/handlers/get-asset-file.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.get-asset-usage-spec",
+      "id": "test.asset.handlers-get-asset-usage-spec",
       "type": "test",
       "name": "get-asset-usage.spec.ts",
       "file": "Unite/services/asset/src/handlers/get-asset-usage.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.get-assets-spec",
+      "id": "test.asset.handlers-get-assets-spec",
       "type": "test",
       "name": "get-assets.spec.ts",
       "file": "Unite/services/asset/src/handlers/get-assets.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.get-tags-spec",
+      "id": "test.asset.handlers-get-tags-spec",
       "type": "test",
       "name": "get-tags.spec.ts",
       "file": "Unite/services/asset/src/handlers/get-tags.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.copy-asset-spec",
+      "id": "test.asset.handlers-internal-copy-asset-spec",
       "type": "test",
       "name": "copy-asset.spec.ts",
       "file": "Unite/services/asset/src/handlers/internal/copy-asset.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.get-asset-location-spec",
+      "id": "test.asset.handlers-internal-get-asset-location-spec",
       "type": "test",
       "name": "get-asset-location.spec.ts",
       "file": "Unite/services/asset/src/handlers/internal/get-asset-location.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.get-creative-export-assets-spec",
+      "id": "test.asset.handlers-internal-get-creative-export-assets-spec",
       "type": "test",
       "name": "get-creative-export-assets.spec.ts",
       "file": "Unite/services/asset/src/handlers/internal/get-creative-export-assets.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.resource-finished-spec",
+      "id": "test.asset.handlers-resource-finished-spec",
       "type": "test",
       "name": "resource-finished.spec.ts",
       "file": "Unite/services/asset/src/handlers/resource-finished.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.update-asset-spec",
+      "id": "test.asset.handlers-update-asset-spec",
       "type": "test",
       "name": "update-asset.spec.ts",
       "file": "Unite/services/asset/src/handlers/update-asset.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.enrich-asset-worker-spec",
+      "id": "test.asset.application-handlers-sqs-enrich-asset-worker-spec",
       "type": "test",
       "name": "enrich-asset-worker.spec.ts",
       "file": "Unite/services/asset/src/application/handlers/sqs/enrich-asset-worker.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.pmh-sync-worker-spec",
+      "id": "test.asset.application-handlers-sqs-pmh-sync-worker-spec",
       "type": "test",
       "name": "pmh-sync-worker.spec.ts",
       "file": "Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.get-pmh-submissions-spec",
+      "id": "test.asset.application-handlers-api-pmh-get-pmh-submissions-spec",
       "type": "test",
       "name": "get-pmh-submissions.spec.ts",
       "file": "Unite/services/asset/src/application/handlers/api/pmh/get-pmh-submissions.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.sync-asset-to-pmh-spec",
+      "id": "test.asset.application-handlers-api-pmh-sync-asset-to-pmh-spec",
       "type": "test",
       "name": "sync-asset-to-pmh.spec.ts",
       "file": "Unite/services/asset/src/application/handlers/api/pmh/sync-asset-to-pmh.spec.ts",
       "framework": "jest"
+    },
+    {
+      "id": "test.asset.handlers-internal-create-asset-spec",
+      "type": "test",
+      "name": "create-asset.spec.ts",
+      "file": "Unite/services/asset/src/handlers/internal/create-asset.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "ext.pmh-api",
+      "type": "external",
+      "name": "PMH API"
     }
   ],
   "edges": [
     {
       "from": "svc.asset",
       "type": "EXPOSES",
-      "to": "fn.asset.create-asset",
-      "evidence": "Unite/services/asset/serverless.yml:37",
-      "snippet": "createAsset",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
       "to": "fn.asset.create-asset-from-resource-id",
       "evidence": "Unite/services/asset/serverless.yml:55",
       "snippet": "createAssetFromResourceId",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.get-asset-by-id",
-      "evidence": "Unite/services/asset/serverless.yml:70",
-      "snippet": "getAssetById",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.get-asset-file",
-      "evidence": "Unite/services/asset/serverless.yml:84",
-      "snippet": "getAssetFile",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.get-asset-usage",
-      "evidence": "Unite/services/asset/serverless.yml:98",
-      "snippet": "getAssetUsage",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.get-asset-by-source-id",
-      "evidence": "Unite/services/asset/serverless.yml:112",
-      "snippet": "getAssetBySourceId",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.update-asset",
-      "evidence": "Unite/services/asset/serverless.yml:126",
-      "snippet": "updateAsset",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.delete-asset",
-      "evidence": "Unite/services/asset/serverless.yml:143",
-      "snippet": "deleteAsset",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.get-assets",
-      "evidence": "Unite/services/asset/serverless.yml:158",
-      "snippet": "getAssets",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.get-tags",
-      "evidence": "Unite/services/asset/serverless.yml:173",
-      "snippet": "getTags",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1784,24 +1589,6 @@
     {
       "from": "svc.asset",
       "type": "EXPOSES",
-      "to": "fn.asset.bulk-update-asset",
-      "evidence": "Unite/services/asset/serverless.yml:272",
-      "snippet": "bulkUpdateAsset",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.bulk-delete-asset",
-      "evidence": "Unite/services/asset/serverless.yml:289",
-      "snippet": "bulkDeleteAsset",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
       "to": "fn.asset.get-creative-export-assets-internal",
       "evidence": "Unite/services/asset/serverless.yml:307",
       "snippet": "getCreativeExportAssetsInternal",
@@ -1832,33 +1619,6 @@
       "to": "fn.asset.create-asset-internal",
       "evidence": "Unite/services/asset/serverless.yml:333",
       "snippet": "createAssetInternal",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.bulk-download-assets",
-      "evidence": "Unite/services/asset/serverless.yml:345",
-      "snippet": "bulkDownloadAssets",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.route-post-handler",
-      "evidence": "Unite/services/asset/serverless.yml:365",
-      "snippet": "routePostHandler",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.route-get-handler",
-      "evidence": "Unite/services/asset/serverless.yml:388",
-      "snippet": "routeGetHandler",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -2478,19 +2238,19 @@
       "from": "svc.asset",
       "type": "CONSUMES",
       "to": "evt.resource.resource-available",
-      "evidence": "Unite/services/asset/serverless.yml:246",
-      "snippet": "service.resource.${self:custom.T.STAGE}",
-      "confidence": 1.0,
-      "via": "serverless.yml"
+      "evidence": "Unite/packages/resource-types/src/types.ts:414",
+      "snippet": "RESOURCE_AVAILABLE = \"resource.available\",",
+      "confidence": 0.6,
+      "via": "package:resource-types"
     },
     {
       "from": "svc.asset",
       "type": "CONSUMES",
       "to": "evt.resource.resource-failed",
-      "evidence": "Unite/services/asset/serverless.yml:246",
-      "snippet": "service.resource.${self:custom.T.STAGE}",
-      "confidence": 1.0,
-      "via": "serverless.yml"
+      "evidence": "Unite/packages/resource-types/src/types.ts:415",
+      "snippet": "RESOURCE_FAILED = \"resource.failed\",",
+      "confidence": 0.6,
+      "via": "package:resource-types"
     },
     {
       "from": "svc.asset",
@@ -3071,68 +2831,59 @@
     {
       "from": "svc.asset",
       "type": "CALLS",
-      "to": "unres.asset.68da31",
+      "to": "ext.pmh-api",
       "evidence": "Unite/packages/asset/src/services/pmh/pmh-auth.ts:25",
       "snippet": "fetch(url, {",
-      "confidence": 0.5,
+      "confidence": 0.8,
       "via": "package:asset"
     },
     {
       "from": "svc.asset",
       "type": "CALLS",
-      "to": "unres.asset.68da31",
+      "to": "ext.pmh-api",
       "evidence": "Unite/packages/asset/src/services/pmh/create-upload-url.ts:19",
       "snippet": "fetch(url, {",
-      "confidence": 0.5,
+      "confidence": 0.8,
       "via": "package:asset"
     },
     {
       "from": "svc.asset",
       "type": "CALLS",
-      "to": "unres.asset.68da31",
+      "to": "ext.pmh-api",
       "evidence": "Unite/packages/asset/src/services/pmh/get-pmh-submissions.ts:44",
       "snippet": "fetch(url, {",
-      "confidence": 0.5,
+      "confidence": 0.8,
       "via": "package:asset"
     },
     {
-      "from": "svc.asset",
-      "type": "CALLS",
-      "to": "unres.asset.756098",
-      "evidence": "Unite/packages/asset/src/services/pmh/stream-asset-to-gcs.ts:48",
-      "snippet": "fetch(uploadUrl, fetchInit as RequestInit)",
-      "confidence": 0.5,
-      "via": "package:asset"
-    },
-    {
-      "from": "test.asset.bulk-delete-asset-spec",
+      "from": "test.asset.handlers-bulk-delete-asset-spec",
       "type": "TESTS",
-      "to": "fn.asset.bulk-delete-asset",
+      "to": "api.asset.delete-v1-asset-bulk-delete",
       "evidence": "Unite/services/asset/src/handlers/bulk-delete-asset.spec.ts:1",
       "snippet": "import",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.asset.bulk-download-assets-spec",
+      "from": "test.asset.handlers-bulk-download-assets-spec",
       "type": "TESTS",
-      "to": "fn.asset.bulk-download-assets",
+      "to": "api.asset.post-v1-asset-bulk-download",
       "evidence": "Unite/services/asset/src/handlers/bulk-download-assets.spec.ts:1",
       "snippet": "import",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.asset.bulk-update-asset-spec",
+      "from": "test.asset.handlers-bulk-update-asset-spec",
       "type": "TESTS",
-      "to": "fn.asset.bulk-update-asset",
+      "to": "api.asset.put-v1-asset-bulk-update",
       "evidence": "Unite/services/asset/src/handlers/bulk-update-asset.spec.ts:1",
       "snippet": "import",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.asset.create-asset-from-resource-id-spec",
+      "from": "test.asset.handlers-create-asset-from-resource-id-spec",
       "type": "TESTS",
       "to": "fn.asset.create-asset-from-resource-id",
       "evidence": "Unite/services/asset/src/handlers/create-asset-from-resource-id.spec.ts:1",
@@ -3141,25 +2892,25 @@
       "via": "service-code"
     },
     {
-      "from": "test.asset.create-asset-spec",
+      "from": "test.asset.handlers-create-asset-spec",
       "type": "TESTS",
-      "to": "fn.asset.create-asset",
+      "to": "api.asset.post-v1-asset",
       "evidence": "Unite/services/asset/src/handlers/create-asset.spec.ts:1",
       "snippet": "import",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.asset.delete-asset-spec",
+      "from": "test.asset.handlers-delete-asset-spec",
       "type": "TESTS",
-      "to": "fn.asset.delete-asset",
+      "to": "api.asset.delete-v1-asset-asset-id",
       "evidence": "Unite/services/asset/src/handlers/delete-asset.spec.ts:1",
       "snippet": "import",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.asset.dynamo-router-spec",
+      "from": "test.asset.handlers-dynamo-router-spec",
       "type": "TESTS",
       "to": "fn.asset.dynamo-router-handler",
       "evidence": "Unite/services/asset/src/handlers/dynamo-router.spec.ts:1",
@@ -3168,7 +2919,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.asset.event-bridge-spec",
+      "from": "test.asset.handlers-event-bridge-spec",
       "type": "TESTS",
       "to": "fn.asset.asset-brand-check-status-updated-handler",
       "evidence": "Unite/services/asset/src/handlers/event-bridge.spec.ts:1",
@@ -3177,52 +2928,52 @@
       "via": "service-code"
     },
     {
-      "from": "test.asset.get-asset-by-id-spec",
+      "from": "test.asset.handlers-get-asset-by-id-spec",
       "type": "TESTS",
-      "to": "fn.asset.get-asset-by-id",
+      "to": "api.asset.get-v1-asset-asset-id",
       "evidence": "Unite/services/asset/src/handlers/get-asset-by-id.spec.ts:1",
       "snippet": "import",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.asset.get-asset-file-spec",
+      "from": "test.asset.handlers-get-asset-file-spec",
       "type": "TESTS",
-      "to": "fn.asset.get-asset-file",
+      "to": "api.asset.get-v1-asset-asset-id-file",
       "evidence": "Unite/services/asset/src/handlers/get-asset-file.spec.ts:1",
       "snippet": "import",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.asset.get-asset-usage-spec",
+      "from": "test.asset.handlers-get-asset-usage-spec",
       "type": "TESTS",
-      "to": "fn.asset.get-asset-usage",
+      "to": "api.asset.get-v1-asset-asset-id-usage",
       "evidence": "Unite/services/asset/src/handlers/get-asset-usage.spec.ts:1",
       "snippet": "import",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.asset.get-assets-spec",
+      "from": "test.asset.handlers-get-assets-spec",
       "type": "TESTS",
-      "to": "fn.asset.get-assets",
+      "to": "api.asset.get-v1-asset",
       "evidence": "Unite/services/asset/src/handlers/get-assets.spec.ts:1",
       "snippet": "import",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.asset.get-tags-spec",
+      "from": "test.asset.handlers-get-tags-spec",
       "type": "TESTS",
-      "to": "fn.asset.get-tags",
+      "to": "api.asset.get-v1-tag",
       "evidence": "Unite/services/asset/src/handlers/get-tags.spec.ts:1",
       "snippet": "import",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.asset.copy-asset-spec",
+      "from": "test.asset.handlers-internal-copy-asset-spec",
       "type": "TESTS",
       "to": "fn.asset.copy-asset-internal",
       "evidence": "Unite/services/asset/src/handlers/internal/copy-asset.spec.ts:1",
@@ -3231,7 +2982,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.asset.get-asset-location-spec",
+      "from": "test.asset.handlers-internal-get-asset-location-spec",
       "type": "TESTS",
       "to": "fn.asset.get-asset-location-by-id-internal",
       "evidence": "Unite/services/asset/src/handlers/internal/get-asset-location.spec.ts:1",
@@ -3240,7 +2991,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.asset.get-creative-export-assets-spec",
+      "from": "test.asset.handlers-internal-get-creative-export-assets-spec",
       "type": "TESTS",
       "to": "fn.asset.get-creative-export-assets-internal",
       "evidence": "Unite/services/asset/src/handlers/internal/get-creative-export-assets.spec.ts:1",
@@ -3249,7 +3000,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.asset.resource-finished-spec",
+      "from": "test.asset.handlers-resource-finished-spec",
       "type": "TESTS",
       "to": "fn.asset.resource-finished-handler",
       "evidence": "Unite/services/asset/src/handlers/resource-finished.spec.ts:1",
@@ -3258,16 +3009,16 @@
       "via": "service-code"
     },
     {
-      "from": "test.asset.update-asset-spec",
+      "from": "test.asset.handlers-update-asset-spec",
       "type": "TESTS",
-      "to": "fn.asset.update-asset",
+      "to": "api.asset.put-v1-asset-asset-id",
       "evidence": "Unite/services/asset/src/handlers/update-asset.spec.ts:1",
       "snippet": "import",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.asset.enrich-asset-worker-spec",
+      "from": "test.asset.application-handlers-sqs-enrich-asset-worker-spec",
       "type": "TESTS",
       "to": "fn.asset.process-enrich-asset-queue",
       "evidence": "Unite/services/asset/src/application/handlers/sqs/enrich-asset-worker.spec.ts:1",
@@ -3276,7 +3027,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.asset.pmh-sync-worker-spec",
+      "from": "test.asset.application-handlers-sqs-pmh-sync-worker-spec",
       "type": "TESTS",
       "to": "fn.asset.process-pmh-sync-queue",
       "evidence": "Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.spec.ts:1",
@@ -3285,19 +3036,28 @@
       "via": "service-code"
     },
     {
-      "from": "test.asset.get-pmh-submissions-spec",
+      "from": "test.asset.application-handlers-api-pmh-get-pmh-submissions-spec",
       "type": "TESTS",
-      "to": "svc.asset",
+      "to": "api.asset.get-v1-assets-proxy",
       "evidence": "Unite/services/asset/src/application/handlers/api/pmh/get-pmh-submissions.spec.ts:1",
       "snippet": "import",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.asset.sync-asset-to-pmh-spec",
+      "from": "test.asset.application-handlers-api-pmh-sync-asset-to-pmh-spec",
       "type": "TESTS",
-      "to": "svc.asset",
+      "to": "api.asset.post-v1-assets-proxy",
       "evidence": "Unite/services/asset/src/application/handlers/api/pmh/sync-asset-to-pmh.spec.ts:1",
+      "snippet": "import",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.handlers-internal-create-asset-spec",
+      "type": "TESTS",
+      "to": "fn.asset.create-asset-internal",
+      "evidence": "Unite/services/asset/src/handlers/internal/create-asset.spec.ts:1",
       "snippet": "import",
       "confidence": 0.9,
       "via": "service-code"

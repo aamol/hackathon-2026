@@ -1,16 +1,17 @@
 ---
 id: tbl.dynamodb.resource-resources
 type: table
-name: Resources
+name: resource-resources
 db: dynamodb
 defined_in: Unite/services/resource/serverless.yml:314
 keys:
   partition: resourceGroupId
   sort: resourceId
 physical_name: resource-${self:custom.T.STAGE}-Resources
-generated_at: '2026-09-28T08:25:35Z'
+generated_at: '2026-09-28T09:36:30Z'
 contract_version: '0.2'
 sources:
+- asset
 - resource
 edges:
 - type: HAS_FIELD
@@ -26,11 +27,6 @@ edges:
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.context
   evidence: Unite/packages/resource-types/src/types.ts:234
-  confidence: 0.8
-  via: package:resource-manager
-- type: HAS_FIELD
-  to: fld.dynamodb.resource-resources.context.user
-  evidence: Unite/packages/resource-types/src/types.ts:166
   confidence: 0.8
   via: package:resource-manager
 - type: HAS_FIELD
@@ -80,6 +76,11 @@ edges:
   via: package:resource-manager
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.output
+  evidence: Unite/packages/asset-core/src/db/create-asset-from-resource-id.ts:249
+  confidence: 0.8
+  via: package:asset-core
+- type: HAS_FIELD
+  to: fld.dynamodb.resource-resources.output
   evidence: Unite/packages/resource-types/src/types.ts:161
   confidence: 0.8
   via: package:resource-manager
@@ -119,7 +120,7 @@ edges:
   confidence: 0.8
   via: package:resource-manager
 ---
-# Resources
+# resource-resources
 
 ## Links
-- HAS_FIELD [[fld.dynamodb.resource-resources.budget]], [[fld.dynamodb.resource-resources.callbacks]], [[fld.dynamodb.resource-resources.context]], [[fld.dynamodb.resource-resources.context.user]], [[fld.dynamodb.resource-resources.created]], [[fld.dynamodb.resource-resources.global-passes]], [[fld.dynamodb.resource-resources.global-usage-event]], [[fld.dynamodb.resource-resources.history-group]], [[fld.dynamodb.resource-resources.history-index]], [[fld.dynamodb.resource-resources.history-timestamp]], [[fld.dynamodb.resource-resources.input]], [[fld.dynamodb.resource-resources.last-updated]], [[fld.dynamodb.resource-resources.last-updated-region]], [[fld.dynamodb.resource-resources.output]], [[fld.dynamodb.resource-resources.percentage]], [[fld.dynamodb.resource-resources.queue-position]], [[fld.dynamodb.resource-resources.resource-group-id]], [[fld.dynamodb.resource-resources.resource-id]], [[fld.dynamodb.resource-resources.resource-type]], [[fld.dynamodb.resource-resources.timeout-at]], [[fld.dynamodb.resource-resources.version]]
+- HAS_FIELD [[fld.dynamodb.resource-resources.budget]], [[fld.dynamodb.resource-resources.callbacks]], [[fld.dynamodb.resource-resources.context]], [[fld.dynamodb.resource-resources.created]], [[fld.dynamodb.resource-resources.global-passes]], [[fld.dynamodb.resource-resources.global-usage-event]], [[fld.dynamodb.resource-resources.history-group]], [[fld.dynamodb.resource-resources.history-index]], [[fld.dynamodb.resource-resources.history-timestamp]], [[fld.dynamodb.resource-resources.input]], [[fld.dynamodb.resource-resources.last-updated]], [[fld.dynamodb.resource-resources.last-updated-region]], [[fld.dynamodb.resource-resources.output]], [[fld.dynamodb.resource-resources.percentage]], [[fld.dynamodb.resource-resources.queue-position]], [[fld.dynamodb.resource-resources.resource-group-id]], [[fld.dynamodb.resource-resources.resource-id]], [[fld.dynamodb.resource-resources.resource-type]], [[fld.dynamodb.resource-resources.timeout-at]], [[fld.dynamodb.resource-resources.version]]

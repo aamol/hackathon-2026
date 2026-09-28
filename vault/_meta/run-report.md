@@ -1,41 +1,54 @@
 # Vault build report
 
-- Facts files: resource
-- Newest extraction: 2026-09-28T08:25:35Z
-- Notes: 407 · Edges: 417 · Errors: 0 · Warnings: 0
+- Facts files: asset, creative, insight, resource
+- Newest extraction: 2026-09-28T09:40:26Z
+- Notes: 588 · Edges: 641 · Errors: 0 · Warnings: 2
 
 ## Nodes by type
 
 | type | count |
 |---|---|
-| api | 8 |
-| event | 2 |
-| field | 344 |
-| function | 7 |
-| queue | 40 |
-| service | 1 |
-| table | 1 |
-| test | 3 |
-| unresolved | 1 |
+| api | 75 |
+| event | 29 |
+| external | 5 |
+| field | 216 |
+| function | 56 |
+| queue | 73 |
+| service | 4 |
+| table | 6 |
+| test | 110 |
+| unresolved | 14 |
 
 ## Edges by type
 
 | type | count |
 |---|---|
-| CALLS | 1 |
-| CONSUMES | 1 |
-| EXPOSES | 15 |
-| HAS_FIELD | 344 |
-| PUBLISHES | 43 |
-| READS | 5 |
-| TESTS | 3 |
-| WRITES | 5 |
+| CALLS | 9 |
+| CONSUMES | 50 |
+| DEPENDS_ON | 3 |
+| EXPOSES | 129 |
+| HAS_FIELD | 217 |
+| PUBLISHES | 92 |
+| READS | 17 |
+| TESTS | 112 |
+| WRITES | 12 |
 
 ## Package attribution
 
 | package | edges | services |
 |---|---|---|
-| resource-manager | 357 | resource |
+| agentexec | 2 | insight |
+| asset | 18 | asset, creative, insight |
+| asset-core | 1 | asset, resource |
+| asset-types | 90 | asset, creative, insight |
+| creative-core | 41 | creative |
+| insight-core | 21 | insight |
+| relation | 8 | asset, creative, insight, resource |
+| resource-manager | 46 | asset, insight, resource |
+| resource-types | 2 | asset |
+| user | 2 | asset, insight |
+| wss-app-events | 7 | creative |
 
 ## Problems
-_None._
+- WARNING node fld.dynamodb.asset-assets.source-type: 'data_type': keeping 'SourceType (enum)' from asset, ignoring 'SourceType' from creative
+- WARNING node fld.dynamodb.asset-assets.status: 'data_type': keeping 'AssetStatus (enum)' from asset, ignoring 'AssetStatus' from creative

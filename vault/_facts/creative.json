@@ -2,7 +2,7 @@
   "facts_version": "0.2",
   "service": "creative",
   "source_commit": "1207f6f735f0",
-  "extracted_at": "2026-09-28T08:40:47Z",
+  "extracted_at": "2026-09-28T09:40:26Z",
   "nodes": [
     {
       "id": "svc.creative",
@@ -15,343 +15,31 @@
       "id": "fn.creative.creative-custom-auth",
       "type": "function",
       "name": "creativeCustomAuth",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "creativeCustomAuth",
       "handler": "Unite/services/creative/src/handlers/authorizer/authorizer-handler.ts:52"
-    },
-    {
-      "id": "fn.creative.route-post-auth-handler",
-      "type": "function",
-      "name": "routePostAuthHandler",
-      "service": "svc.creative",
-      "function_key": "routePostAuthHandler",
-      "handler": "Unite/services/creative/src/handlers/api/route-post-handler.ts:63"
-    },
-    {
-      "id": "fn.creative.route-get-handler",
-      "type": "function",
-      "name": "routeGetHandler",
-      "service": "svc.creative",
-      "function_key": "routeGetHandler",
-      "handler": "Unite/services/creative/src/handlers/api/route-get-handler.ts:67"
-    },
-    {
-      "id": "fn.creative.route-post-handler",
-      "type": "function",
-      "name": "routePostHandler",
-      "service": "svc.creative",
-      "function_key": "routePostHandler",
-      "handler": "Unite/services/creative/src/handlers/api/route-post-handler.ts:35"
-    },
-    {
-      "id": "fn.creative.route-delete-handler",
-      "type": "function",
-      "name": "routeDeleteHandler",
-      "service": "svc.creative",
-      "function_key": "routeDeleteHandler",
-      "handler": "Unite/services/creative/src/handlers/api/route-del-handler.ts:20"
-    },
-    {
-      "id": "fn.creative.route-get-v2-handler",
-      "type": "function",
-      "name": "routeGetV2Handler",
-      "service": "svc.creative",
-      "function_key": "routeGetV2Handler",
-      "handler": "Unite/services/creative/src/handlers/api/route-get-handler.ts:92"
     },
     {
       "id": "fn.creative.async-event-handler",
       "type": "function",
       "name": "asyncEventHandler",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "asyncEventHandler",
       "handler": "Unite/services/creative/src/handlers/event-bridge/event-bridge-handler.ts:240"
-    },
-    {
-      "id": "fn.creative.create-creative",
-      "type": "function",
-      "name": "createCreative",
-      "service": "svc.creative",
-      "function_key": "createCreative",
-      "handler": "Unite/services/creative/src/handlers/creative/create-creative.ts:47"
-    },
-    {
-      "id": "fn.creative.copy-creative",
-      "type": "function",
-      "name": "copyCreative",
-      "service": "svc.creative",
-      "function_key": "copyCreative",
-      "handler": "Unite/services/creative/src/handlers/creative/copy-creative.ts:51"
-    },
-    {
-      "id": "fn.creative.get-tags",
-      "type": "function",
-      "name": "getTags",
-      "service": "svc.creative",
-      "function_key": "getTags",
-      "handler": "Unite/services/creative/src/handlers/creative/get-tags.ts:21"
-    },
-    {
-      "id": "fn.creative.get-creative",
-      "type": "function",
-      "name": "getCreative",
-      "service": "svc.creative",
-      "function_key": "getCreative",
-      "handler": "Unite/services/creative/src/handlers/creative/get-creative.ts:81"
-    },
-    {
-      "id": "fn.creative.get-creatives",
-      "type": "function",
-      "name": "getCreatives",
-      "service": "svc.creative",
-      "function_key": "getCreatives",
-      "handler": "Unite/services/creative/src/handlers/creative/get-creatives.ts:59"
-    },
-    {
-      "id": "fn.creative.update-creative",
-      "type": "function",
-      "name": "updateCreative",
-      "service": "svc.creative",
-      "function_key": "updateCreative",
-      "handler": "Unite/services/creative/src/handlers/creative/update-creative.ts:28"
-    },
-    {
-      "id": "fn.creative.download-creative",
-      "type": "function",
-      "name": "downloadCreative",
-      "service": "svc.creative",
-      "function_key": "downloadCreative",
-      "handler": "Unite/services/creative/src/handlers/creative/download-creative.ts:48"
-    },
-    {
-      "id": "fn.creative.bulk-download-creatives",
-      "type": "function",
-      "name": "bulkDownloadCreatives",
-      "service": "svc.creative",
-      "function_key": "bulkDownloadCreatives",
-      "handler": "Unite/services/creative/src/handlers/creative/bulk-download-creatives.ts:40"
     },
     {
       "id": "fn.creative.bulk-download-creatives-worker",
       "type": "function",
       "name": "bulkDownloadCreativesWorker",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "bulkDownloadCreativesWorker",
       "handler": "Unite/services/creative/src/handlers/creative/bulk-download-creatives.sqs.ts:86"
-    },
-    {
-      "id": "fn.creative.bulk-update-creatives-delete",
-      "type": "function",
-      "name": "bulkUpdateCreativesDelete",
-      "service": "svc.creative",
-      "function_key": "bulkUpdateCreativesDelete",
-      "handler": "Unite/services/creative/src/handlers/creative/bulk-update-creatives-delete.ts:18"
-    },
-    {
-      "id": "fn.creative.bulk-update-creatives",
-      "type": "function",
-      "name": "bulkUpdateCreatives",
-      "service": "svc.creative",
-      "function_key": "bulkUpdateCreatives",
-      "handler": "Unite/services/creative/src/handlers/creative/bulk-update-creatives.ts:27"
-    },
-    {
-      "id": "fn.creative.bulk-copy-creatives",
-      "type": "function",
-      "name": "bulkCopyCreatives",
-      "service": "svc.creative",
-      "function_key": "bulkCopyCreatives",
-      "handler": "Unite/services/creative/src/handlers/creative/bulk-copy-creatives.ts:129"
-    },
-    {
-      "id": "fn.creative.bulk-copy-selection",
-      "type": "function",
-      "name": "bulkCopySelection",
-      "service": "svc.creative",
-      "function_key": "bulkCopySelection",
-      "handler": "Unite/services/creative/src/handlers/creative/bulk-copy-selection.ts:107"
-    },
-    {
-      "id": "fn.creative.bulk-copy-precheck",
-      "type": "function",
-      "name": "bulkCopyPrecheck",
-      "service": "svc.creative",
-      "function_key": "bulkCopyPrecheck",
-      "handler": "Unite/services/creative/src/handlers/creative/bulk-copy-precheck.ts:134"
-    },
-    {
-      "id": "fn.creative.list-bulk-copy-jobs",
-      "type": "function",
-      "name": "listBulkCopyJobs",
-      "service": "svc.creative",
-      "function_key": "listBulkCopyJobs",
-      "handler": "Unite/services/creative/src/handlers/creative/list-bulk-copy-jobs.ts:22"
-    },
-    {
-      "id": "fn.creative.list-active-bulk-copy-jobs",
-      "type": "function",
-      "name": "listActiveBulkCopyJobs",
-      "service": "svc.creative",
-      "function_key": "listActiveBulkCopyJobs",
-      "handler": "Unite/services/creative/src/handlers/creative/list-active-bulk-copy-jobs.ts:9"
-    },
-    {
-      "id": "fn.creative.list-active-bulk-copy-jobs-by-targets",
-      "type": "function",
-      "name": "listActiveBulkCopyJobsByTargets",
-      "service": "svc.creative",
-      "function_key": "listActiveBulkCopyJobsByTargets",
-      "handler": "Unite/services/creative/src/handlers/creative/list-active-bulk-copy-jobs-by-targets.ts:11"
-    },
-    {
-      "id": "fn.creative.get-bulk-copy-job",
-      "type": "function",
-      "name": "getBulkCopyJob",
-      "service": "svc.creative",
-      "function_key": "getBulkCopyJob",
-      "handler": "Unite/services/creative/src/handlers/creative/get-bulk-copy-job.ts:14"
-    },
-    {
-      "id": "fn.creative.replicate-creative-check",
-      "type": "function",
-      "name": "replicateCreativeCheck",
-      "service": "svc.creative",
-      "function_key": "replicateCreativeCheck",
-      "handler": "Unite/services/creative/src/handlers/creative/replicate-creative-check.ts:26"
-    },
-    {
-      "id": "fn.creative.replicate-creative-create",
-      "type": "function",
-      "name": "replicateCreativeCreate",
-      "service": "svc.creative",
-      "function_key": "replicateCreativeCreate",
-      "handler": "Unite/services/creative/src/handlers/creative/replicate-creative-create.ts:42"
-    },
-    {
-      "id": "fn.creative.replicate-creative-override",
-      "type": "function",
-      "name": "replicateCreativeOverride",
-      "service": "svc.creative",
-      "function_key": "replicateCreativeOverride",
-      "handler": "Unite/services/creative/src/handlers/creative/replicate-creative-override.ts:47"
-    },
-    {
-      "id": "fn.creative.replicate-template-check",
-      "type": "function",
-      "name": "replicateTemplateCheck",
-      "service": "svc.creative",
-      "function_key": "replicateTemplateCheck",
-      "handler": "Unite/services/creative/src/handlers/creative/replicate-template-check.ts:26"
-    },
-    {
-      "id": "fn.creative.replicate-template-create",
-      "type": "function",
-      "name": "replicateTemplateCreate",
-      "service": "svc.creative",
-      "function_key": "replicateTemplateCreate",
-      "handler": "Unite/services/creative/src/handlers/creative/replicate-template-create.ts:42"
-    },
-    {
-      "id": "fn.creative.replicate-template-override",
-      "type": "function",
-      "name": "replicateTemplateOverride",
-      "service": "svc.creative",
-      "function_key": "replicateTemplateOverride",
-      "handler": "Unite/services/creative/src/handlers/creative/replicate-template-override.ts:45"
-    },
-    {
-      "id": "fn.creative.replicate-asset-check",
-      "type": "function",
-      "name": "replicateAssetCheck",
-      "service": "svc.creative",
-      "function_key": "replicateAssetCheck",
-      "handler": "Unite/services/creative/src/handlers/creative/replicate-asset-check.ts:13"
-    },
-    {
-      "id": "fn.creative.replicate-asset-create",
-      "type": "function",
-      "name": "replicateAssetCreate",
-      "service": "svc.creative",
-      "function_key": "replicateAssetCreate",
-      "handler": "Unite/services/creative/src/handlers/creative/replicate-asset-create.ts:23"
-    },
-    {
-      "id": "fn.creative.replicate-asset-override",
-      "type": "function",
-      "name": "replicateAssetOverride",
-      "service": "svc.creative",
-      "function_key": "replicateAssetOverride",
-      "handler": "Unite/services/creative/src/handlers/creative/replicate-asset-override.ts:27"
-    },
-    {
-      "id": "fn.creative.get-bulk-copy-job-by-target",
-      "type": "function",
-      "name": "getBulkCopyJobByTarget",
-      "service": "svc.creative",
-      "function_key": "getBulkCopyJobByTarget",
-      "handler": "Unite/services/creative/src/handlers/creative/get-bulk-copy-job-by-target.ts:25"
-    },
-    {
-      "id": "fn.creative.generate-image",
-      "type": "function",
-      "name": "generateImage",
-      "service": "svc.creative",
-      "function_key": "generateImage",
-      "handler": "Unite/services/creative/src/handlers/creative/generate-image.ts:19"
-    },
-    {
-      "id": "fn.creative.create-brand-component",
-      "type": "function",
-      "name": "createBrandComponent",
-      "service": "svc.creative",
-      "function_key": "createBrandComponent",
-      "handler": "Unite/services/creative/src/handlers/brand-component/createBrandComponent.http.ts:39"
-    },
-    {
-      "id": "fn.creative.get-brand-components",
-      "type": "function",
-      "name": "getBrandComponents",
-      "service": "svc.creative",
-      "function_key": "getBrandComponents",
-      "handler": "Unite/services/creative/src/handlers/brand-component/getBrandComponents.http.ts:12"
-    },
-    {
-      "id": "fn.creative.get-brand-component",
-      "type": "function",
-      "name": "getBrandComponent",
-      "service": "svc.creative",
-      "function_key": "getBrandComponent",
-      "handler": "Unite/services/creative/src/handlers/brand-component/getBrandComponent.http.ts:14"
-    },
-    {
-      "id": "fn.creative.delete-brand-component",
-      "type": "function",
-      "name": "deleteBrandComponent",
-      "service": "svc.creative",
-      "function_key": "deleteBrandComponent",
-      "handler": "Unite/services/creative/src/handlers/brand-component/deleteBrandComponent.http.ts:13"
-    },
-    {
-      "id": "fn.creative.create-creative-version",
-      "type": "function",
-      "name": "createCreativeVersion",
-      "service": "svc.creative",
-      "function_key": "createCreativeVersion",
-      "handler": "Unite/services/creative/src/handlers/creative-version/create-creative-version.ts:76"
-    },
-    {
-      "id": "fn.creative.get-latest-creative-version",
-      "type": "function",
-      "name": "getLatestCreativeVersion",
-      "service": "svc.creative",
-      "function_key": "getLatestCreativeVersion",
-      "handler": "Unite/services/creative/src/handlers/creative-version/get-latest-creative-version.ts:14"
     },
     {
       "id": "fn.creative.get-creative-internal",
       "type": "function",
       "name": "getCreativeInternal",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "getCreativeInternal",
       "handler": "Unite/services/creative/src/handlers/internal/get-creative.ts:13"
     },
@@ -359,7 +47,7 @@
       "id": "fn.creative.get-latest-creative-version-internal",
       "type": "function",
       "name": "getLatestCreativeVersionInternal",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "getLatestCreativeVersionInternal",
       "handler": "Unite/services/creative/src/handlers/internal/get-latest-creative-version.ts:26"
     },
@@ -367,7 +55,7 @@
       "id": "fn.creative.get-creative-formats-internal",
       "type": "function",
       "name": "getCreativeFormatsInternal",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "getCreativeFormatsInternal",
       "handler": "Unite/services/creative/src/handlers/internal/get-creative-formats.ts:70"
     },
@@ -375,7 +63,7 @@
       "id": "fn.creative.get-creative-rasterization-status-internal",
       "type": "function",
       "name": "getCreativeRasterizationStatusInternal",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "getCreativeRasterizationStatusInternal",
       "handler": "Unite/services/creative/src/handlers/internal/get-creative-rasterization-status.ts:92"
     },
@@ -383,23 +71,15 @@
       "id": "fn.creative.trigger-creative-rasterization-internal",
       "type": "function",
       "name": "triggerCreativeRasterizationInternal",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "triggerCreativeRasterizationInternal",
       "handler": "Unite/services/creative/src/handlers/internal/trigger-creative-rasterization.ts:49"
-    },
-    {
-      "id": "fn.creative.get-creative-version",
-      "type": "function",
-      "name": "getCreativeVersion",
-      "service": "svc.creative",
-      "function_key": "getCreativeVersion",
-      "handler": "Unite/services/creative/src/handlers/creative-version/get-creative-version.ts:14"
     },
     {
       "id": "fn.creative.activate-share-handler",
       "type": "function",
       "name": "activateShareHandler",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "activateShareHandler",
       "handler": "Unite/services/creative/src/handlers/dynamodb-stream/activate-share-handler.ts:63"
     },
@@ -407,7 +87,7 @@
       "id": "fn.creative.asset-events-creative-handler",
       "type": "function",
       "name": "assetEventsCreativeHandler",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "assetEventsCreativeHandler",
       "handler": "Unite/services/creative/src/handlers/asset-events-creative/asset-events-creative-handler.ts:46"
     },
@@ -415,7 +95,7 @@
       "id": "fn.creative.asset-relation-events-handler",
       "type": "function",
       "name": "assetRelationEventsHandler",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "assetRelationEventsHandler",
       "handler": "Unite/services/creative/src/handlers/asset-relation-events/asset-relation-events-handler.ts:95"
     },
@@ -423,7 +103,7 @@
       "id": "fn.creative.process-rasterizer-events",
       "type": "function",
       "name": "processRasterizerEvents",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "processRasterizerEvents",
       "handler": "Unite/services/creative/src/handlers/rasterizer-events/rasterizer-events.ts:76"
     },
@@ -431,7 +111,7 @@
       "id": "fn.creative.process-format-events",
       "type": "function",
       "name": "processFormatEvents",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "processFormatEvents",
       "handler": "Unite/services/creative/src/handlers/format-events/format-events.ts:74"
     },
@@ -439,7 +119,7 @@
       "id": "fn.creative.copy-events-creative-handler",
       "type": "function",
       "name": "copyEventsCreativeHandler",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "copyEventsCreativeHandler",
       "handler": "Unite/services/creative/src/handlers/copy-events-creative/copy-events-creative-handler.ts:255"
     },
@@ -447,7 +127,7 @@
       "id": "fn.creative.copy-selection-events-handler",
       "type": "function",
       "name": "copySelectionEventsHandler",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "copySelectionEventsHandler",
       "handler": "Unite/services/creative/src/handlers/copy-selection-events/copy-selection-events-handler.ts:513"
     },
@@ -455,7 +135,7 @@
       "id": "fn.creative.process-html-export",
       "type": "function",
       "name": "ProcessHtmlExport",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "ProcessHtmlExport",
       "handler": "Unite/services/creative/src/features/html-export/processHtmlExport.sqs.ts:56"
     },
@@ -463,7 +143,7 @@
       "id": "fn.creative.process-html-export-preview-asset",
       "type": "function",
       "name": "ProcessHtmlExportPreviewAsset",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "ProcessHtmlExportPreviewAsset",
       "handler": "Unite/services/creative/src/features/html-export/processHtmlExportPreviewAsset.sqs.ts:57"
     },
@@ -471,7 +151,7 @@
       "id": "fn.creative.create-html-export-zip",
       "type": "function",
       "name": "CreateHtmlExportZip",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "CreateHtmlExportZip",
       "handler": "Unite/services/creative/src/features/html-export/createHtmlExportZip.sqs.ts:40"
     },
@@ -479,7 +159,7 @@
       "id": "fn.creative.backfill-latest-version-formats",
       "type": "function",
       "name": "backfillLatestVersionFormats",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "backfillLatestVersionFormats",
       "handler": "Unite/services/creative/src/handlers/migrations/backfill-latest-version-formats.ts:11"
     },
@@ -487,7 +167,7 @@
       "id": "fn.creative.backfill-asset-creative-relations",
       "type": "function",
       "name": "backfillAssetCreativeRelations",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "backfillAssetCreativeRelations",
       "handler": "Unite/services/creative/src/handlers/migrations/backfill-asset-creative-relations.ts:105"
     },
@@ -495,7 +175,7 @@
       "id": "fn.creative.backfill-asset-format-id",
       "type": "function",
       "name": "backfillAssetFormatId",
-      "service": "svc.creative",
+      "service": "creative",
       "function_key": "backfillAssetFormatId",
       "handler": "Unite/services/creative/src/handlers/migrations/backfill-asset-format-id.ts:11"
     },
@@ -503,7 +183,7 @@
       "id": "api.creative.post-v1-auth-creative-proxy",
       "type": "api",
       "name": "POST /v1/auth-creative/{proxy+}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/auth-creative/{proxy+}",
       "handler": "Unite/services/creative/src/handlers/api/route-post-handler.ts:63",
@@ -513,7 +193,7 @@
       "id": "api.creative.get-v1-auth-creative-proxy",
       "type": "api",
       "name": "GET /v1/auth-creative/{proxy+}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/auth-creative/{proxy+}",
       "handler": "Unite/services/creative/src/handlers/api/route-post-handler.ts:63",
@@ -523,7 +203,7 @@
       "id": "api.creative.get-v1-creative-formats",
       "type": "api",
       "name": "GET /v1/creative/formats",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creative/formats",
       "handler": "Unite/services/creative/src/handlers/api/route-get-handler.ts:67"
@@ -532,7 +212,7 @@
       "id": "api.creative.get-v1-creative-creative-id-version-version-id-status",
       "type": "api",
       "name": "GET /v1/creative/{creativeId}/version/{versionId}/status",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creative/{creativeId}/version/{versionId}/status",
       "handler": "Unite/services/creative/src/handlers/api/route-get-handler.ts:67"
@@ -541,7 +221,7 @@
       "id": "api.creative.get-v1-creative-creative-id-version-version-id-share",
       "type": "api",
       "name": "GET /v1/creative/{creativeId}/version/{versionId}/share",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creative/{creativeId}/version/{versionId}/share",
       "handler": "Unite/services/creative/src/handlers/api/route-get-handler.ts:67"
@@ -550,7 +230,7 @@
       "id": "api.creative.get-v1-creative-creative-id-version-version-id-share-proxy",
       "type": "api",
       "name": "GET /v1/creative/{creativeId}/version/{versionId}/share/{proxy+}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creative/{creativeId}/version/{versionId}/share/{proxy+}",
       "handler": "Unite/services/creative/src/handlers/api/route-get-handler.ts:67",
@@ -560,7 +240,7 @@
       "id": "api.creative.get-v1-creative-share-audit-share-id",
       "type": "api",
       "name": "GET /v1/creative/share/audit/{shareId}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creative/share/audit/{shareId}",
       "handler": "Unite/services/creative/src/handlers/api/route-get-handler.ts:67"
@@ -569,7 +249,7 @@
       "id": "api.creative.get-v1-creative-share-audit-project-project-id",
       "type": "api",
       "name": "GET /v1/creative/share/audit/project/{projectId}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creative/share/audit/project/{projectId}",
       "handler": "Unite/services/creative/src/handlers/api/route-get-handler.ts:67"
@@ -578,7 +258,7 @@
       "id": "api.creative.get-v1-creative-creative-id-version-version-id-html-export",
       "type": "api",
       "name": "GET /v1/creative/{creativeId}/version/{versionId}/html-export",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creative/{creativeId}/version/{versionId}/html-export",
       "handler": "Unite/services/creative/src/handlers/api/route-get-handler.ts:67"
@@ -587,7 +267,7 @@
       "id": "api.creative.post-v1-creatives-proxy",
       "type": "api",
       "name": "POST /v1/creatives/{proxy+}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creatives/{proxy+}",
       "handler": "Unite/services/creative/src/handlers/api/route-post-handler.ts:35",
@@ -597,7 +277,7 @@
       "id": "api.creative.post-v1-creative-creative-id-version-version-id-share",
       "type": "api",
       "name": "POST /v1/creative/{creativeId}/version/{versionId}/share",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative/{creativeId}/version/{versionId}/share",
       "handler": "Unite/services/creative/src/handlers/api/route-post-handler.ts:35"
@@ -606,7 +286,7 @@
       "id": "api.creative.post-v1-creative-creative-id-version-version-id-share-proxy",
       "type": "api",
       "name": "POST /v1/creative/{creativeId}/version/{versionId}/share/{proxy+}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative/{creativeId}/version/{versionId}/share/{proxy+}",
       "handler": "Unite/services/creative/src/handlers/api/route-post-handler.ts:35",
@@ -616,7 +296,7 @@
       "id": "api.creative.delete-v1-creatives-proxy",
       "type": "api",
       "name": "DELETE /v1/creatives/{proxy+}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "DELETE",
       "path": "/v1/creatives/{proxy+}",
       "handler": "Unite/services/creative/src/handlers/api/route-del-handler.ts:20",
@@ -626,7 +306,7 @@
       "id": "api.creative.get-v2-creatives-versions-shares-proxy",
       "type": "api",
       "name": "GET /v2/creatives/versions/shares/{proxy+}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v2/creatives/versions/shares/{proxy+}",
       "handler": "Unite/services/creative/src/handlers/api/route-get-handler.ts:92",
@@ -636,7 +316,7 @@
       "id": "api.creative.post-v1-creative",
       "type": "api",
       "name": "POST /v1/creative",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative",
       "handler": "Unite/services/creative/src/handlers/creative/create-creative.ts:47"
@@ -645,7 +325,7 @@
       "id": "api.creative.post-v1-creative-copy",
       "type": "api",
       "name": "POST /v1/creative/copy",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative/copy",
       "handler": "Unite/services/creative/src/handlers/creative/copy-creative.ts:51"
@@ -654,7 +334,7 @@
       "id": "api.creative.get-v1-creative-tag",
       "type": "api",
       "name": "GET /v1/creative/tag",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creative/tag",
       "handler": "Unite/services/creative/src/handlers/creative/get-tags.ts:21"
@@ -663,7 +343,7 @@
       "id": "api.creative.get-v1-creative-creative-id",
       "type": "api",
       "name": "GET /v1/creative/{creativeId}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creative/{creativeId}",
       "handler": "Unite/services/creative/src/handlers/creative/get-creative.ts:81"
@@ -672,7 +352,7 @@
       "id": "api.creative.get-v1-creatives",
       "type": "api",
       "name": "GET /v1/creatives",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creatives",
       "handler": "Unite/services/creative/src/handlers/creative/get-creatives.ts:59"
@@ -681,7 +361,7 @@
       "id": "api.creative.patch-v1-creative-creative-id",
       "type": "api",
       "name": "PATCH /v1/creative/{creativeId}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "PATCH",
       "path": "/v1/creative/{creativeId}",
       "handler": "Unite/services/creative/src/handlers/creative/update-creative.ts:28"
@@ -690,7 +370,7 @@
       "id": "api.creative.post-v1-creative-download-creative-id",
       "type": "api",
       "name": "POST /v1/creative/download/{creativeId}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative/download/{creativeId}",
       "handler": "Unite/services/creative/src/handlers/creative/download-creative.ts:48"
@@ -699,7 +379,7 @@
       "id": "api.creative.post-v1-creative-bulk-download",
       "type": "api",
       "name": "POST /v1/creative/bulk-download",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative/bulk-download",
       "handler": "Unite/services/creative/src/handlers/creative/bulk-download-creatives.ts:40"
@@ -708,7 +388,7 @@
       "id": "api.creative.patch-v1-creatives-bulk-delete",
       "type": "api",
       "name": "PATCH /v1/creatives/bulk-delete",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "PATCH",
       "path": "/v1/creatives/bulk-delete",
       "handler": "Unite/services/creative/src/handlers/creative/bulk-update-creatives-delete.ts:18"
@@ -717,7 +397,7 @@
       "id": "api.creative.patch-v1-creatives-bulk-update",
       "type": "api",
       "name": "PATCH /v1/creatives/bulk-update",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "PATCH",
       "path": "/v1/creatives/bulk-update",
       "handler": "Unite/services/creative/src/handlers/creative/bulk-update-creatives.ts:27"
@@ -726,7 +406,7 @@
       "id": "api.creative.post-v1-creatives-bulk-copy",
       "type": "api",
       "name": "POST /v1/creatives/bulk-copy",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creatives/bulk-copy",
       "handler": "Unite/services/creative/src/handlers/creative/bulk-copy-creatives.ts:129"
@@ -735,7 +415,7 @@
       "id": "api.creative.post-v1-creatives-bulk-copy-selection",
       "type": "api",
       "name": "POST /v1/creatives/bulk-copy/selection",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creatives/bulk-copy/selection",
       "handler": "Unite/services/creative/src/handlers/creative/bulk-copy-selection.ts:107"
@@ -744,7 +424,7 @@
       "id": "api.creative.post-v1-creatives-bulk-copy-precheck",
       "type": "api",
       "name": "POST /v1/creatives/bulk-copy/precheck",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creatives/bulk-copy/precheck",
       "handler": "Unite/services/creative/src/handlers/creative/bulk-copy-precheck.ts:134"
@@ -753,7 +433,7 @@
       "id": "api.creative.get-v1-creatives-bulk-copy-jobs-source-source-project-id",
       "type": "api",
       "name": "GET /v1/creatives/bulk-copy-jobs/source/{sourceProjectId}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creatives/bulk-copy-jobs/source/{sourceProjectId}",
       "handler": "Unite/services/creative/src/handlers/creative/list-bulk-copy-jobs.ts:22"
@@ -762,7 +442,7 @@
       "id": "api.creative.get-v1-creatives-bulk-copy-jobs-active",
       "type": "api",
       "name": "GET /v1/creatives/bulk-copy-jobs/active",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creatives/bulk-copy-jobs/active",
       "handler": "Unite/services/creative/src/handlers/creative/list-active-bulk-copy-jobs.ts:9"
@@ -771,7 +451,7 @@
       "id": "api.creative.post-v1-creatives-bulk-copy-jobs-active",
       "type": "api",
       "name": "POST /v1/creatives/bulk-copy-jobs/active",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creatives/bulk-copy-jobs/active",
       "handler": "Unite/services/creative/src/handlers/creative/list-active-bulk-copy-jobs-by-targets.ts:11"
@@ -780,7 +460,7 @@
       "id": "api.creative.get-v1-creatives-bulk-copy-jobs-source-source-project-id-target-target-project-id",
       "type": "api",
       "name": "GET /v1/creatives/bulk-copy-jobs/source/{sourceProjectId}/target/{targetProjectId}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creatives/bulk-copy-jobs/source/{sourceProjectId}/target/{targetProjectId}",
       "handler": "Unite/services/creative/src/handlers/creative/get-bulk-copy-job.ts:14"
@@ -789,7 +469,7 @@
       "id": "api.creative.post-v1-creative-replicate-check",
       "type": "api",
       "name": "POST /v1/creative/replicate/check",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative/replicate/check",
       "handler": "Unite/services/creative/src/handlers/creative/replicate-creative-check.ts:26"
@@ -798,7 +478,7 @@
       "id": "api.creative.post-v1-creative-replicate-create",
       "type": "api",
       "name": "POST /v1/creative/replicate/create",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative/replicate/create",
       "handler": "Unite/services/creative/src/handlers/creative/replicate-creative-create.ts:42"
@@ -807,7 +487,7 @@
       "id": "api.creative.post-v1-creative-replicate-override",
       "type": "api",
       "name": "POST /v1/creative/replicate/override",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative/replicate/override",
       "handler": "Unite/services/creative/src/handlers/creative/replicate-creative-override.ts:47"
@@ -816,7 +496,7 @@
       "id": "api.creative.post-v1-template-replicate-check",
       "type": "api",
       "name": "POST /v1/template/replicate/check",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/template/replicate/check",
       "handler": "Unite/services/creative/src/handlers/creative/replicate-template-check.ts:26"
@@ -825,7 +505,7 @@
       "id": "api.creative.post-v1-template-replicate-create",
       "type": "api",
       "name": "POST /v1/template/replicate/create",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/template/replicate/create",
       "handler": "Unite/services/creative/src/handlers/creative/replicate-template-create.ts:42"
@@ -834,7 +514,7 @@
       "id": "api.creative.post-v1-template-replicate-override",
       "type": "api",
       "name": "POST /v1/template/replicate/override",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/template/replicate/override",
       "handler": "Unite/services/creative/src/handlers/creative/replicate-template-override.ts:45"
@@ -843,7 +523,7 @@
       "id": "api.creative.post-v1-creative-asset-replicate-check",
       "type": "api",
       "name": "POST /v1/creative/asset/replicate/check",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative/asset/replicate/check",
       "handler": "Unite/services/creative/src/handlers/creative/replicate-asset-check.ts:13"
@@ -852,7 +532,7 @@
       "id": "api.creative.post-v1-creative-asset-replicate-create",
       "type": "api",
       "name": "POST /v1/creative/asset/replicate/create",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative/asset/replicate/create",
       "handler": "Unite/services/creative/src/handlers/creative/replicate-asset-create.ts:23"
@@ -861,7 +541,7 @@
       "id": "api.creative.post-v1-creative-asset-replicate-override",
       "type": "api",
       "name": "POST /v1/creative/asset/replicate/override",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative/asset/replicate/override",
       "handler": "Unite/services/creative/src/handlers/creative/replicate-asset-override.ts:27"
@@ -870,7 +550,7 @@
       "id": "api.creative.get-v1-creatives-bulk-copy-jobs-target-target-project-id",
       "type": "api",
       "name": "GET /v1/creatives/bulk-copy-jobs/target/{targetProjectId}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creatives/bulk-copy-jobs/target/{targetProjectId}",
       "handler": "Unite/services/creative/src/handlers/creative/get-bulk-copy-job-by-target.ts:25"
@@ -879,7 +559,7 @@
       "id": "api.creative.post-v1-creative-generate-image",
       "type": "api",
       "name": "POST /v1/creative/generate-image",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative/generate-image",
       "handler": "Unite/services/creative/src/handlers/creative/generate-image.ts:19"
@@ -888,7 +568,7 @@
       "id": "api.creative.post-v1-brand-components",
       "type": "api",
       "name": "POST /v1/brand-components",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/brand-components",
       "handler": "Unite/services/creative/src/handlers/brand-component/createBrandComponent.http.ts:39"
@@ -897,7 +577,7 @@
       "id": "api.creative.get-v1-brand-components",
       "type": "api",
       "name": "GET /v1/brand-components",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/brand-components",
       "handler": "Unite/services/creative/src/handlers/brand-component/getBrandComponents.http.ts:12"
@@ -906,7 +586,7 @@
       "id": "api.creative.get-v1-brand-components-component-id",
       "type": "api",
       "name": "GET /v1/brand-components/{componentId}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/brand-components/{componentId}",
       "handler": "Unite/services/creative/src/handlers/brand-component/getBrandComponent.http.ts:14"
@@ -915,7 +595,7 @@
       "id": "api.creative.delete-v1-brand-components-component-id",
       "type": "api",
       "name": "DELETE /v1/brand-components/{componentId}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "DELETE",
       "path": "/v1/brand-components/{componentId}",
       "handler": "Unite/services/creative/src/handlers/brand-component/deleteBrandComponent.http.ts:13"
@@ -924,7 +604,7 @@
       "id": "api.creative.post-v1-creative-version",
       "type": "api",
       "name": "POST /v1/creative-version",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "POST",
       "path": "/v1/creative-version",
       "handler": "Unite/services/creative/src/handlers/creative-version/create-creative-version.ts:76"
@@ -933,7 +613,7 @@
       "id": "api.creative.get-v1-latest-creative-version-creative-id",
       "type": "api",
       "name": "GET /v1/latest-creative-version/{creativeId}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/latest-creative-version/{creativeId}",
       "handler": "Unite/services/creative/src/handlers/creative-version/get-latest-creative-version.ts:14"
@@ -942,7 +622,7 @@
       "id": "api.creative.get-v1-creative-version-version-id",
       "type": "api",
       "name": "GET /v1/creative-version/{versionId}",
-      "service": "svc.creative",
+      "service": "creative",
       "method": "GET",
       "path": "/v1/creative-version/{versionId}",
       "handler": "Unite/services/creative/src/handlers/creative-version/get-creative-version.ts:14"
@@ -952,20 +632,6 @@
       "type": "event",
       "name": "CreativeVersionShareExpire",
       "source": "creative.share",
-      "detail_type": "CreativeVersionShareExpire"
-    },
-    {
-      "id": "evt.creative-share.rasterization-status-update",
-      "type": "event",
-      "name": "RasterizationStatusUpdate",
-      "source": "creative.share",
-      "detail_type": "RasterizationStatusUpdate"
-    },
-    {
-      "id": "evt.creative-status.creative-version-share-expire",
-      "type": "event",
-      "name": "CreativeVersionShareExpire",
-      "source": "creative.status",
       "detail_type": "CreativeVersionShareExpire"
     },
     {
@@ -1006,13 +672,13 @@
     {
       "id": "q.creative-events-dlq",
       "type": "queue",
-      "name": "SingleEventsDLQ",
+      "name": "creative-events-dlq",
       "physical_name": "creative-${self:custom.T.STAGE}-events-dlq"
     },
     {
       "id": "q.creative-asset-events-creative",
       "type": "queue",
-      "name": "AssetEventsCreativeQueue",
+      "name": "creative-asset-events-creative",
       "physical_name": "creative-${self:custom.T.STAGE}-asset-events-creative",
       "owner_service": "svc.creative",
       "dlq": "q.creative-events-dlq"
@@ -1020,7 +686,7 @@
     {
       "id": "q.creative-asset-relation-events",
       "type": "queue",
-      "name": "AssetRelationEventsQueue",
+      "name": "creative-asset-relation-events",
       "physical_name": "creative-${self:custom.T.STAGE}-asset-relation-events",
       "owner_service": "svc.creative",
       "dlq": "q.creative-events-dlq"
@@ -1028,7 +694,7 @@
     {
       "id": "q.creative-rasterizer-events",
       "type": "queue",
-      "name": "RasterizerEventsQueue",
+      "name": "creative-rasterizer-events",
       "physical_name": "creative-${self:custom.T.STAGE}-rasterizer-events",
       "owner_service": "svc.creative",
       "dlq": "q.creative-events-dlq"
@@ -1036,7 +702,7 @@
     {
       "id": "q.creative-format-events",
       "type": "queue",
-      "name": "FormatEventsQueue",
+      "name": "creative-format-events",
       "physical_name": "creative-${self:custom.T.STAGE}-format-events",
       "owner_service": "svc.creative",
       "dlq": "q.creative-events-dlq"
@@ -1044,7 +710,7 @@
     {
       "id": "q.creative-copy-events-creatives",
       "type": "queue",
-      "name": "CopyEventsCreativeQueue",
+      "name": "creative-copy-events-creatives",
       "physical_name": "creative-${self:custom.T.STAGE}-copy-events-creatives",
       "owner_service": "svc.creative",
       "dlq": "q.creative-events-dlq"
@@ -1052,7 +718,7 @@
     {
       "id": "q.creative-copy-selection-events",
       "type": "queue",
-      "name": "CopySelectionQueue",
+      "name": "creative-copy-selection-events",
       "physical_name": "creative-${self:custom.T.STAGE}-copy-selection-events",
       "owner_service": "svc.creative",
       "dlq": "q.creative-events-dlq"
@@ -1060,13 +726,13 @@
     {
       "id": "q.creative-bulk-download-creatives-dlq",
       "type": "queue",
-      "name": "BulkDownloadCreativesDLQ",
+      "name": "creative-bulk-download-creatives-dlq",
       "physical_name": "creative-${self:custom.T.STAGE}-bulk-download-creatives-dlq"
     },
     {
       "id": "q.creative-bulk-download-creatives",
       "type": "queue",
-      "name": "BulkDownloadCreativesQueue",
+      "name": "creative-bulk-download-creatives",
       "physical_name": "creative-${self:custom.T.STAGE}-bulk-download-creatives",
       "owner_service": "svc.creative",
       "dlq": "q.creative-bulk-download-creatives-dlq"
@@ -1074,7 +740,7 @@
     {
       "id": "q.creative-html-export-events",
       "type": "queue",
-      "name": "HTMLExportEventsRequestQueue",
+      "name": "creative-html-export-events",
       "physical_name": "creative-${self:custom.T.STAGE}-html-export-events",
       "owner_service": "svc.creative",
       "dlq": "q.creative-events-dlq"
@@ -1082,7 +748,7 @@
     {
       "id": "q.creative-html-export-preview-asset",
       "type": "queue",
-      "name": "HTMLExportPreviewAssetQueue",
+      "name": "creative-html-export-preview-asset",
       "physical_name": "creative-${self:custom.T.STAGE}-html-export-preview-asset",
       "owner_service": "svc.creative",
       "dlq": "q.creative-events-dlq"
@@ -1090,13 +756,13 @@
     {
       "id": "q.creative-html-export-zip-dlq",
       "type": "queue",
-      "name": "HTMLExportZipDLQ",
+      "name": "creative-html-export-zip-dlq",
       "physical_name": "creative-${self:custom.T.STAGE}-html-export-zip-dlq.fifo"
     },
     {
       "id": "q.creative-html-export-zip",
       "type": "queue",
-      "name": "HTMLExportZipQueue",
+      "name": "creative-html-export-zip",
       "physical_name": "creative-${self:custom.T.STAGE}-html-export-zip.fifo",
       "owner_service": "svc.creative",
       "dlq": "q.creative-html-export-zip-dlq",
@@ -1275,16 +941,6 @@
       ]
     },
     {
-      "id": "unres.creative.410ab1",
-      "type": "unresolved",
-      "name": "publishEvent(app-event::creative.shared) - no explicit source (AWS_LAMBDA_FUNCTION_NAME fallback)",
-      "raw": "publishEvent(app-event::creative.shared) - no explicit source (AWS_LAMBDA_FUNCTION_NAME fallback)",
-      "reason": "SERVICE_SOURCE env var is not set for the calling handler; app-events' getDefaultSource() falls back to process.env.AWS_LAMBDA_FUNCTION_NAME, which is not a stable declared event source",
-      "candidates": [
-        "evt.creative.app-event-creative-shared"
-      ]
-    },
-    {
       "id": "unres.creative.03ff58",
       "type": "unresolved",
       "name": "publishEvent(app-event::asset.created) - no explicit source (AWS_LAMBDA_FUNCTION_NAME fallback)",
@@ -1304,7 +960,7 @@
       "id": "tbl.dynamodb.creative-creatives",
       "type": "table",
       "db": "dynamodb",
-      "name": "creative-${self:custom.T.STAGE}-Creatives",
+      "name": "creative-creatives",
       "physical_name": "creative-${self:custom.T.STAGE}-Creatives",
       "defined_in": "Unite/services/creative/serverless.yml:1316",
       "keys": {
@@ -1316,65 +972,27 @@
       "id": "tbl.dynamodb.asset-assets",
       "type": "table",
       "db": "dynamodb",
-      "name": "asset-${self:custom.T.STAGE}-Assets",
+      "name": "asset-assets",
       "physical_name": "asset-${self:custom.T.STAGE}-Assets"
     },
     {
       "id": "tbl.dynamodb.relation-relation-generic",
       "type": "table",
       "db": "dynamodb",
-      "name": "relation-${self:custom.T.STAGE}-Relation-Generic",
+      "name": "relation-relation-generic",
       "physical_name": "relation-${self:custom.T.STAGE}-Relation-Generic"
     },
     {
       "id": "fn.wssbrandx.list-report-assets-for-creative-internal",
       "type": "function",
       "name": "listReportAssetsForCreativeInternal",
-      "service": "svc.wssbrandx",
+      "service": "wssbrandx",
       "function_key": "listReportAssetsForCreativeInternal"
     },
     {
       "id": "ext.google-genai",
       "type": "external",
       "name": "@google/genai"
-    },
-    {
-      "id": "fld.email.email-event.project-id",
-      "type": "field",
-      "name": "projectId",
-      "owner": "evt.email.email-event",
-      "data_type": "string",
-      "pii": false
-    },
-    {
-      "id": "fld.email.email-event.payload.from",
-      "type": "field",
-      "name": "payload.from",
-      "owner": "evt.email.email-event",
-      "data_type": "string",
-      "pii": true,
-      "pii_category": "email",
-      "pii_confidence": 0.95
-    },
-    {
-      "id": "fld.email.email-event.payload.to",
-      "type": "field",
-      "name": "payload.to",
-      "owner": "evt.email.email-event",
-      "data_type": "string",
-      "pii": true,
-      "pii_category": "email",
-      "pii_confidence": 0.95
-    },
-    {
-      "id": "fld.email.email-event.payload.bcc",
-      "type": "field",
-      "name": "payload.bcc",
-      "owner": "evt.email.email-event",
-      "data_type": "string[]",
-      "pii": true,
-      "pii_category": "email",
-      "pii_confidence": 0.95
     },
     {
       "id": "fld.creative.html-export-requested.correlation-id",
@@ -1635,70 +1253,6 @@
       "pii": false
     },
     {
-      "id": "fld.rasterizer-screenshot-request-queue.correlation-id",
-      "type": "field",
-      "name": "correlationId",
-      "owner": "q.rasterizer-screenshot-request-queue",
-      "data_type": "string",
-      "pii": false
-    },
-    {
-      "id": "fld.rasterizer-screenshot-request-queue.content-uri",
-      "type": "field",
-      "name": "contentUri",
-      "owner": "q.rasterizer-screenshot-request-queue",
-      "data_type": "string",
-      "pii": false
-    },
-    {
-      "id": "fld.rasterizer-screenshot-request-queue.process-id",
-      "type": "field",
-      "name": "processId",
-      "owner": "q.rasterizer-screenshot-request-queue",
-      "data_type": "string",
-      "pii": false
-    },
-    {
-      "id": "fld.rasterizer-screenshot-request-queue.project-id",
-      "type": "field",
-      "name": "projectId",
-      "owner": "q.rasterizer-screenshot-request-queue",
-      "data_type": "string",
-      "pii": false
-    },
-    {
-      "id": "fld.rasterizer-screenshot-request-queue.creative-id",
-      "type": "field",
-      "name": "creativeId",
-      "owner": "q.rasterizer-screenshot-request-queue",
-      "data_type": "string",
-      "pii": false
-    },
-    {
-      "id": "fld.rasterizer-screenshot-request-queue.version-id",
-      "type": "field",
-      "name": "versionId",
-      "owner": "q.rasterizer-screenshot-request-queue",
-      "data_type": "string",
-      "pii": false
-    },
-    {
-      "id": "fld.rasterizer-screenshot-request-queue.request-id",
-      "type": "field",
-      "name": "requestId",
-      "owner": "q.rasterizer-screenshot-request-queue",
-      "data_type": "string",
-      "pii": false
-    },
-    {
-      "id": "fld.rasterizer-screenshot-request-queue.jwt",
-      "type": "field",
-      "name": "jwt",
-      "owner": "q.rasterizer-screenshot-request-queue",
-      "data_type": "string",
-      "pii": false
-    },
-    {
       "id": "fld.creative-copy-events-creatives.job-type",
       "type": "field",
       "name": "jobType",
@@ -1919,329 +1473,329 @@
       "pii": false
     },
     {
-      "id": "test.creative.create-creative-spec",
+      "id": "test.creative.handlers-creative-create-creative-spec",
       "type": "test",
       "name": "create-creative.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/create-creative.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.copy-creative-spec",
+      "id": "test.creative.handlers-creative-copy-creative-spec",
       "type": "test",
       "name": "copy-creative.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/copy-creative.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.get-tags-spec",
+      "id": "test.creative.handlers-creative-get-tags-spec",
       "type": "test",
       "name": "get-tags.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/get-tags.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.get-creative-spec",
+      "id": "test.creative.handlers-creative-get-creative-spec",
       "type": "test",
       "name": "get-creative.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/get-creative.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.get-creatives-spec",
+      "id": "test.creative.handlers-creative-get-creatives-spec",
       "type": "test",
       "name": "get-creatives.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/get-creatives.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.update-creative-spec",
+      "id": "test.creative.handlers-creative-update-creative-spec",
       "type": "test",
       "name": "update-creative.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/update-creative.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.download-creative-spec",
+      "id": "test.creative.handlers-creative-download-creative-spec",
       "type": "test",
       "name": "download-creative.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/download-creative.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.bulk-download-creatives-spec",
+      "id": "test.creative.handlers-creative-bulk-download-creatives-spec",
       "type": "test",
       "name": "bulk-download-creatives.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/bulk-download-creatives.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.bulk-download-creatives-sqs-spec",
+      "id": "test.creative.handlers-creative-bulk-download-creatives-sqs-spec",
       "type": "test",
       "name": "bulk-download-creatives.sqs.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/bulk-download-creatives.sqs.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.bulk-update-creatives-delete-spec",
+      "id": "test.creative.handlers-creative-bulk-update-creatives-delete-spec",
       "type": "test",
       "name": "bulk-update-creatives-delete.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/bulk-update-creatives-delete.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.bulk-update-creatives-spec",
+      "id": "test.creative.handlers-creative-bulk-update-creatives-spec",
       "type": "test",
       "name": "bulk-update-creatives.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/bulk-update-creatives.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.bulk-copy-creatives-spec",
+      "id": "test.creative.handlers-creative-bulk-copy-creatives-spec",
       "type": "test",
       "name": "bulk-copy-creatives.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/bulk-copy-creatives.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.bulk-copy-selection-spec",
+      "id": "test.creative.handlers-creative-bulk-copy-selection-spec",
       "type": "test",
       "name": "bulk-copy-selection.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/bulk-copy-selection.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.bulk-copy-precheck-spec",
+      "id": "test.creative.handlers-creative-bulk-copy-precheck-spec",
       "type": "test",
       "name": "bulk-copy-precheck.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/bulk-copy-precheck.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.list-bulk-copy-jobs-spec",
+      "id": "test.creative.handlers-creative-list-bulk-copy-jobs-spec",
       "type": "test",
       "name": "list-bulk-copy-jobs.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/list-bulk-copy-jobs.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.list-active-bulk-copy-jobs-spec",
+      "id": "test.creative.handlers-creative-list-active-bulk-copy-jobs-spec",
       "type": "test",
       "name": "list-active-bulk-copy-jobs.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/list-active-bulk-copy-jobs.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.list-active-bulk-copy-jobs-by-targets-spec",
+      "id": "test.creative.handlers-creative-list-active-bulk-copy-jobs-by-targets-spec",
       "type": "test",
       "name": "list-active-bulk-copy-jobs-by-targets.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/list-active-bulk-copy-jobs-by-targets.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.get-bulk-copy-job-spec",
+      "id": "test.creative.handlers-creative-get-bulk-copy-job-spec",
       "type": "test",
       "name": "get-bulk-copy-job.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/get-bulk-copy-job.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.replicate-creative-check-spec",
+      "id": "test.creative.handlers-creative-replicate-creative-check-spec",
       "type": "test",
       "name": "replicate-creative-check.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/replicate-creative-check.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.replicate-creative-create-spec",
+      "id": "test.creative.handlers-creative-replicate-creative-create-spec",
       "type": "test",
       "name": "replicate-creative-create.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/replicate-creative-create.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.replicate-creative-override-spec",
+      "id": "test.creative.handlers-creative-replicate-creative-override-spec",
       "type": "test",
       "name": "replicate-creative-override.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/replicate-creative-override.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.replicate-template-check-spec",
+      "id": "test.creative.handlers-creative-replicate-template-check-spec",
       "type": "test",
       "name": "replicate-template-check.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/replicate-template-check.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.replicate-template-create-spec",
+      "id": "test.creative.handlers-creative-replicate-template-create-spec",
       "type": "test",
       "name": "replicate-template-create.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/replicate-template-create.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.replicate-template-override-spec",
+      "id": "test.creative.handlers-creative-replicate-template-override-spec",
       "type": "test",
       "name": "replicate-template-override.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/replicate-template-override.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.replicate-asset-check-spec",
+      "id": "test.creative.handlers-creative-replicate-asset-check-spec",
       "type": "test",
       "name": "replicate-asset-check.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/replicate-asset-check.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.replicate-asset-create-spec",
+      "id": "test.creative.handlers-creative-replicate-asset-create-spec",
       "type": "test",
       "name": "replicate-asset-create.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/replicate-asset-create.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.replicate-asset-override-spec",
+      "id": "test.creative.handlers-creative-replicate-asset-override-spec",
       "type": "test",
       "name": "replicate-asset-override.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/replicate-asset-override.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.get-bulk-copy-job-by-target-spec",
+      "id": "test.creative.handlers-creative-get-bulk-copy-job-by-target-spec",
       "type": "test",
       "name": "get-bulk-copy-job-by-target.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative/get-bulk-copy-job-by-target.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.create-brand-component-http-spec",
+      "id": "test.creative.handlers-brand-component-create-brand-component-http-spec",
       "type": "test",
       "name": "createBrandComponent.http.spec.ts",
       "file": "Unite/services/creative/src/handlers/brand-component/createBrandComponent.http.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.get-brand-components-http-spec",
+      "id": "test.creative.handlers-brand-component-get-brand-components-http-spec",
       "type": "test",
       "name": "getBrandComponents.http.spec.ts",
       "file": "Unite/services/creative/src/handlers/brand-component/getBrandComponents.http.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.get-brand-component-http-spec",
+      "id": "test.creative.handlers-brand-component-get-brand-component-http-spec",
       "type": "test",
       "name": "getBrandComponent.http.spec.ts",
       "file": "Unite/services/creative/src/handlers/brand-component/getBrandComponent.http.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.delete-brand-component-http-spec",
+      "id": "test.creative.handlers-brand-component-delete-brand-component-http-spec",
       "type": "test",
       "name": "deleteBrandComponent.http.spec.ts",
       "file": "Unite/services/creative/src/handlers/brand-component/deleteBrandComponent.http.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.create-creative-version-spec",
+      "id": "test.creative.handlers-creative-version-create-creative-version-spec",
       "type": "test",
       "name": "create-creative-version.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative-version/create-creative-version.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.get-latest-creative-version-spec",
+      "id": "test.creative.handlers-creative-version-get-latest-creative-version-spec",
       "type": "test",
       "name": "get-latest-creative-version.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative-version/get-latest-creative-version.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.get-creative-formats-spec",
+      "id": "test.creative.handlers-internal-get-creative-formats-spec",
       "type": "test",
       "name": "get-creative-formats.spec.ts",
       "file": "Unite/services/creative/src/handlers/internal/get-creative-formats.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.get-creative-rasterization-status-spec",
+      "id": "test.creative.handlers-internal-get-creative-rasterization-status-spec",
       "type": "test",
       "name": "get-creative-rasterization-status.spec.ts",
       "file": "Unite/services/creative/src/handlers/internal/get-creative-rasterization-status.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.trigger-creative-rasterization-spec",
+      "id": "test.creative.handlers-internal-trigger-creative-rasterization-spec",
       "type": "test",
       "name": "trigger-creative-rasterization.spec.ts",
       "file": "Unite/services/creative/src/handlers/internal/trigger-creative-rasterization.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.get-creative-version-spec",
+      "id": "test.creative.handlers-creative-version-get-creative-version-spec",
       "type": "test",
       "name": "get-creative-version.spec.ts",
       "file": "Unite/services/creative/src/handlers/creative-version/get-creative-version.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.asset-relation-events-handler-spec",
+      "id": "test.creative.handlers-asset-relation-events-asset-relation-events-handler-spec",
       "type": "test",
       "name": "asset-relation-events-handler.spec.ts",
       "file": "Unite/services/creative/src/handlers/asset-relation-events/asset-relation-events-handler.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.format-events-spec",
+      "id": "test.creative.handlers-format-events-format-events-spec",
       "type": "test",
       "name": "format-events.spec.ts",
       "file": "Unite/services/creative/src/handlers/format-events/format-events.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.copy-events-creative-handler-spec",
+      "id": "test.creative.handlers-copy-events-creative-copy-events-creative-handler-spec",
       "type": "test",
       "name": "copy-events-creative-handler.spec.ts",
       "file": "Unite/services/creative/src/handlers/copy-events-creative/copy-events-creative-handler.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.copy-selection-events-handler-spec",
+      "id": "test.creative.handlers-copy-selection-events-copy-selection-events-handler-spec",
       "type": "test",
       "name": "copy-selection-events-handler.spec.ts",
       "file": "Unite/services/creative/src/handlers/copy-selection-events/copy-selection-events-handler.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.backfill-asset-creative-relations-spec",
+      "id": "test.creative.handlers-migrations-backfill-asset-creative-relations-spec",
       "type": "test",
       "name": "backfill-asset-creative-relations.spec.ts",
       "file": "Unite/services/creative/src/handlers/migrations/backfill-asset-creative-relations.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.route-del-handler-integration-spec",
+      "id": "test.creative.handlers-api-route-del-handler-integration-spec",
       "type": "test",
       "name": "route-del-handler.integration.spec.ts",
       "file": "Unite/services/creative/src/handlers/api/route-del-handler.integration.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.rasterized-failure-spec",
+      "id": "test.creative.handlers-rasterizer-events-rasterized-failure-spec",
       "type": "test",
       "name": "rasterized-failure.spec.ts",
       "file": "Unite/services/creative/src/handlers/rasterizer-events/rasterized-failure.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.rasterized-success-spec",
+      "id": "test.creative.handlers-rasterizer-events-rasterized-success-spec",
       "type": "test",
       "name": "rasterized-success.spec.ts",
       "file": "Unite/services/creative/src/handlers/rasterizer-events/rasterized-success.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.creative.process-creative-version-pmh-sync-spec",
+      "id": "test.creative.handlers-event-bridge-process-creative-version-pmh-sync-spec",
       "type": "test",
       "name": "process-creative-version-pmh-sync.spec.ts",
       "file": "Unite/services/creative/src/handlers/event-bridge/process-creative-version-pmh-sync.spec.ts",
@@ -2276,25 +1830,32 @@
       "detail_type": "AssetHardDeleted"
     },
     {
-      "id": "evt.asset.motion-rasterized-failure",
-      "type": "event",
-      "name": "MotionRasterizedFailure",
-      "source": "service.asset",
-      "detail_type": "MotionRasterizedFailure"
-    },
-    {
-      "id": "evt.rasterizer-service.asset-created",
-      "type": "event",
-      "name": "AssetCreated",
-      "source": "rasterizer.service",
-      "detail_type": "AssetCreated"
-    },
-    {
       "id": "evt.rasterizer-service.motion-rasterized-failure",
       "type": "event",
       "name": "MotionRasterizedFailure",
       "source": "rasterizer.service",
       "detail_type": "MotionRasterizedFailure"
+    },
+    {
+      "id": "evt.email.app-event-creative-shared",
+      "type": "event",
+      "name": "app-event::creative.shared",
+      "source": "service.email",
+      "detail_type": "app-event::creative.shared"
+    },
+    {
+      "id": "test.creative.handlers-internal-get-creative-spec",
+      "type": "test",
+      "name": "get-creative.spec.ts",
+      "file": "Unite/services/creative/src/handlers/internal/get-creative.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.creative.handlers-internal-get-latest-creative-version-spec",
+      "type": "test",
+      "name": "get-latest-creative-version.spec.ts",
+      "file": "Unite/services/creative/src/handlers/internal/get-latest-creative-version.spec.ts",
+      "framework": "jest"
     }
   ],
   "edges": [
@@ -2310,51 +1871,6 @@
     {
       "from": "svc.creative",
       "type": "EXPOSES",
-      "to": "fn.creative.route-post-auth-handler",
-      "evidence": "Unite/services/creative/serverless.yml:72",
-      "snippet": "routePostAuthHandler:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.route-get-handler",
-      "evidence": "Unite/services/creative/serverless.yml:92",
-      "snippet": "routeGetHandler:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.route-post-handler",
-      "evidence": "Unite/services/creative/serverless.yml:146",
-      "snippet": "routePostHandler:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.route-delete-handler",
-      "evidence": "Unite/services/creative/serverless.yml:183",
-      "snippet": "routeDeleteHandler:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.route-get-v2-handler",
-      "evidence": "Unite/services/creative/serverless.yml:198",
-      "snippet": "routeGetV2Handler:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
       "to": "fn.creative.async-event-handler",
       "evidence": "Unite/services/creative/serverless.yml:217",
       "snippet": "asyncEventHandler:",
@@ -2364,315 +1880,9 @@
     {
       "from": "svc.creative",
       "type": "EXPOSES",
-      "to": "fn.creative.create-creative",
-      "evidence": "Unite/services/creative/serverless.yml:266",
-      "snippet": "createCreative:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.copy-creative",
-      "evidence": "Unite/services/creative/serverless.yml:283",
-      "snippet": "copyCreative:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.get-tags",
-      "evidence": "Unite/services/creative/serverless.yml:300",
-      "snippet": "getTags:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.get-creative",
-      "evidence": "Unite/services/creative/serverless.yml:316",
-      "snippet": "getCreative:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.get-creatives",
-      "evidence": "Unite/services/creative/serverless.yml:333",
-      "snippet": "getCreatives:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.update-creative",
-      "evidence": "Unite/services/creative/serverless.yml:352",
-      "snippet": "updateCreative:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.download-creative",
-      "evidence": "Unite/services/creative/serverless.yml:369",
-      "snippet": "downloadCreative:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.bulk-download-creatives",
-      "evidence": "Unite/services/creative/serverless.yml:395",
-      "snippet": "bulkDownloadCreatives:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
       "to": "fn.creative.bulk-download-creatives-worker",
       "evidence": "Unite/services/creative/serverless.yml:412",
       "snippet": "bulkDownloadCreativesWorker:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.bulk-update-creatives-delete",
-      "evidence": "Unite/services/creative/serverless.yml:432",
-      "snippet": "bulkUpdateCreativesDelete:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.bulk-update-creatives",
-      "evidence": "Unite/services/creative/serverless.yml:449",
-      "snippet": "bulkUpdateCreatives:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.bulk-copy-creatives",
-      "evidence": "Unite/services/creative/serverless.yml:466",
-      "snippet": "bulkCopyCreatives:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.bulk-copy-selection",
-      "evidence": "Unite/services/creative/serverless.yml:487",
-      "snippet": "bulkCopySelection:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.bulk-copy-precheck",
-      "evidence": "Unite/services/creative/serverless.yml:505",
-      "snippet": "bulkCopyPrecheck:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.list-bulk-copy-jobs",
-      "evidence": "Unite/services/creative/serverless.yml:522",
-      "snippet": "listBulkCopyJobs:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.list-active-bulk-copy-jobs",
-      "evidence": "Unite/services/creative/serverless.yml:535",
-      "snippet": "listActiveBulkCopyJobs:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.list-active-bulk-copy-jobs-by-targets",
-      "evidence": "Unite/services/creative/serverless.yml:549",
-      "snippet": "listActiveBulkCopyJobsByTargets:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.get-bulk-copy-job",
-      "evidence": "Unite/services/creative/serverless.yml:563",
-      "snippet": "getBulkCopyJob:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.replicate-creative-check",
-      "evidence": "Unite/services/creative/serverless.yml:576",
-      "snippet": "replicateCreativeCheck:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.replicate-creative-create",
-      "evidence": "Unite/services/creative/serverless.yml:594",
-      "snippet": "replicateCreativeCreate:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.replicate-creative-override",
-      "evidence": "Unite/services/creative/serverless.yml:612",
-      "snippet": "replicateCreativeOverride:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.replicate-template-check",
-      "evidence": "Unite/services/creative/serverless.yml:630",
-      "snippet": "replicateTemplateCheck:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.replicate-template-create",
-      "evidence": "Unite/services/creative/serverless.yml:647",
-      "snippet": "replicateTemplateCreate:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.replicate-template-override",
-      "evidence": "Unite/services/creative/serverless.yml:664",
-      "snippet": "replicateTemplateOverride:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.replicate-asset-check",
-      "evidence": "Unite/services/creative/serverless.yml:681",
-      "snippet": "replicateAssetCheck:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.replicate-asset-create",
-      "evidence": "Unite/services/creative/serverless.yml:698",
-      "snippet": "replicateAssetCreate:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.replicate-asset-override",
-      "evidence": "Unite/services/creative/serverless.yml:716",
-      "snippet": "replicateAssetOverride:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.get-bulk-copy-job-by-target",
-      "evidence": "Unite/services/creative/serverless.yml:734",
-      "snippet": "getBulkCopyJobByTarget:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.generate-image",
-      "evidence": "Unite/services/creative/serverless.yml:748",
-      "snippet": "generateImage:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.create-brand-component",
-      "evidence": "Unite/services/creative/serverless.yml:771",
-      "snippet": "createBrandComponent:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.get-brand-components",
-      "evidence": "Unite/services/creative/serverless.yml:786",
-      "snippet": "getBrandComponents:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.get-brand-component",
-      "evidence": "Unite/services/creative/serverless.yml:801",
-      "snippet": "getBrandComponent:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.delete-brand-component",
-      "evidence": "Unite/services/creative/serverless.yml:816",
-      "snippet": "deleteBrandComponent:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.create-creative-version",
-      "evidence": "Unite/services/creative/serverless.yml:835",
-      "snippet": "createCreativeVersion:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.get-latest-creative-version",
-      "evidence": "Unite/services/creative/serverless.yml:856",
-      "snippet": "getLatestCreativeVersion:",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -2718,15 +1928,6 @@
       "to": "fn.creative.trigger-creative-rasterization-internal",
       "evidence": "Unite/services/creative/serverless.yml:901",
       "snippet": "triggerCreativeRasterizationInternal:",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "EXPOSES",
-      "to": "fn.creative.get-creative-version",
-      "evidence": "Unite/services/creative/serverless.yml:909",
-      "snippet": "getCreativeVersion:",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -3300,24 +2501,6 @@
     {
       "from": "svc.creative",
       "type": "CONSUMES",
-      "to": "evt.creative-share.rasterization-status-update",
-      "evidence": "Unite/services/creative/serverless.yml:237",
-      "snippet": "RasterizationStatusUpdate",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "CONSUMES",
-      "to": "evt.creative-status.creative-version-share-expire",
-      "evidence": "Unite/services/creative/serverless.yml:236",
-      "snippet": "CreativeVersionShareExpire",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.creative",
-      "type": "CONSUMES",
       "to": "evt.creative-status.rasterization-status-update",
       "evidence": "Unite/services/creative/serverless.yml:237",
       "snippet": "RasterizationStatusUpdate",
@@ -3624,10 +2807,10 @@
     {
       "from": "svc.creative",
       "type": "PUBLISHES",
-      "to": "unres.creative.410ab1",
+      "to": "evt.email.app-event-creative-shared",
       "evidence": "Unite/packages/creative-core/src/services/creative-version-share/create-share.ts:86",
       "snippet": "publishEvent(",
-      "confidence": 0.5,
+      "confidence": 0.8,
       "via": "package:creative-core"
     },
     {
@@ -3755,42 +2938,6 @@
       "snippet": "@google/genai",
       "confidence": 0.9,
       "via": "service-code"
-    },
-    {
-      "from": "evt.email.email-event",
-      "type": "HAS_FIELD",
-      "to": "fld.email.email-event.project-id",
-      "evidence": "Unite/packages/email-types/src/schemas/email.ts:87",
-      "snippet": "projectId: z.string(),",
-      "confidence": 0.8,
-      "via": "package:email-types"
-    },
-    {
-      "from": "evt.email.email-event",
-      "type": "HAS_FIELD",
-      "to": "fld.email.email-event.payload.from",
-      "evidence": "Unite/packages/email-types/src/schemas/email.ts:38",
-      "snippet": "from: z",
-      "confidence": 0.8,
-      "via": "package:email-types"
-    },
-    {
-      "from": "evt.email.email-event",
-      "type": "HAS_FIELD",
-      "to": "fld.email.email-event.payload.to",
-      "evidence": "Unite/packages/email-types/src/schemas/email.ts:49",
-      "snippet": "to: z.string().nonempty().email(),",
-      "confidence": 0.8,
-      "via": "package:email-types"
-    },
-    {
-      "from": "evt.email.email-event",
-      "type": "HAS_FIELD",
-      "to": "fld.email.email-event.payload.bcc",
-      "evidence": "Unite/packages/email-types/src/schemas/email.ts:50",
-      "snippet": "bcc: z.array(z.string().email()).optional(),",
-      "confidence": 0.8,
-      "via": "package:email-types"
     },
     {
       "from": "evt.creative.html-export-requested",
@@ -4081,78 +3228,6 @@
       "via": "package:creative-core"
     },
     {
-      "from": "q.rasterizer-screenshot-request-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.rasterizer-screenshot-request-queue.correlation-id",
-      "evidence": "Unite/packages/creative-types/src/types/screenshot-types.ts:40",
-      "snippet": "correlationId?: string;",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "q.rasterizer-screenshot-request-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.rasterizer-screenshot-request-queue.content-uri",
-      "evidence": "Unite/packages/creative-types/src/types/screenshot-types.ts:41",
-      "snippet": "contentUri: string;",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "q.rasterizer-screenshot-request-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.rasterizer-screenshot-request-queue.process-id",
-      "evidence": "Unite/packages/creative-types/src/types/screenshot-types.ts:42",
-      "snippet": "processId: string;",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "q.rasterizer-screenshot-request-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.rasterizer-screenshot-request-queue.project-id",
-      "evidence": "Unite/packages/creative-types/src/types/screenshot-types.ts:43",
-      "snippet": "projectId: string;",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "q.rasterizer-screenshot-request-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.rasterizer-screenshot-request-queue.creative-id",
-      "evidence": "Unite/packages/creative-types/src/types/screenshot-types.ts:55",
-      "snippet": "creativeId: string;",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "q.rasterizer-screenshot-request-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.rasterizer-screenshot-request-queue.version-id",
-      "evidence": "Unite/packages/creative-types/src/types/screenshot-types.ts:56",
-      "snippet": "versionId: string;",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "q.rasterizer-screenshot-request-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.rasterizer-screenshot-request-queue.request-id",
-      "evidence": "Unite/packages/creative-types/src/types/screenshot-types.ts:57",
-      "snippet": "requestId: string;",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "q.rasterizer-screenshot-request-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.rasterizer-screenshot-request-queue.jwt",
-      "evidence": "Unite/packages/creative-types/src/types/screenshot-types.ts:58",
-      "snippet": "jwt: string;",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
       "from": "q.creative-copy-events-creatives",
       "type": "HAS_FIELD",
       "to": "fld.creative-copy-events-creatives.job-type",
@@ -4396,79 +3471,79 @@
       "via": "package:relation"
     },
     {
-      "from": "test.creative.create-creative-spec",
+      "from": "test.creative.handlers-creative-create-creative-spec",
       "type": "TESTS",
-      "to": "fn.creative.create-creative",
+      "to": "api.creative.post-v1-creative",
       "evidence": "Unite/services/creative/src/handlers/creative/create-creative.spec.ts:67",
       "snippet": "describe(\"createCreative\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.copy-creative-spec",
+      "from": "test.creative.handlers-creative-copy-creative-spec",
       "type": "TESTS",
-      "to": "fn.creative.copy-creative",
+      "to": "api.creative.post-v1-creative-copy",
       "evidence": "Unite/services/creative/src/handlers/creative/copy-creative.spec.ts:39",
       "snippet": "describe(\"copyCreativeHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.get-tags-spec",
+      "from": "test.creative.handlers-creative-get-tags-spec",
       "type": "TESTS",
-      "to": "fn.creative.get-tags",
+      "to": "api.creative.get-v1-creative-tag",
       "evidence": "Unite/services/creative/src/handlers/creative/get-tags.spec.ts:31",
       "snippet": "describe(\"getTagsHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.get-creative-spec",
+      "from": "test.creative.handlers-creative-get-creative-spec",
       "type": "TESTS",
-      "to": "fn.creative.get-creative",
+      "to": "api.creative.get-v1-creative-creative-id",
       "evidence": "Unite/services/creative/src/handlers/creative/get-creative.spec.ts:60",
       "snippet": "describe(\"getCreativeHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.get-creatives-spec",
+      "from": "test.creative.handlers-creative-get-creatives-spec",
       "type": "TESTS",
-      "to": "fn.creative.get-creatives",
+      "to": "api.creative.get-v1-creatives",
       "evidence": "Unite/services/creative/src/handlers/creative/get-creatives.spec.ts:54",
       "snippet": "describe(\"getCreativesHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.update-creative-spec",
+      "from": "test.creative.handlers-creative-update-creative-spec",
       "type": "TESTS",
-      "to": "fn.creative.update-creative",
+      "to": "api.creative.patch-v1-creative-creative-id",
       "evidence": "Unite/services/creative/src/handlers/creative/update-creative.spec.ts:54",
       "snippet": "describe(\"updateCreativeHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.download-creative-spec",
+      "from": "test.creative.handlers-creative-download-creative-spec",
       "type": "TESTS",
-      "to": "fn.creative.download-creative",
+      "to": "api.creative.post-v1-creative-download-creative-id",
       "evidence": "Unite/services/creative/src/handlers/creative/download-creative.spec.ts:55",
       "snippet": "describe(\"downloadCreativeHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.bulk-download-creatives-spec",
+      "from": "test.creative.handlers-creative-bulk-download-creatives-spec",
       "type": "TESTS",
-      "to": "fn.creative.bulk-download-creatives",
+      "to": "api.creative.post-v1-creative-bulk-download",
       "evidence": "Unite/services/creative/src/handlers/creative/bulk-download-creatives.spec.ts:27",
       "snippet": "describe(\"bulkDownloadCreativesHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.bulk-download-creatives-sqs-spec",
+      "from": "test.creative.handlers-creative-bulk-download-creatives-sqs-spec",
       "type": "TESTS",
       "to": "fn.creative.bulk-download-creatives-worker",
       "evidence": "Unite/services/creative/src/handlers/creative/bulk-download-creatives.sqs.spec.ts:52",
@@ -4477,232 +3552,232 @@
       "via": "service-code"
     },
     {
-      "from": "test.creative.bulk-update-creatives-delete-spec",
+      "from": "test.creative.handlers-creative-bulk-update-creatives-delete-spec",
       "type": "TESTS",
-      "to": "fn.creative.bulk-update-creatives-delete",
+      "to": "api.creative.patch-v1-creatives-bulk-delete",
       "evidence": "Unite/services/creative/src/handlers/creative/bulk-update-creatives-delete.spec.ts:31",
       "snippet": "describe(\"bulkUpdateCreativesDeleteHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.bulk-update-creatives-spec",
+      "from": "test.creative.handlers-creative-bulk-update-creatives-spec",
       "type": "TESTS",
-      "to": "fn.creative.bulk-update-creatives",
+      "to": "api.creative.patch-v1-creatives-bulk-update",
       "evidence": "Unite/services/creative/src/handlers/creative/bulk-update-creatives.spec.ts:32",
       "snippet": "describe(\"bulkUpdateCreativesHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.bulk-copy-creatives-spec",
+      "from": "test.creative.handlers-creative-bulk-copy-creatives-spec",
       "type": "TESTS",
-      "to": "fn.creative.bulk-copy-creatives",
+      "to": "api.creative.post-v1-creatives-bulk-copy",
       "evidence": "Unite/services/creative/src/handlers/creative/bulk-copy-creatives.spec.ts:70",
       "snippet": "describe(\"bulkCopyCreativesHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.bulk-copy-selection-spec",
+      "from": "test.creative.handlers-creative-bulk-copy-selection-spec",
       "type": "TESTS",
-      "to": "fn.creative.bulk-copy-selection",
+      "to": "api.creative.post-v1-creatives-bulk-copy-selection",
       "evidence": "Unite/services/creative/src/handlers/creative/bulk-copy-selection.spec.ts:35",
       "snippet": "describe(\"bulkCopySelectionHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.bulk-copy-precheck-spec",
+      "from": "test.creative.handlers-creative-bulk-copy-precheck-spec",
       "type": "TESTS",
-      "to": "fn.creative.bulk-copy-precheck",
+      "to": "api.creative.post-v1-creatives-bulk-copy-precheck",
       "evidence": "Unite/services/creative/src/handlers/creative/bulk-copy-precheck.spec.ts:43",
       "snippet": "describe(\"bulkCopyPrecheckHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.list-bulk-copy-jobs-spec",
+      "from": "test.creative.handlers-creative-list-bulk-copy-jobs-spec",
       "type": "TESTS",
-      "to": "fn.creative.list-bulk-copy-jobs",
+      "to": "api.creative.get-v1-creatives-bulk-copy-jobs-source-source-project-id",
       "evidence": "Unite/services/creative/src/handlers/creative/list-bulk-copy-jobs.spec.ts:39",
       "snippet": "describe(\"listBulkCopyJobsHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.list-active-bulk-copy-jobs-spec",
+      "from": "test.creative.handlers-creative-list-active-bulk-copy-jobs-spec",
       "type": "TESTS",
-      "to": "fn.creative.list-active-bulk-copy-jobs",
+      "to": "api.creative.get-v1-creatives-bulk-copy-jobs-active",
       "evidence": "Unite/services/creative/src/handlers/creative/list-active-bulk-copy-jobs.spec.ts:26",
       "snippet": "describe(\"listActiveBulkCopyJobsHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.list-active-bulk-copy-jobs-by-targets-spec",
+      "from": "test.creative.handlers-creative-list-active-bulk-copy-jobs-by-targets-spec",
       "type": "TESTS",
-      "to": "fn.creative.list-active-bulk-copy-jobs-by-targets",
+      "to": "api.creative.post-v1-creatives-bulk-copy-jobs-active",
       "evidence": "Unite/services/creative/src/handlers/creative/list-active-bulk-copy-jobs-by-targets.spec.ts:32",
       "snippet": "describe(\"listActiveBulkCopyJobsByTargetsHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.get-bulk-copy-job-spec",
+      "from": "test.creative.handlers-creative-get-bulk-copy-job-spec",
       "type": "TESTS",
-      "to": "fn.creative.get-bulk-copy-job",
+      "to": "api.creative.get-v1-creatives-bulk-copy-jobs-source-source-project-id-target-target-project-id",
       "evidence": "Unite/services/creative/src/handlers/creative/get-bulk-copy-job.spec.ts:38",
       "snippet": "describe(\"getBulkCopyJobHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.replicate-creative-check-spec",
+      "from": "test.creative.handlers-creative-replicate-creative-check-spec",
       "type": "TESTS",
-      "to": "fn.creative.replicate-creative-check",
+      "to": "api.creative.post-v1-creative-replicate-check",
       "evidence": "Unite/services/creative/src/handlers/creative/replicate-creative-check.spec.ts:37",
       "snippet": "describe(\"replicateCreativeCheckHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.replicate-creative-create-spec",
+      "from": "test.creative.handlers-creative-replicate-creative-create-spec",
       "type": "TESTS",
-      "to": "fn.creative.replicate-creative-create",
+      "to": "api.creative.post-v1-creative-replicate-create",
       "evidence": "Unite/services/creative/src/handlers/creative/replicate-creative-create.spec.ts:53",
       "snippet": "describe(\"replicateCreativeCreateHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.replicate-creative-override-spec",
+      "from": "test.creative.handlers-creative-replicate-creative-override-spec",
       "type": "TESTS",
-      "to": "fn.creative.replicate-creative-override",
+      "to": "api.creative.post-v1-creative-replicate-override",
       "evidence": "Unite/services/creative/src/handlers/creative/replicate-creative-override.spec.ts:57",
       "snippet": "describe(\"replicateCreativeOverrideHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.replicate-template-check-spec",
+      "from": "test.creative.handlers-creative-replicate-template-check-spec",
       "type": "TESTS",
-      "to": "fn.creative.replicate-template-check",
+      "to": "api.creative.post-v1-template-replicate-check",
       "evidence": "Unite/services/creative/src/handlers/creative/replicate-template-check.spec.ts:37",
       "snippet": "describe(\"replicateTemplateCheckHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.replicate-template-create-spec",
+      "from": "test.creative.handlers-creative-replicate-template-create-spec",
       "type": "TESTS",
-      "to": "fn.creative.replicate-template-create",
+      "to": "api.creative.post-v1-template-replicate-create",
       "evidence": "Unite/services/creative/src/handlers/creative/replicate-template-create.spec.ts:53",
       "snippet": "describe(\"replicateTemplateCreateHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.replicate-template-override-spec",
+      "from": "test.creative.handlers-creative-replicate-template-override-spec",
       "type": "TESTS",
-      "to": "fn.creative.replicate-template-override",
+      "to": "api.creative.post-v1-template-replicate-override",
       "evidence": "Unite/services/creative/src/handlers/creative/replicate-template-override.spec.ts:57",
       "snippet": "describe(\"replicateTemplateOverrideHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.replicate-asset-check-spec",
+      "from": "test.creative.handlers-creative-replicate-asset-check-spec",
       "type": "TESTS",
-      "to": "fn.creative.replicate-asset-check",
+      "to": "api.creative.post-v1-creative-asset-replicate-check",
       "evidence": "Unite/services/creative/src/handlers/creative/replicate-asset-check.spec.ts:65",
       "snippet": "describe(\"replicateAssetCheckHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.replicate-asset-create-spec",
+      "from": "test.creative.handlers-creative-replicate-asset-create-spec",
       "type": "TESTS",
-      "to": "fn.creative.replicate-asset-create",
+      "to": "api.creative.post-v1-creative-asset-replicate-create",
       "evidence": "Unite/services/creative/src/handlers/creative/replicate-asset-create.spec.ts:75",
       "snippet": "describe(\"replicateAssetCreateHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.replicate-asset-override-spec",
+      "from": "test.creative.handlers-creative-replicate-asset-override-spec",
       "type": "TESTS",
-      "to": "fn.creative.replicate-asset-override",
+      "to": "api.creative.post-v1-creative-asset-replicate-override",
       "evidence": "Unite/services/creative/src/handlers/creative/replicate-asset-override.spec.ts:71",
       "snippet": "describe(\"replicateAssetOverrideHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.get-bulk-copy-job-by-target-spec",
+      "from": "test.creative.handlers-creative-get-bulk-copy-job-by-target-spec",
       "type": "TESTS",
-      "to": "fn.creative.get-bulk-copy-job-by-target",
+      "to": "api.creative.get-v1-creatives-bulk-copy-jobs-target-target-project-id",
       "evidence": "Unite/services/creative/src/handlers/creative/get-bulk-copy-job-by-target.spec.ts:39",
       "snippet": "describe(\"getBulkCopyJobByTargetHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.create-brand-component-http-spec",
+      "from": "test.creative.handlers-brand-component-create-brand-component-http-spec",
       "type": "TESTS",
-      "to": "fn.creative.create-brand-component",
+      "to": "api.creative.post-v1-brand-components",
       "evidence": "Unite/services/creative/src/handlers/brand-component/createBrandComponent.http.spec.ts:99",
       "snippet": "describe(\"createBrandComponentHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.get-brand-components-http-spec",
+      "from": "test.creative.handlers-brand-component-get-brand-components-http-spec",
       "type": "TESTS",
-      "to": "fn.creative.get-brand-components",
+      "to": "api.creative.get-v1-brand-components",
       "evidence": "Unite/services/creative/src/handlers/brand-component/getBrandComponents.http.spec.ts:82",
       "snippet": "describe(\"getBrandComponentsHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.get-brand-component-http-spec",
+      "from": "test.creative.handlers-brand-component-get-brand-component-http-spec",
       "type": "TESTS",
-      "to": "fn.creative.get-brand-component",
+      "to": "api.creative.get-v1-brand-components-component-id",
       "evidence": "Unite/services/creative/src/handlers/brand-component/getBrandComponent.http.spec.ts:82",
       "snippet": "describe(\"getBrandComponentHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.delete-brand-component-http-spec",
+      "from": "test.creative.handlers-brand-component-delete-brand-component-http-spec",
       "type": "TESTS",
-      "to": "fn.creative.delete-brand-component",
+      "to": "api.creative.delete-v1-brand-components-component-id",
       "evidence": "Unite/services/creative/src/handlers/brand-component/deleteBrandComponent.http.spec.ts:83",
       "snippet": "describe(\"deleteBrandComponentHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.create-creative-version-spec",
+      "from": "test.creative.handlers-creative-version-create-creative-version-spec",
       "type": "TESTS",
-      "to": "fn.creative.create-creative-version",
+      "to": "api.creative.post-v1-creative-version",
       "evidence": "Unite/services/creative/src/handlers/creative-version/create-creative-version.spec.ts:58",
       "snippet": "describe(\"createCreativeVersion\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.get-latest-creative-version-spec",
+      "from": "test.creative.handlers-creative-version-get-latest-creative-version-spec",
       "type": "TESTS",
-      "to": "fn.creative.get-latest-creative-version",
+      "to": "api.creative.get-v1-latest-creative-version-creative-id",
       "evidence": "Unite/services/creative/src/handlers/creative-version/get-latest-creative-version.spec.ts:47",
       "snippet": "describe(\"getLatestCreativeVersionHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.get-creative-formats-spec",
+      "from": "test.creative.handlers-internal-get-creative-formats-spec",
       "type": "TESTS",
       "to": "fn.creative.get-creative-formats-internal",
       "evidence": "Unite/services/creative/src/handlers/internal/get-creative-formats.spec.ts:13",
@@ -4711,7 +3786,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.creative.get-creative-rasterization-status-spec",
+      "from": "test.creative.handlers-internal-get-creative-rasterization-status-spec",
       "type": "TESTS",
       "to": "fn.creative.get-creative-rasterization-status-internal",
       "evidence": "Unite/services/creative/src/handlers/internal/get-creative-rasterization-status.spec.ts:18",
@@ -4720,7 +3795,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.creative.trigger-creative-rasterization-spec",
+      "from": "test.creative.handlers-internal-trigger-creative-rasterization-spec",
       "type": "TESTS",
       "to": "fn.creative.trigger-creative-rasterization-internal",
       "evidence": "Unite/services/creative/src/handlers/internal/trigger-creative-rasterization.spec.ts:17",
@@ -4729,16 +3804,16 @@
       "via": "service-code"
     },
     {
-      "from": "test.creative.get-creative-version-spec",
+      "from": "test.creative.handlers-creative-version-get-creative-version-spec",
       "type": "TESTS",
-      "to": "fn.creative.get-creative-version",
+      "to": "api.creative.get-v1-creative-version-version-id",
       "evidence": "Unite/services/creative/src/handlers/creative-version/get-creative-version.spec.ts:47",
       "snippet": "describe(\"getCreativeVersionHandler\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.asset-relation-events-handler-spec",
+      "from": "test.creative.handlers-asset-relation-events-asset-relation-events-handler-spec",
       "type": "TESTS",
       "to": "fn.creative.asset-relation-events-handler",
       "evidence": "Unite/services/creative/src/handlers/asset-relation-events/asset-relation-events-handler.spec.ts:89",
@@ -4747,7 +3822,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.creative.format-events-spec",
+      "from": "test.creative.handlers-format-events-format-events-spec",
       "type": "TESTS",
       "to": "fn.creative.process-format-events",
       "evidence": "Unite/services/creative/src/handlers/format-events/format-events.spec.ts:63",
@@ -4756,7 +3831,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.creative.copy-events-creative-handler-spec",
+      "from": "test.creative.handlers-copy-events-creative-copy-events-creative-handler-spec",
       "type": "TESTS",
       "to": "fn.creative.copy-events-creative-handler",
       "evidence": "Unite/services/creative/src/handlers/copy-events-creative/copy-events-creative-handler.spec.ts:66",
@@ -4765,7 +3840,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.creative.copy-selection-events-handler-spec",
+      "from": "test.creative.handlers-copy-selection-events-copy-selection-events-handler-spec",
       "type": "TESTS",
       "to": "fn.creative.copy-selection-events-handler",
       "evidence": "Unite/services/creative/src/handlers/copy-selection-events/copy-selection-events-handler.spec.ts:123",
@@ -4774,7 +3849,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.creative.backfill-asset-creative-relations-spec",
+      "from": "test.creative.handlers-migrations-backfill-asset-creative-relations-spec",
       "type": "TESTS",
       "to": "fn.creative.backfill-asset-creative-relations",
       "evidence": "Unite/services/creative/src/handlers/migrations/backfill-asset-creative-relations.spec.ts:33",
@@ -4783,16 +3858,16 @@
       "via": "service-code"
     },
     {
-      "from": "test.creative.route-del-handler-integration-spec",
+      "from": "test.creative.handlers-api-route-del-handler-integration-spec",
       "type": "TESTS",
-      "to": "fn.creative.route-delete-handler",
+      "to": "api.creative.delete-v1-creatives-proxy",
       "evidence": "Unite/services/creative/src/handlers/api/route-del-handler.integration.spec.ts:46",
       "snippet": "describe(\"del-handler route stack integration\"",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.creative.rasterized-failure-spec",
+      "from": "test.creative.handlers-rasterizer-events-rasterized-failure-spec",
       "type": "TESTS",
       "to": "fn.creative.process-rasterizer-events",
       "evidence": "Unite/services/creative/src/handlers/rasterizer-events/rasterized-failure.spec.ts:10",
@@ -4801,7 +3876,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.creative.rasterized-success-spec",
+      "from": "test.creative.handlers-rasterizer-events-rasterized-success-spec",
       "type": "TESTS",
       "to": "fn.creative.process-rasterizer-events",
       "evidence": "Unite/services/creative/src/handlers/rasterizer-events/rasterized-success.spec.ts:10",
@@ -4810,7 +3885,7 @@
       "via": "service-code"
     },
     {
-      "from": "test.creative.process-creative-version-pmh-sync-spec",
+      "from": "test.creative.handlers-event-bridge-process-creative-version-pmh-sync-spec",
       "type": "TESTS",
       "to": "fn.creative.async-event-handler",
       "evidence": "Unite/services/creative/src/handlers/event-bridge/process-creative-version-pmh-sync.spec.ts:117",
@@ -4920,52 +3995,6 @@
     {
       "from": "svc.creative",
       "type": "CONSUMES",
-      "to": "evt.asset.motion-rasterized-failure",
-      "evidence": "Unite/services/creative/serverless.yml:1874",
-      "snippet": "MotionRasterizedFailure",
-      "confidence": 1.0,
-      "via": "serverless.yml",
-      "filter": {
-        "assetPublic.sourceType": [
-          "CREATIVE_EXPORT",
-          {
-            "exists": false
-          }
-        ],
-        "record.assetType": [
-          "VIDEO",
-          {
-            "exists": false
-          }
-        ]
-      }
-    },
-    {
-      "from": "svc.creative",
-      "type": "CONSUMES",
-      "to": "evt.rasterizer-service.asset-created",
-      "evidence": "Unite/services/creative/serverless.yml:1874",
-      "snippet": "AssetCreated",
-      "confidence": 1.0,
-      "via": "serverless.yml",
-      "filter": {
-        "assetPublic.sourceType": [
-          "CREATIVE_EXPORT",
-          {
-            "exists": false
-          }
-        ],
-        "record.assetType": [
-          "VIDEO",
-          {
-            "exists": false
-          }
-        ]
-      }
-    },
-    {
-      "from": "svc.creative",
-      "type": "CONSUMES",
       "to": "evt.rasterizer-service.motion-rasterized-failure",
       "evidence": "Unite/services/creative/serverless.yml:1874",
       "snippet": "MotionRasterizedFailure",
@@ -5012,6 +4041,24 @@
       "snippet": "CreativePreviewAssetUpdated",
       "confidence": 1.0,
       "via": "serverless.yml"
+    },
+    {
+      "from": "test.creative.handlers-internal-get-creative-spec",
+      "type": "TESTS",
+      "to": "fn.creative.get-creative-internal",
+      "evidence": "Unite/services/creative/src/handlers/internal/get-creative.spec.ts:20",
+      "snippet": "getCreativeInternalHandler",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.creative.handlers-internal-get-latest-creative-version-spec",
+      "type": "TESTS",
+      "to": "fn.creative.get-latest-creative-version-internal",
+      "evidence": "Unite/services/creative/src/handlers/internal/get-latest-creative-version.spec.ts:31",
+      "snippet": "getLatestCreativeVersionInternalHandler",
+      "confidence": 0.9,
+      "via": "service-code"
     }
   ]
 }

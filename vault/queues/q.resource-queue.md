@@ -5,7 +5,7 @@ name: resource-queue
 fifo: true
 owner_service: resource
 physical_name: resource-${self:custom.T.STAGE}-queue.fifo
-generated_at: '2026-09-28T08:25:35Z'
+generated_at: '2026-09-28T09:35:50Z'
 contract_version: '0.2'
 sources:
 - resource

@@ -1,0 +1,21 @@
+---
+id: test.insight.application-handlers-http-v1-insights-update-insight-spec
+type: test
+name: update-insight.spec.ts
+file: Unite/services/insight/src/application/handlers/http/v1/insights/update-insight.spec.ts
+framework: jest
+generated_at: '2026-09-28T09:36:16Z'
+contract_version: '0.2'
+sources:
+- insight
+edges:
+- type: TESTS
+  to: api.insight.put-v1-insight-proxy
+  evidence: Unite/services/insight/src/application/handlers/http/v1/insights/update-insight.spec.ts:125
+  confidence: 0.85
+  via: service-code
+---
+# update-insight.spec.ts
+
+## Links
+- TESTS [[api.insight.put-v1-insight-proxy]]

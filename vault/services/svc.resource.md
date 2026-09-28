@@ -21,15 +21,15 @@ packages:
 - resource-types
 - validator
 path: Unite/services/resource
-generated_at: '2026-09-28T08:25:35Z'
+generated_at: '2026-09-28T09:35:50Z'
 contract_version: '0.2'
 sources:
 - resource
 edges:
 - type: CALLS
-  to: unres.resource.14ad42
+  to: ext.wpp-open
   evidence: Unite/services/resource/src/handlers/http.ts:131
-  confidence: 0.5
+  confidence: 0.9
   via: service-code
 - type: CONSUMES
   to: q.resource-queue
@@ -77,18 +77,8 @@ edges:
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
-  to: fn.resource.delete-test-resource
-  evidence: Unite/services/resource/serverless.yml:134
-  confidence: 1.0
-  via: serverless.yml
-- type: EXPOSES
   to: fn.resource.external-update-resource
   evidence: Unite/services/resource/serverless.yml:197
-  confidence: 1.0
-  via: serverless.yml
-- type: EXPOSES
-  to: fn.resource.get-resource-by-resource-id
-  evidence: Unite/services/resource/serverless.yml:148
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
@@ -99,16 +89,6 @@ edges:
 - type: EXPOSES
   to: fn.resource.handle-resource-stream
   evidence: Unite/services/resource/serverless.yml:46
-  confidence: 1.0
-  via: serverless.yml
-- type: EXPOSES
-  to: fn.resource.request-post
-  evidence: Unite/services/resource/serverless.yml:98
-  confidence: 1.0
-  via: serverless.yml
-- type: EXPOSES
-  to: fn.resource.resource-list
-  evidence: Unite/services/resource/serverless.yml:167
   confidence: 1.0
   via: serverless.yml
 - type: PUBLISHES
@@ -327,6 +307,11 @@ edges:
   confidence: 0.9
   via: service-code
 - type: READS
+  to: tbl.dynamodb.relation-relation-generic
+  evidence: Unite/services/resource/src/handlers/stream.ts:92
+  confidence: 0.6
+  via: service-code
+- type: READS
   to: tbl.dynamodb.resource-resources
   evidence: Unite/packages/resource-manager/src/resource/index.ts:144
   confidence: 0.8
@@ -351,6 +336,11 @@ edges:
   evidence: Unite/packages/resource-manager/src/resource/pull-prioritized-resource.ts:45
   confidence: 0.8
   via: package:resource-manager
+- type: WRITES
+  to: tbl.dynamodb.relation-relation-generic
+  evidence: Unite/services/resource/src/handlers/stream.ts:92
+  confidence: 0.6
+  via: service-code
 - type: WRITES
   to: tbl.dynamodb.resource-resources
   evidence: Unite/packages/resource-manager/src/resource/create-resource.ts:49
@@ -383,9 +373,9 @@ edges:
 Generic async resource request/queue/priority orchestration hub: exposes request/list/lookup APIs, fans SQS work out to ~40 downstream microservice queues by resource type, and emits EventBridge callbacks on completion.
 
 ## Links
-- CALLS [[unres.resource.14ad42]]
+- CALLS [[ext.wpp-open]]
 - CONSUMES [[q.resource-queue]]
-- EXPOSES [[api.resource.delete-v1-okta-resource-request-resource-group-id-resource-id]], [[api.resource.get-v1-resource-id-resource-id]], [[api.resource.get-v1-resource-resource-group-id-list]], [[api.resource.options-v1-resource-id-resource-id]], [[api.resource.options-v1-resource-request-resource-group-id]], [[api.resource.options-v1-resource-resource-group-id-list]], [[api.resource.post-v1-okta-resource-request-resource-group-id]], [[api.resource.post-v1-resource-request-resource-group-id]], [[fn.resource.delete-test-resource]], [[fn.resource.external-update-resource]], [[fn.resource.get-resource-by-resource-id]], [[fn.resource.handle-resource-queue]], [[fn.resource.handle-resource-stream]], [[fn.resource.request-post]], [[fn.resource.resource-list]]
+- EXPOSES [[api.resource.delete-v1-okta-resource-request-resource-group-id-resource-id]], [[api.resource.get-v1-resource-id-resource-id]], [[api.resource.get-v1-resource-resource-group-id-list]], [[api.resource.options-v1-resource-id-resource-id]], [[api.resource.options-v1-resource-request-resource-group-id]], [[api.resource.options-v1-resource-resource-group-id-list]], [[api.resource.post-v1-okta-resource-request-resource-group-id]], [[api.resource.post-v1-resource-request-resource-group-id]], [[fn.resource.external-update-resource]], [[fn.resource.handle-resource-queue]], [[fn.resource.handle-resource-stream]]
 - PUBLISHES [[evt.resource.resource-available]], [[evt.resource.resource-failed]], [[q.agentexec-queue]], [[q.audioopt-queue]], [[q.azureimg-queue]], [[q.azurevid-queue]], [[q.bedrockimg-queue]], [[q.bedrockvect-queue]], [[q.bedrockvid-queue]], [[q.bria-queue]], [[q.bytedanceimg-queue]], [[q.bytedancetts-queue]], [[q.bytedancevid-queue]], [[q.convsummary-queue]], [[q.echo-queue]], [[q.elevenlabs-queue]], [[q.ffmpeg-concat-queue]], [[q.ffmpeg-edit-audio-queue]], [[q.ffmpeg-extract-audio-queue]], [[q.ffmpeg-split-queue]], [[q.fileopt-queue]], [[q.fileparse-queue]], [[q.firefly-queue]], [[q.huaweiimg-queue]], [[q.huaweivid-queue]], [[q.imageopt-crop-queue]], [[q.imageopt-queue]], [[q.minimaxvid-queue]], [[q.podcast-queue]], [[q.python-markitdown-queue]], [[q.renderer-task-queue]], [[q.renderer-worker-queue]], [[q.resource-queue]], [[q.resourcename-queue]], [[q.vertexaiimg-queue]], [[q.vertexaimus-queue]], [[q.vertexaivid-queue]], [[q.vertexaivoic-queue]], [[q.videoextf-queue]], [[q.videoopt-queue]], [[q.zhipuimg-queue]], [[q.zhipuvid-queue]]
-- READS [[tbl.dynamodb.resource-resources]]
-- WRITES [[tbl.dynamodb.resource-resources]]
+- READS [[tbl.dynamodb.relation-relation-generic]], [[tbl.dynamodb.resource-resources]]
+- WRITES [[tbl.dynamodb.relation-relation-generic]], [[tbl.dynamodb.resource-resources]]
