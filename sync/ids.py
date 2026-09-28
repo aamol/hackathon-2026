@@ -114,6 +114,8 @@ def type_of(node_id: str) -> str:
 
 
 def folder_of(node_type: str) -> str:
+    if node_type not in NODE_TYPES:
+        raise ValueError(f"unknown node type {node_type!r}")
     return NODE_TYPES[node_type][1]
 
 

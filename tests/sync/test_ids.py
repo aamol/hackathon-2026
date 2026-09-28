@@ -101,6 +101,8 @@ def test_type_and_folder_lookup():
     assert ids.folder_of("queue") == "queues"
     with pytest.raises(ValueError):
         ids.type_of("zzz.unknown")
+    with pytest.raises(ValueError):
+        ids.folder_of("nope")
 
 
 def test_cli_prints_id(capsys):
