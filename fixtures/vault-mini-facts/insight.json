@@ -46,6 +46,6 @@
      "confidence": 0.8, "via": "package:insight-core"},
     {"from": "test.insight.asset-created-spec", "type": "TESTS", "to": "svc.insight",
      "evidence": "Unite/packages/insight-core/src/eventbridge/asset-created.spec.ts:1",
-     "snippet": "processAssetCreatedEvent", "confidence": 0.9, "via": "package:insight-core"}
+     "snippet": "processAssetCreatedEvent", "confidence": 0.8, "via": "package:insight-core"}
   ]
 }

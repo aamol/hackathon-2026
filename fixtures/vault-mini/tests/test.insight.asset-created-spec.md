@@ -12,7 +12,7 @@ edges:
 - type: TESTS
   to: svc.insight
   evidence: Unite/packages/insight-core/src/eventbridge/asset-created.spec.ts:1
-  confidence: 0.9
+  confidence: 0.8
   via: package:insight-core
 ---
 # asset-created.spec.ts
