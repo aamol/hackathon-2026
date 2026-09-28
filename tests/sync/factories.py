@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import copy
+import json
 import subprocess
 from pathlib import Path
 
@@ -114,3 +115,22 @@ def commit_all(root: Path, message: str) -> str:
     _git(root, "add", "-A")
     _git(root, "commit", "-q", "--allow-empty", "-m", message)
     return _git(root, "rev-parse", "HEAD")
+
+
+FAKE_WORKSPACE = {
+    "packages/a/package.json": {"name": "a", "dependencies": {"b": "workspace:^", "lodash": "^4.17.21"}},
+    "packages/b/package.json": {"name": "b", "dependencies": {"c": "workspace:^"}},
+    "packages/c/package.json": {"name": "c"},
+    "packages/unused/package.json": {"name": "unused"},
+    "services/svc1/package.json": {"name": "svc1-service", "dependencies": {"a": "workspace:^"}},
+    "services/svc2/package.json": {"name": "svc2-service", "dependencies": {"c": "workspace:^"}},
+}
+
+
+def write_fake_workspace(root: Path) -> Path:
+    for relative_path, manifest in FAKE_WORKSPACE.items():
+        path = root / relative_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(manifest))
+    (root / "services" / "t.yml").write_text("STAGE: dev\n")
+    return root
