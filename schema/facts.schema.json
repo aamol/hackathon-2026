@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "enginav/facts.schema.json",
+  "title": "EngiNav facts file (contract v0.2 section 5)",
+  "type": "object",
+  "required": ["facts_version", "service", "source_commit", "extracted_at", "nodes", "edges"],
+  "additionalProperties": false,
+  "properties": {
+    "facts_version": { "const": "0.2" },
+    "service": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "source_commit": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" },
+    "extracted_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$" },
+    "nodes": { "type": "array", "items": { "$ref": "#/$defs/node" } },
+    "edges": { "type": "array", "items": { "$ref": "#/$defs/edge" } }
+  },
+  "$defs": {
+    "nodeId": { "type": "string", "pattern": "^(svc|api|evt|q|fn|tbl|fld|test|ext|unres)\\.[a-z0-9][a-z0-9.-]*$" },
+    "node": {
+      "type": "object",
+      "required": ["id", "type", "name"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nodeId" },
+        "type": { "enum": ["service", "api", "event", "queue", "function", "table", "field", "test", "external", "unresolved"] },
+        "name": { "type": "string", "minLength": 1 },
+        "summary": { "type": "string" }
+      },
+      "not": { "anyOf": [
+        { "required": ["edges"] }, { "required": ["sources"] },
+        { "required": ["generated_at"] }, { "required": ["contract_version"] }
+      ] }
+    },
+    "edge": {
+      "type": "object",
+      "required": ["from", "type", "to", "evidence", "snippet", "confidence", "via"],
+      "additionalProperties": false,
+      "properties": {
+        "from": { "$ref": "#/$defs/nodeId" },
+        "type": { "enum": ["EXPOSES", "CALLS", "PUBLISHES", "CONSUMES", "READS", "WRITES", "HAS_FIELD", "TESTS", "DEPENDS_ON"] },
+        "to": { "$ref": "#/$defs/nodeId" },
+        "evidence": { "type": "string", "pattern": "^Unite/.+:[1-9][0-9]*$" },
+        "snippet": { "type": "string", "minLength": 3 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "via": { "type": "string", "pattern": "^(serverless\\.yml|t\\.yml|service-code|package:[a-z0-9@/._-]+)$" },
+        "filter": { "type": "object" }
+      }
+    }
+  }
+}
