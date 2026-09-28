@@ -82,9 +82,39 @@ def test_field_id():
         ids.field_id("svc", "x")
 
 
-def test_test_id_uses_file_name_without_extension():
-    path = "Unite/packages/insight-core/src/eventbridge/asset-created.spec.ts"
-    assert ids.test_id("insight", path) == "test.insight.asset-created-spec"
+@pytest.mark.parametrize(
+    "service, path, expected",
+    [
+        (
+            "asset",
+            "Unite/services/asset/src/handlers/create-asset.spec.ts",
+            "test.asset.handlers-create-asset-spec",
+        ),
+        (
+            "asset",
+            "Unite/services/asset/src/handlers/internal/create-asset.spec.ts",
+            "test.asset.handlers-internal-create-asset-spec",
+        ),
+        (
+            "insight",
+            "Unite/packages/insight-core/src/eventbridge/asset-created.spec.ts",
+            "test.insight.eventbridge-asset-created-spec",
+        ),
+        (
+            "resource",
+            "Unite/services/resource/test/sqs.integration.test.ts",
+            "test.resource.unite-services-resource-test-sqs-integration-test",
+        ),
+    ],
+)
+def test_test_id_uses_path_after_last_src_segment(service, path, expected):
+    assert ids.test_id(service, path) == expected
+
+
+def test_test_id_disambiguates_same_file_name_in_different_directories():
+    outer = ids.test_id("asset", "Unite/services/asset/src/handlers/create-asset.spec.ts")
+    inner = ids.test_id("asset", "Unite/services/asset/src/handlers/internal/create-asset.spec.ts")
+    assert outer != inner
 
 
 def test_unresolved_id_is_deterministic_and_short():
