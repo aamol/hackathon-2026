@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "enginav/vault-note.schema.json",
+  "title": "EngiNav vault note frontmatter (contract v0.2)",
+  "description": "Validates the YAML frontmatter of every vault/**/*.md note. See plan/2026-09-28-00-shared-contract-v0.2.md section 3.",
+  "type": "object",
+  "required": ["id", "type", "name", "generated_at", "contract_version", "sources", "edges"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^(svc|api|evt|q|fn|tbl|fld|test|ext|unres)\\.[a-z0-9][a-z0-9.-]*$" },
+    "type": { "enum": ["service", "api", "event", "queue", "function", "table", "field", "test", "external", "unresolved"] },
+    "name": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "contract_version": { "const": "0.2" },
+    "sources": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "edges": { "type": "array", "items": { "$ref": "#/$defs/edge" } }
+  },
+  "allOf": [
+    { "if": { "properties": { "type": { "const": "service" } } },
+      "then": { "required": ["path"], "properties": { "id": { "pattern": "^svc\\." },
+        "path": { "type": "string", "pattern": "^Unite/services/" },
+        "packages": { "type": "array", "items": { "type": "string" } } } } },
+    { "if": { "properties": { "type": { "const": "api" } } },
+      "then": { "required": ["service", "method", "path", "handler"], "properties": { "id": { "pattern": "^api\\." },
+        "method": { "enum": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS", "ANY"] },
+        "proxy": { "type": "boolean" } } } },
+    { "if": { "properties": { "type": { "const": "event" } } },
+      "then": { "required": ["source", "detail_type"], "properties": { "id": { "pattern": "^evt\\." } } } },
+    { "if": { "properties": { "type": { "const": "queue" } } },
+      "then": { "required": ["physical_name"], "properties": { "id": { "pattern": "^q\\." }, "fifo": { "type": "boolean" } } } },
+    { "if": { "properties": { "type": { "const": "function" } } },
+      "then": { "required": ["service", "function_key"], "properties": { "id": { "pattern": "^fn\\." } } } },
+    { "if": { "properties": { "type": { "const": "table" } } },
+      "then": { "required": ["db", "physical_name"], "properties": { "id": { "pattern": "^tbl\\." }, "db": { "enum": ["dynamodb"] } } } },
+    { "if": { "properties": { "type": { "const": "field" } } },
+      "then": { "required": ["owner", "data_type"], "properties": { "id": { "pattern": "^fld\\." },
+        "pii": { "type": "boolean" },
+        "pii_category": { "enum": ["email", "phone", "name", "address", "id", "financial", "none"] },
+        "pii_confidence": { "type": "number", "minimum": 0, "maximum": 1 } } } },
+    { "if": { "properties": { "type": { "const": "test" } } },
+      "then": { "required": ["file", "framework"], "properties": { "id": { "pattern": "^test\\." },
+        "framework": { "enum": ["jest", "vitest"] } } } },
+    { "if": { "properties": { "type": { "const": "external" } } },
+      "then": { "properties": { "id": { "pattern": "^ext\\." } } } },
+    { "if": { "properties": { "type": { "const": "unresolved" } } },
+      "then": { "required": ["raw", "reason"], "properties": { "id": { "pattern": "^unres\\." } } } }
+  ],
+  "$defs": {
+    "edge": {
+      "type": "object",
+      "required": ["type", "to", "evidence", "confidence", "via"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "enum": ["EXPOSES", "CALLS", "PUBLISHES", "CONSUMES", "READS", "WRITES", "HAS_FIELD", "TESTS", "DEPENDS_ON"] },
+        "to": { "type": "string", "minLength": 1 },
+        "evidence": { "type": "string", "pattern": "^Unite/.+:[0-9]+$" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "via": { "type": "string", "pattern": "^(serverless\\.yml|t\\.yml|service-code|package:[a-z0-9@/._-]+)$" },
+        "filter": { "type": "object" }
+      }
+    }
+  }
+}
