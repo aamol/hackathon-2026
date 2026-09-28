@@ -132,3 +132,79 @@ def test_cli_exit_codes(write_facts, fake_unite, tmp_path):
     unreadable = tmp_path / "insight.json"
     unreadable.write_text("{")
     assert main([str(unreadable), "--unite", str(fake_unite)]) == 2
+
+
+def _edge_messages(data) -> str:
+    return messages(check_facts(parse_facts(data, "test"), None))
+
+
+@pytest.mark.parametrize(
+    "via, evidence, expected",
+    [
+        ("service-code", "Unite/packages/insight-core/src/repo.ts:2",
+         "via service-code requires evidence under Unite/services/insight/"),
+        ("service-code", "Unite/services/asset/src/handler.ts:2",
+         "via service-code requires evidence under Unite/services/insight/"),
+        ("package:insight-core", "Unite/services/insight/src/repo.ts:2",
+         "via package:insight-core requires evidence under Unite/packages/insight-core/"),
+        ("package:asset", "Unite/packages/insight-core/src/repo.ts:2",
+         "via package:asset requires evidence under Unite/packages/asset/"),
+        ("serverless.yml", "Unite/packages/insight-core/src/repo.ts:2",
+         "via serverless.yml requires evidence in a serverless.yml file"),
+        ("t.yml", "Unite/services/insight/serverless.yml:8",
+         "via t.yml requires evidence in a t.yml file"),
+    ],
+)
+def test_via_must_match_evidence_path(via, evidence, expected):
+    data = insight_facts()
+    data["edges"][1].update(via=via, evidence=evidence, confidence=0.5)
+    assert expected in _edge_messages(data)
+
+
+@pytest.mark.parametrize(
+    "via, evidence",
+    [
+        ("service-code", "Unite/services/insight/src/handler.ts:2"),
+        ("package:insight-core", "Unite/packages/insight-core/src/repo.ts:2"),
+        ("package:@wpp/insight-core", "Unite/packages/insight-core/src/repo.ts:2"),
+        ("serverless.yml", "Unite/services/insight/serverless.yml:8"),
+        ("t.yml", "Unite/services/t.yml:10"),
+    ],
+)
+def test_via_matching_evidence_path_is_accepted(via, evidence):
+    data = insight_facts()
+    data["edges"][1].update(via=via, evidence=evidence, confidence=0.5)
+    assert _edge_messages(data) == ""
+
+
+@pytest.mark.parametrize(
+    "via, evidence, confidence, expected",
+    [
+        ("serverless.yml", "Unite/services/insight/serverless.yml:8", 0.9, "expected 1.0 or ≤0.6"),
+        ("t.yml", "Unite/services/t.yml:10", 0.8, "expected 1.0 or ≤0.6"),
+        ("service-code", "Unite/services/insight/src/handler.ts:2", 0.85, "expected 0.9 or ≤0.6"),
+        ("service-code", "Unite/services/insight/src/handler.ts:2", 1.0, "expected 0.9 or ≤0.6"),
+        ("package:insight-core", "Unite/packages/insight-core/src/repo.ts:2", 0.9, "expected 0.8 or ≤0.6"),
+    ],
+)
+def test_confidence_outside_via_tier_is_rejected(via, evidence, confidence, expected):
+    data = insight_facts()
+    data["edges"][1].update(via=via, evidence=evidence, confidence=confidence)
+    assert f"confidence {confidence} not allowed for via {via} ({expected})" in _edge_messages(data)
+
+
+@pytest.mark.parametrize(
+    "via, evidence, confidence",
+    [
+        ("serverless.yml", "Unite/services/insight/serverless.yml:8", 1.0),
+        ("serverless.yml", "Unite/services/insight/serverless.yml:8", 0.6),
+        ("service-code", "Unite/services/insight/src/handler.ts:2", 0.9),
+        ("service-code", "Unite/services/insight/src/handler.ts:2", 0.5),
+        ("package:insight-core", "Unite/packages/insight-core/src/repo.ts:2", 0.8),
+        ("package:insight-core", "Unite/packages/insight-core/src/repo.ts:2", 0.6),
+    ],
+)
+def test_confidence_within_via_tier_is_accepted(via, evidence, confidence):
+    data = insight_facts()
+    data["edges"][1].update(via=via, evidence=evidence, confidence=confidence)
+    assert _edge_messages(data) == ""

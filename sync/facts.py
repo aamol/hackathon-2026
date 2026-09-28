@@ -34,6 +34,14 @@ ALLOWED_EDGES: dict[str, tuple[frozenset[str], frozenset[str]]] = {
 OWNED_ID_PREFIXES = ("api", "fn", "test")
 # ...and the targets of these edges from its service node (so it may declare their fields).
 OWNERSHIP_EDGES = frozenset({"PUBLISHES", "WRITES"})
+# via -> the one confidence allowed for direct evidence; anything else must be inferred (<= INFERRED_CONFIDENCE_MAX).
+DECLARATIVE_VIAS = frozenset({"serverless.yml", "t.yml"})
+SERVICE_CODE_VIA = "service-code"
+PACKAGE_VIA_PREFIX = "package:"
+DECLARATIVE_CONFIDENCE = 1.0
+SERVICE_CODE_CONFIDENCE = 0.9
+PACKAGE_CONFIDENCE = 0.8
+INFERRED_CONFIDENCE_MAX = 0.6
 
 
 class FactsError(Exception):
@@ -143,6 +151,7 @@ def check_facts(facts: FactsFile, unite_root: Path | None) -> CheckedFacts:
     for edge in facts.edges:
         where = f"{facts.service}: {edge['from']} {edge['type']} {edge['to']}"
         edge_messages = _edge_errors(edge, declared, owned, unite_root)
+        edge_messages += _via_errors(edge, facts.service)
         problems += [Problem("error", where, message) for message in edge_messages]
         if not edge_messages:
             edges.append(edge)
@@ -193,6 +202,33 @@ def _edge_errors(edge: dict, declared: set[str], owned: set[str], unite_root: Pa
         problem = evidence_error(edge["evidence"], edge["snippet"], unite_root)
         if problem:
             messages.append(problem)
+    return messages
+
+
+def _via_errors(edge: dict, service: str) -> list[str]:
+    """The via must match where the evidence lives, and the confidence must fit the via's tier."""
+    via, confidence = edge["via"], edge["confidence"]
+    evidence_path = edge["evidence"].rsplit(":", 1)[0]
+    messages = []
+    if via in DECLARATIVE_VIAS:
+        direct_confidence = DECLARATIVE_CONFIDENCE
+        if Path(evidence_path).name != via:
+            messages.append(f"via {via} requires evidence in a {via} file")
+    elif via == SERVICE_CODE_VIA:
+        direct_confidence = SERVICE_CODE_CONFIDENCE
+        expected_prefix = f"Unite/services/{service}/"
+        if not evidence_path.startswith(expected_prefix):
+            messages.append(f"via {via} requires evidence under {expected_prefix}")
+    else:
+        direct_confidence = PACKAGE_CONFIDENCE
+        # No workspace access here: a package lives in packages/<its name without npm scope>.
+        package_directory = via[len(PACKAGE_VIA_PREFIX):].rsplit("/", 1)[-1]
+        expected_prefix = f"Unite/packages/{package_directory}/"
+        if not evidence_path.startswith(expected_prefix):
+            messages.append(f"via {via} requires evidence under {expected_prefix}")
+    if confidence != direct_confidence and confidence > INFERRED_CONFIDENCE_MAX:
+        messages.append(f"confidence {confidence} not allowed for via {via} "
+                        f"(expected {direct_confidence} or ≤{INFERRED_CONFIDENCE_MAX})")
     return messages
 
 
