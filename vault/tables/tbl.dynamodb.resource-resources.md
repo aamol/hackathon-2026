@@ -8,7 +8,7 @@ keys:
   partition: resourceGroupId
   sort: resourceId
 physical_name: resource-${self:custom.T.STAGE}-Resources
-generated_at: '2026-09-28T09:36:30Z'
+generated_at: '2026-09-28T10:17:00Z'
 contract_version: '0.2'
 sources:
 - asset
@@ -76,9 +76,9 @@ edges:
   via: package:resource-types
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.output
-  evidence: Unite/packages/asset-core/src/db/create-asset-from-resource-id.ts:249
+  evidence: Unite/packages/resource-manager/src/resource/update-resource.ts:21
   confidence: 0.8
-  via: package:asset-core
+  via: package:resource-manager
 - type: HAS_FIELD
   to: fld.dynamodb.resource-resources.output
   evidence: Unite/packages/resource-types/src/types.ts:161

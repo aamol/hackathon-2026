@@ -5,9 +5,10 @@ name: resource-queue
 fifo: true
 owner_service: resource
 physical_name: resource-${self:custom.T.STAGE}-queue.fifo
-generated_at: '2026-09-28T09:35:50Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
+- insight
 - resource
 edges:
 - type: HAS_FIELD

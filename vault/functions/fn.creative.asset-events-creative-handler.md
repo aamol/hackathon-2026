@@ -5,7 +5,7 @@ name: assetEventsCreativeHandler
 function_key: assetEventsCreativeHandler
 handler: Unite/services/creative/src/handlers/asset-events-creative/asset-events-creative-handler.ts:46
 service: creative
-generated_at: '2026-09-28T09:40:26Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - creative

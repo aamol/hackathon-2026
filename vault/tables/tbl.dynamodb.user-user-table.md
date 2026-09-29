@@ -4,10 +4,9 @@ type: table
 name: user-user-table
 db: dynamodb
 physical_name: user-${self:custom.T.STAGE}-UserTable
-generated_at: '2026-09-28T09:36:30Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
-- asset
 - insight
 edges: []
 ---

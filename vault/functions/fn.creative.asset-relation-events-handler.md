@@ -5,7 +5,7 @@ name: assetRelationEventsHandler
 function_key: assetRelationEventsHandler
 handler: Unite/services/creative/src/handlers/asset-relation-events/asset-relation-events-handler.ts:95
 service: creative
-generated_at: '2026-09-28T09:40:26Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - creative

@@ -29,16 +29,21 @@ packages:
 - vertexai-img
 - wss
 path: Unite/services/insight
-generated_at: '2026-09-28T09:36:16Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - insight
 edges:
 - type: CALLS
-  to: ext.wss-agents-api
-  evidence: Unite/packages/insight-core/src/insights/wss-agents-resolver.ts:3
-  confidence: 0.8
-  via: package:insight-core
+  to: fn.llm-router-encoder.route
+  evidence: Unite/packages/agentexec/src/utils/encoder-router-client.ts:102
+  confidence: 0.6
+  via: package:agentexec
+- type: CALLS
+  to: fn.switchyard.route
+  evidence: Unite/packages/agentexec/src/utils/llm-router-switchyard.ts:87
+  confidence: 0.6
+  via: package:agentexec
 - type: CONSUMES
   to: evt.asset.asset-created
   evidence: Unite/services/insight/serverless.yml:215
@@ -49,34 +54,34 @@ edges:
     - RESOURCE_MANAGER
 - type: CONSUMES
   to: evt.insight.canvas-created
-  evidence: Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:14
-  confidence: 0.9
-  via: service-code
+  evidence: Unite/services/insight/serverless.yml:172
+  confidence: 0.6
+  via: serverless.yml
 - type: CONSUMES
   to: evt.insight.canvas-deleted
-  evidence: Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:16
-  confidence: 0.9
-  via: service-code
+  evidence: Unite/services/insight/serverless.yml:172
+  confidence: 0.6
+  via: serverless.yml
 - type: CONSUMES
   to: evt.insight.canvas-updated
-  evidence: Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:15
-  confidence: 0.9
-  via: service-code
+  evidence: Unite/services/insight/serverless.yml:172
+  confidence: 0.6
+  via: serverless.yml
 - type: CONSUMES
   to: evt.insight.insight-created
-  evidence: Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:11
-  confidence: 0.9
-  via: service-code
+  evidence: Unite/services/insight/serverless.yml:172
+  confidence: 0.6
+  via: serverless.yml
 - type: CONSUMES
   to: evt.insight.insight-deleted
-  evidence: Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:13
-  confidence: 0.9
-  via: service-code
+  evidence: Unite/services/insight/serverless.yml:172
+  confidence: 0.6
+  via: serverless.yml
 - type: CONSUMES
   to: evt.insight.insight-updated
-  evidence: Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:12
-  confidence: 0.9
-  via: service-code
+  evidence: Unite/services/insight/serverless.yml:172
+  confidence: 0.6
+  via: serverless.yml
 - type: CONSUMES
   to: evt.resource.resource-failed
   evidence: Unite/services/insight/serverless.yml:231
@@ -136,13 +141,18 @@ edges:
   confidence: 1.0
   via: serverless.yml
 - type: DEPENDS_ON
-  to: ext.anthropic-ai-sdk
-  evidence: Unite/packages/agentexec/src/claude/claude-options.ts:1
+  to: ext.anthropic-sdk
+  evidence: Unite/packages/agentexec/src/claude/get-chat-response.ts:2
   confidence: 0.8
   via: package:agentexec
 - type: DEPENDS_ON
   to: ext.google-genai
   evidence: Unite/packages/agentexec/src/gemini/client.ts:1
+  confidence: 0.8
+  via: package:agentexec
+- type: DEPENDS_ON
+  to: ext.launchdarkly
+  evidence: Unite/packages/agentexec/src/utils/llm-router-flags.ts:2
   confidence: 0.8
   via: package:agentexec
 - type: EXPOSES
@@ -297,7 +307,7 @@ edges:
   via: service-code
 - type: PUBLISHES
   to: q.insight-brand-colours-extract-queue
-  evidence: Unite/services/insight/src/application/handlers/events/eb/canvas.ts:24
+  evidence: Unite/services/insight/src/application/handlers/events/eb/canvas.ts:23
   confidence: 0.9
   via: service-code
 - type: PUBLISHES
@@ -316,15 +326,25 @@ edges:
   confidence: 0.9
   via: service-code
 - type: PUBLISHES
+  to: q.insight-generation-queue
+  evidence: Unite/services/insight/src/subscribers/group-generation-publisher.ts:347
+  confidence: 0.9
+  via: service-code
+- type: PUBLISHES
   to: q.insight-image-prompt-build
   evidence: Unite/services/insight/src/application/handlers/http/v1/image-prompts/build-image-prompt.ts:43
   confidence: 0.9
   via: service-code
 - type: PUBLISHES
   to: q.insight-image-prompt-generation-queue
-  evidence: Unite/services/insight/src/application/handlers/events/eb/image-generation.ts:89
+  evidence: Unite/services/insight/src/application/handlers/events/eb/image-generation.ts:81
   confidence: 0.9
   via: service-code
+- type: PUBLISHES
+  to: q.resource-queue
+  evidence: Unite/packages/insight-core/src/service/file-context-aggregator.ts:102
+  confidence: 0.6
+  via: package:insight-core
 - type: READS
   to: tbl.dynamodb.asset-assets
   evidence: Unite/packages/asset/src/db/get-assets-by-id.ts:38
@@ -332,7 +352,7 @@ edges:
   via: package:asset
 - type: READS
   to: tbl.dynamodb.insight-entities
-  evidence: Unite/packages/insight-core/src/db/insight.ts:387
+  evidence: Unite/packages/insight-core/src/db/job.ts:305
   confidence: 0.8
   via: package:insight-core
 - type: READS
@@ -343,24 +363,29 @@ edges:
 - type: READS
   to: tbl.dynamodb.user-user-table
   evidence: Unite/packages/user/src/db/user-entity/repository.ts:152
-  confidence: 0.8
+  confidence: 0.6
   via: package:user
 - type: WRITES
   to: tbl.dynamodb.insight-entities
   evidence: Unite/packages/insight-core/src/db/insight.ts:399
   confidence: 0.8
   via: package:insight-core
+- type: WRITES
+  to: tbl.dynamodb.toolresult-tool-result
+  evidence: Unite/packages/insight-core/src/db/conversation.ts:52
+  confidence: 0.6
+  via: package:insight-core
 ---
 # insight
 
 ## Summary
-Manages canvases, insights, groups and AI-generated summaries/images for the Insight product surface.
+Manages canvases, insights, groups and generation jobs for the Insight product; generates and edits AI insight content via SQS workers and EventBridge, and notifies its own DynamoDB entity changes back onto EventBridge.
 
 ## Links
-- CALLS [[ext.wss-agents-api]]
+- CALLS [[fn.llm-router-encoder.route]], [[fn.switchyard.route]]
 - CONSUMES [[evt.asset.asset-created]], [[evt.insight.canvas-created]], [[evt.insight.canvas-deleted]], [[evt.insight.canvas-updated]], [[evt.insight.insight-created]], [[evt.insight.insight-deleted]], [[evt.insight.insight-updated]], [[evt.resource.resource-failed]], [[q.canvas-suggestions-queue]], [[q.insight-brand-colours-extract-queue]], [[q.insight-bulk-operation-queue]], [[q.insight-conversation-queue]], [[q.insight-editing-dlq]], [[q.insight-editing-queue]], [[q.insight-generation-dlq]], [[q.insight-generation-queue]], [[q.insight-image-prompt-build]], [[q.insight-image-prompt-generation-queue]]
-- DEPENDS_ON [[ext.anthropic-ai-sdk]], [[ext.google-genai]]
+- DEPENDS_ON [[ext.anthropic-sdk]], [[ext.google-genai]], [[ext.launchdarkly]]
 - EXPOSES [[api.insight.delete-v1-insight-proxy]], [[api.insight.get-v1-insight-proxy]], [[api.insight.post-v1-insight-proxy]], [[api.insight.put-v1-insight-proxy]], [[fn.insight.asset-created-listener-handler]], [[fn.insight.brand-colours-extraction-queue-handler]], [[fn.insight.canvas-deleted-dynamo-listener]], [[fn.insight.canvas-suggestions-worker-handler]], [[fn.insight.ddb-event-notification-processor]], [[fn.insight.eventbridge-insight-listener-handler]], [[fn.insight.group-generation-publisher-handler]], [[fn.insight.group-membership-changed-mark-stale-listener]], [[fn.insight.image-generation-reaper-handler]], [[fn.insight.image-prompt-build-worker-handler]], [[fn.insight.image-prompt-generation-worker-handler]], [[fn.insight.insight-bulk-operation-worker-handler]], [[fn.insight.insight-changed-mark-stale-listener]], [[fn.insight.insight-conversation-worker-handler]], [[fn.insight.insight-dlq-consumer-handler]], [[fn.insight.insight-editing-worker-handler]], [[fn.insight.insight-generation-worker-handler]], [[fn.insight.resource-failed-listener-handler]], [[fn.insight.search-index-listener]]
-- PUBLISHES [[evt.insight.canvas-created]], [[evt.insight.canvas-deleted]], [[evt.insight.canvas-updated]], [[evt.insight.insight-created]], [[evt.insight.insight-deleted]], [[evt.insight.insight-updated]], [[q.canvas-suggestions-queue]], [[q.insight-brand-colours-extract-queue]], [[q.insight-bulk-operation-queue]], [[q.insight-conversation-queue]], [[q.insight-editing-queue]], [[q.insight-image-prompt-build]], [[q.insight-image-prompt-generation-queue]]
+- PUBLISHES [[evt.insight.canvas-created]], [[evt.insight.canvas-deleted]], [[evt.insight.canvas-updated]], [[evt.insight.insight-created]], [[evt.insight.insight-deleted]], [[evt.insight.insight-updated]], [[q.canvas-suggestions-queue]], [[q.insight-brand-colours-extract-queue]], [[q.insight-bulk-operation-queue]], [[q.insight-conversation-queue]], [[q.insight-editing-queue]], [[q.insight-generation-queue]], [[q.insight-image-prompt-build]], [[q.insight-image-prompt-generation-queue]], [[q.resource-queue]]
 - READS [[tbl.dynamodb.asset-assets]], [[tbl.dynamodb.insight-entities]], [[tbl.dynamodb.relation-relation-generic]], [[tbl.dynamodb.user-user-table]]
-- WRITES [[tbl.dynamodb.insight-entities]]
+- WRITES [[tbl.dynamodb.insight-entities]], [[tbl.dynamodb.toolresult-tool-result]]

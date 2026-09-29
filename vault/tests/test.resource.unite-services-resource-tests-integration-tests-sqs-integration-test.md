@@ -4,7 +4,7 @@ type: test
 name: sqs.integration.test.ts
 file: Unite/services/resource/tests/integration/tests/sqs.integration.test.ts
 framework: jest
-generated_at: '2026-09-28T09:35:50Z'
+generated_at: '2026-09-28T10:17:00Z'
 contract_version: '0.2'
 sources:
 - resource

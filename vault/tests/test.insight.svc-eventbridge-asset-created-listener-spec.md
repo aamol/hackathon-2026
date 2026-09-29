@@ -4,14 +4,14 @@ type: test
 name: asset-created-listener.spec.ts
 file: Unite/services/insight/src/eventbridge/asset-created-listener.spec.ts
 framework: jest
-generated_at: '2026-09-28T09:36:16Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - insight
 edges:
 - type: TESTS
   to: fn.insight.asset-created-listener-handler
-  evidence: Unite/services/insight/src/eventbridge/asset-created-listener.spec.ts:26
+  evidence: Unite/services/insight/src/eventbridge/asset-created-listener.spec.ts:1
   confidence: 0.9
   via: service-code
 ---

@@ -2,10 +2,9 @@
 id: q.creative-asset-events-creative
 type: queue
 name: creative-asset-events-creative
-dlq: q.creative-events-dlq
 owner_service: creative
 physical_name: creative-${self:custom.T.STAGE}-asset-events-creative
-generated_at: '2026-09-28T09:40:26Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - creative

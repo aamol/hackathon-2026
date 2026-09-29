@@ -7,7 +7,7 @@ handler: Unite/services/creative/src/handlers/creative/get-creative.ts:81
 method: GET
 path: /v1/creative/{creativeId}
 service: creative
-generated_at: '2026-09-28T09:40:26Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - asset

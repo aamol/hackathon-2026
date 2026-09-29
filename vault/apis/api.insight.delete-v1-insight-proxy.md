@@ -8,7 +8,7 @@ method: DELETE
 path: /v1/insight/{proxy+}
 proxy: true
 service: insight
-generated_at: '2026-09-28T09:36:16Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - insight

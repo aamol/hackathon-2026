@@ -3,8 +3,8 @@ id: q.ffmpeg-edit-audio-queue
 type: queue
 name: ffmpeg-edit-audio-queue
 fifo: true
-physical_name: ffmpeg-${STAGE}-edit-audio-queue.fifo
-generated_at: '2026-09-28T09:35:50Z'
+physical_name: ffmpeg-${self:custom.T.STAGE}-edit-audio-queue.fifo
+generated_at: '2026-09-28T10:17:00Z'
 contract_version: '0.2'
 sources:
 - resource

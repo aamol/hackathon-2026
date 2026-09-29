@@ -1,0 +1,17 @@
+{
+  "nodes": [
+    {"id": "answer", "type": "file", "file": "_impact/rename-fld-asset-asset-created-record.md", "x": -760, "y": 0, "width": 640, "height": 720},
+    {"id": "verdict", "type": "text", "text": "**Risk: HIGH** (H1, H2, H3)\nRenaming `record` on AssetCreated breaks insight's rule without any error, widens creative's rule, and touches a PII field.", "x": 0, "y": -260, "width": 640, "height": 160, "color": "1"},
+    {"id": "n0", "type": "file", "file": "fields/fld.asset.asset-created.record.md", "x": 0, "y": 0, "width": 300, "height": 120, "color": "1"},
+    {"id": "n1", "type": "file", "file": "events/evt.asset.asset-created.md", "x": 420, "y": 0, "width": 300, "height": 120, "color": "6"},
+    {"id": "n2", "type": "file", "file": "services/svc.asset.md", "x": 840, "y": 0, "width": 300, "height": 120, "color": "5"},
+    {"id": "n3", "type": "file", "file": "services/svc.creative.md", "x": 840, "y": 180, "width": 300, "height": 120, "color": "5"},
+    {"id": "n4", "type": "file", "file": "services/svc.insight.md", "x": 840, "y": 360, "width": 300, "height": 120, "color": "5"}
+  ],
+  "edges": [
+    {"id": "e0", "fromNode": "n1", "toNode": "n0", "label": "HAS_FIELD", "fromSide": "left", "toSide": "right"},
+    {"id": "e1", "fromNode": "n2", "toNode": "n1", "label": "PUBLISHES", "fromSide": "left", "toSide": "right"},
+    {"id": "e2", "fromNode": "n3", "toNode": "n1", "label": "CONSUMES", "fromSide": "left", "toSide": "right"},
+    {"id": "e3", "fromNode": "n4", "toNode": "n1", "label": "CONSUMES", "fromSide": "left", "toSide": "right"}
+  ]
+}

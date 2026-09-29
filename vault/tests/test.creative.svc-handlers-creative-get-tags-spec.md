@@ -4,14 +4,14 @@ type: test
 name: get-tags.spec.ts
 file: Unite/services/creative/src/handlers/creative/get-tags.spec.ts
 framework: jest
-generated_at: '2026-09-28T09:40:26Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - creative
 edges:
 - type: TESTS
   to: api.creative.get-v1-creative-tag
-  evidence: Unite/services/creative/src/handlers/creative/get-tags.spec.ts:31
+  evidence: Unite/services/creative/src/handlers/creative/get-tags.spec.ts:1
   confidence: 0.9
   via: service-code
 ---

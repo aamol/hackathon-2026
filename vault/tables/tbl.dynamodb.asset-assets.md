@@ -3,12 +3,14 @@ id: tbl.dynamodb.asset-assets
 type: table
 name: asset-assets
 db: dynamodb
-defined_in: Unite/services/asset/serverless.yml:511
+defined_in: Unite/services/asset/serverless.yml:510
 keys:
-  partition: pk
-  sort: sk
+  pk: HASH
+  sk: RANGE
+  gsi1pk: HASH (gsi1)
+  gsi1sk: RANGE (gsi1)
 physical_name: asset-${self:custom.T.STAGE}-Assets
-generated_at: '2026-09-28T09:40:26Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - asset
@@ -70,6 +72,11 @@ edges:
   evidence: Unite/packages/asset-types/src/index.ts:756
   confidence: 0.8
   via: package:asset-types
+- type: HAS_FIELD
+  to: fld.dynamodb.asset-assets.format-id
+  evidence: Unite/packages/creative-core/src/services/migration/backfill-asset-format-id.ts:359
+  confidence: 0.8
+  via: package:creative-core
 - type: HAS_FIELD
   to: fld.dynamodb.asset-assets.gsi1pk
   evidence: Unite/packages/asset-types/src/index.ts:734

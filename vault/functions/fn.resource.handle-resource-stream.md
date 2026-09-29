@@ -5,7 +5,7 @@ name: handleResourceStream
 function_key: handleResourceStream
 handler: Unite/services/resource/src/handlers/stream.ts:68
 service: resource
-generated_at: '2026-09-28T09:35:50Z'
+generated_at: '2026-09-28T10:17:00Z'
 contract_version: '0.2'
 sources:
 - resource

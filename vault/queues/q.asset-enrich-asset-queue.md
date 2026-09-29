@@ -5,7 +5,7 @@ name: asset-enrich-asset-queue
 fifo: true
 owner_service: asset
 physical_name: asset-${self:custom.T.STAGE}-EnrichAsset-queue.fifo
-generated_at: '2026-09-28T09:36:30Z'
+generated_at: '2026-09-28T10:17:00Z'
 contract_version: '0.2'
 sources:
 - asset

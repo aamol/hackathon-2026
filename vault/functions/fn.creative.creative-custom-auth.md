@@ -5,7 +5,7 @@ name: creativeCustomAuth
 function_key: creativeCustomAuth
 handler: Unite/services/creative/src/handlers/authorizer/authorizer-handler.ts:52
 service: creative
-generated_at: '2026-09-28T09:40:26Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - creative

@@ -2,7 +2,7 @@
   "facts_version": "0.2",
   "service": "insight",
   "source_commit": "1207f6f735f0",
-  "extracted_at": "2026-09-28T09:36:16Z",
+  "extracted_at": "2026-09-28T10:17:01Z",
   "nodes": [
     {
       "id": "svc.insight",
@@ -36,7 +36,7 @@
         "vertexai-img",
         "wss"
       ],
-      "summary": "Manages canvases, insights, groups and AI-generated summaries/images for the Insight product surface."
+      "summary": "Manages canvases, insights, groups and generation jobs for the Insight product; generates and edits AI insight content via SQS workers and EventBridge, and notifies its own DynamoDB entity changes back onto EventBridge."
     },
     {
       "id": "api.insight.put-v1-insight-proxy",
@@ -87,152 +87,133 @@
       "type": "function",
       "name": "ddbEventNotificationProcessor",
       "service": "insight",
-      "function_key": "ddbEventNotificationProcessor",
-      "handler": "Unite/services/insight/src/application/handlers/events/ddb/ddb-event-notification.ts:101"
+      "function_key": "ddbEventNotificationProcessor"
     },
     {
       "id": "fn.insight.eventbridge-insight-listener-handler",
       "type": "function",
       "name": "eventbridgeInsightListenerHandler",
       "service": "insight",
-      "function_key": "eventbridgeInsightListenerHandler",
-      "handler": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:73"
+      "function_key": "eventbridgeInsightListenerHandler"
     },
     {
       "id": "fn.insight.group-generation-publisher-handler",
       "type": "function",
       "name": "groupGenerationPublisherHandler",
       "service": "insight",
-      "function_key": "groupGenerationPublisherHandler",
-      "handler": "Unite/services/insight/src/subscribers/group-generation-publisher.ts:500"
+      "function_key": "groupGenerationPublisherHandler"
     },
     {
       "id": "fn.insight.asset-created-listener-handler",
       "type": "function",
       "name": "assetCreatedListenerHandler",
       "service": "insight",
-      "function_key": "assetCreatedListenerHandler",
-      "handler": "Unite/services/insight/src/eventbridge/asset-created-listener.ts:17"
-    },
-    {
-      "id": "fn.insight.insight-generation-worker-handler",
-      "type": "function",
-      "name": "insightGenerationWorkerHandler",
-      "service": "insight",
-      "function_key": "insightGenerationWorkerHandler",
-      "handler": "Unite/services/insight/src/subscribers/insight-generation-worker.ts:342"
-    },
-    {
-      "id": "fn.insight.insight-editing-worker-handler",
-      "type": "function",
-      "name": "insightEditingWorkerHandler",
-      "service": "insight",
-      "function_key": "insightEditingWorkerHandler",
-      "handler": "Unite/services/insight/src/subscribers/insight-editing-worker.ts:519"
-    },
-    {
-      "id": "fn.insight.image-prompt-generation-worker-handler",
-      "type": "function",
-      "name": "imagePromptGenerationWorkerHandler",
-      "service": "insight",
-      "function_key": "imagePromptGenerationWorkerHandler",
-      "handler": "Unite/services/insight/src/application/handlers/sqs/image-prompt-generation-worker.ts:265"
-    },
-    {
-      "id": "fn.insight.canvas-deleted-dynamo-listener",
-      "type": "function",
-      "name": "canvasDeletedDynamoListener",
-      "service": "insight",
-      "function_key": "canvasDeletedDynamoListener",
-      "handler": "Unite/services/insight/src/subscribers/canvas-deleted-dynamo-listener.ts:12"
-    },
-    {
-      "id": "fn.insight.canvas-suggestions-worker-handler",
-      "type": "function",
-      "name": "canvasSuggestionsWorkerHandler",
-      "service": "insight",
-      "function_key": "canvasSuggestionsWorkerHandler",
-      "handler": "Unite/services/insight/src/application/handlers/sqs/canvas-suggestions.ts:92"
-    },
-    {
-      "id": "fn.insight.insight-conversation-worker-handler",
-      "type": "function",
-      "name": "insightConversationWorkerHandler",
-      "service": "insight",
-      "function_key": "insightConversationWorkerHandler",
-      "handler": "Unite/services/insight/src/subscribers/insight-conversation-worker.ts:13"
-    },
-    {
-      "id": "fn.insight.insight-bulk-operation-worker-handler",
-      "type": "function",
-      "name": "insightBulkOperationWorkerHandler",
-      "service": "insight",
-      "function_key": "insightBulkOperationWorkerHandler",
-      "handler": "Unite/services/insight/src/subscribers/insight-bulk-operation-worker.ts:125"
+      "function_key": "assetCreatedListenerHandler"
     },
     {
       "id": "fn.insight.resource-failed-listener-handler",
       "type": "function",
       "name": "resourceFailedListenerHandler",
       "service": "insight",
-      "function_key": "resourceFailedListenerHandler",
-      "handler": "Unite/services/insight/src/eventbridge/resource-failed-listener.ts:6"
+      "function_key": "resourceFailedListenerHandler"
+    },
+    {
+      "id": "fn.insight.insight-generation-worker-handler",
+      "type": "function",
+      "name": "insightGenerationWorkerHandler",
+      "service": "insight",
+      "function_key": "insightGenerationWorkerHandler"
+    },
+    {
+      "id": "fn.insight.insight-editing-worker-handler",
+      "type": "function",
+      "name": "insightEditingWorkerHandler",
+      "service": "insight",
+      "function_key": "insightEditingWorkerHandler"
+    },
+    {
+      "id": "fn.insight.image-prompt-generation-worker-handler",
+      "type": "function",
+      "name": "imagePromptGenerationWorkerHandler",
+      "service": "insight",
+      "function_key": "imagePromptGenerationWorkerHandler"
     },
     {
       "id": "fn.insight.image-prompt-build-worker-handler",
       "type": "function",
       "name": "imagePromptBuildWorkerHandler",
       "service": "insight",
-      "function_key": "imagePromptBuildWorkerHandler",
-      "handler": "Unite/services/insight/src/application/handlers/sqs/image-prompt-build-worker.ts:134"
+      "function_key": "imagePromptBuildWorkerHandler"
+    },
+    {
+      "id": "fn.insight.canvas-deleted-dynamo-listener",
+      "type": "function",
+      "name": "canvasDeletedDynamoListener",
+      "service": "insight",
+      "function_key": "canvasDeletedDynamoListener"
+    },
+    {
+      "id": "fn.insight.canvas-suggestions-worker-handler",
+      "type": "function",
+      "name": "canvasSuggestionsWorkerHandler",
+      "service": "insight",
+      "function_key": "canvasSuggestionsWorkerHandler"
+    },
+    {
+      "id": "fn.insight.insight-conversation-worker-handler",
+      "type": "function",
+      "name": "insightConversationWorkerHandler",
+      "service": "insight",
+      "function_key": "insightConversationWorkerHandler"
+    },
+    {
+      "id": "fn.insight.insight-bulk-operation-worker-handler",
+      "type": "function",
+      "name": "insightBulkOperationWorkerHandler",
+      "service": "insight",
+      "function_key": "insightBulkOperationWorkerHandler"
     },
     {
       "id": "fn.insight.brand-colours-extraction-queue-handler",
       "type": "function",
       "name": "BrandColoursExtractionQueueHandler",
       "service": "insight",
-      "function_key": "BrandColoursExtractionQueueHandler",
-      "handler": "Unite/services/insight/src/application/handlers/sqs/brand-colours-extraction.ts:42"
+      "function_key": "BrandColoursExtractionQueueHandler"
     },
     {
       "id": "fn.insight.search-index-listener",
       "type": "function",
       "name": "searchIndexListener",
       "service": "insight",
-      "function_key": "searchIndexListener",
-      "handler": "Unite/services/insight/src/subscribers/search-index.ts:14"
+      "function_key": "searchIndexListener"
     },
     {
       "id": "fn.insight.insight-changed-mark-stale-listener",
       "type": "function",
       "name": "insightChangedMarkStaleListener",
       "service": "insight",
-      "function_key": "insightChangedMarkStaleListener",
-      "handler": "Unite/services/insight/src/subscribers/insight-changed-dynamo-listener.ts:64"
+      "function_key": "insightChangedMarkStaleListener"
     },
     {
       "id": "fn.insight.group-membership-changed-mark-stale-listener",
       "type": "function",
       "name": "groupMembershipChangedMarkStaleListener",
       "service": "insight",
-      "function_key": "groupMembershipChangedMarkStaleListener",
-      "handler": "Unite/services/insight/src/subscribers/group-membership-changed-dynamo-listener.ts:49"
+      "function_key": "groupMembershipChangedMarkStaleListener"
     },
     {
       "id": "fn.insight.image-generation-reaper-handler",
       "type": "function",
       "name": "imageGenerationReaperHandler",
       "service": "insight",
-      "function_key": "imageGenerationReaperHandler",
-      "handler": "Unite/services/insight/src/application/handlers/scheduled/image-generation-reaper.ts:21"
+      "function_key": "imageGenerationReaperHandler"
     },
     {
       "id": "fn.insight.insight-dlq-consumer-handler",
       "type": "function",
       "name": "insightDLQConsumerHandler",
       "service": "insight",
-      "function_key": "insightDLQConsumerHandler",
-      "handler": "Unite/services/insight/src/subscribers/insight-dlq-consumer.ts:41"
+      "function_key": "insightDLQConsumerHandler"
     },
     {
       "id": "evt.asset.asset-created",
@@ -253,48 +234,42 @@
       "type": "event",
       "name": "INSIGHT.CREATED",
       "source": "insight",
-      "detail_type": "INSIGHT.CREATED",
-      "bus": "default"
+      "detail_type": "INSIGHT.CREATED"
     },
     {
       "id": "evt.insight.insight-updated",
       "type": "event",
       "name": "INSIGHT.UPDATED",
       "source": "insight",
-      "detail_type": "INSIGHT.UPDATED",
-      "bus": "default"
+      "detail_type": "INSIGHT.UPDATED"
     },
     {
       "id": "evt.insight.insight-deleted",
       "type": "event",
       "name": "INSIGHT.DELETED",
       "source": "insight",
-      "detail_type": "INSIGHT.DELETED",
-      "bus": "default"
+      "detail_type": "INSIGHT.DELETED"
     },
     {
       "id": "evt.insight.canvas-created",
       "type": "event",
       "name": "CANVAS.CREATED",
       "source": "insight",
-      "detail_type": "CANVAS.CREATED",
-      "bus": "default"
+      "detail_type": "CANVAS.CREATED"
     },
     {
       "id": "evt.insight.canvas-updated",
       "type": "event",
       "name": "CANVAS.UPDATED",
       "source": "insight",
-      "detail_type": "CANVAS.UPDATED",
-      "bus": "default"
+      "detail_type": "CANVAS.UPDATED"
     },
     {
       "id": "evt.insight.canvas-deleted",
       "type": "event",
       "name": "CANVAS.DELETED",
       "source": "insight",
-      "detail_type": "CANVAS.DELETED",
-      "bus": "default"
+      "detail_type": "CANVAS.DELETED"
     },
     {
       "id": "q.insight-generation-queue",
@@ -359,21 +334,6 @@
       "owner_service": "insight"
     },
     {
-      "id": "q.canvas-suggestions-queue",
-      "type": "queue",
-      "name": "canvas-suggestions-queue",
-      "physical_name": "canvas-suggestions-queue-${self:custom.T.STAGE}",
-      "owner_service": "insight",
-      "dlq": "q.canvas-suggestions-dlq"
-    },
-    {
-      "id": "q.canvas-suggestions-dlq",
-      "type": "queue",
-      "name": "canvas-suggestions-dlq",
-      "physical_name": "canvas-suggestions-dlq-${self:custom.T.STAGE}",
-      "owner_service": "insight"
-    },
-    {
       "id": "q.insight-conversation-queue",
       "type": "queue",
       "name": "insight-conversation-queue",
@@ -419,16 +379,34 @@
       "owner_service": "insight"
     },
     {
+      "id": "q.canvas-suggestions-queue",
+      "type": "queue",
+      "name": "canvas-suggestions-queue",
+      "physical_name": "canvas-suggestions-queue-${self:custom.T.STAGE}",
+      "owner_service": "insight",
+      "dlq": "q.canvas-suggestions-dlq"
+    },
+    {
+      "id": "q.canvas-suggestions-dlq",
+      "type": "queue",
+      "name": "canvas-suggestions-dlq",
+      "physical_name": "canvas-suggestions-dlq-${self:custom.T.STAGE}",
+      "owner_service": "insight"
+    },
+    {
+      "id": "q.resource-queue",
+      "type": "queue",
+      "name": "resource-queue",
+      "physical_name": "resource-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
       "id": "tbl.dynamodb.insight-entities",
       "type": "table",
       "name": "insight-entities",
       "db": "dynamodb",
       "physical_name": "insight-${self:custom.T.STAGE}-Entities",
-      "defined_in": "Unite/services/insight/serverless.yml:578",
-      "keys": [
-        "PK",
-        "SK"
-      ]
+      "defined_in": "Unite/services/insight/serverless.yml:572"
     },
     {
       "id": "tbl.dynamodb.asset-assets",
@@ -452,110 +430,61 @@
       "physical_name": "relation-${self:custom.T.STAGE}-Relation-Generic"
     },
     {
+      "id": "tbl.dynamodb.toolresult-tool-result",
+      "type": "table",
+      "name": "toolresult-tool-result",
+      "db": "dynamodb",
+      "physical_name": "toolresult-${self:custom.T.STAGE}-ToolResult"
+    },
+    {
+      "id": "fn.switchyard.route",
+      "type": "function",
+      "name": "route",
+      "service": "switchyard",
+      "function_key": "route"
+    },
+    {
+      "id": "fn.llm-router-encoder.route",
+      "type": "function",
+      "name": "route",
+      "service": "llm-router-encoder",
+      "function_key": "route"
+    },
+    {
       "id": "ext.google-genai",
       "type": "external",
-      "name": "@google/genai"
+      "name": "google-genai"
     },
     {
-      "id": "ext.anthropic-ai-sdk",
+      "id": "ext.anthropic-sdk",
       "type": "external",
-      "name": "@anthropic-ai/sdk"
+      "name": "anthropic-sdk"
     },
     {
-      "id": "ext.wss-agents-api",
+      "id": "ext.launchdarkly",
       "type": "external",
-      "name": "wss-agents-api",
-      "url": "${WSS_AGENTS_SERVICE_BASE_URL}/v1/wss-agents/svc/*"
+      "name": "launchdarkly"
     },
     {
       "id": "fld.dynamodb.insight-entities.insight-id",
       "type": "field",
       "name": "insightId",
       "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.dynamodb.insight-entities.canvas-id",
       "type": "field",
       "name": "canvasId",
       "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.dynamodb.insight-entities.project-id",
       "type": "field",
       "name": "projectId",
       "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.insight-entities.title",
-      "type": "field",
-      "name": "title",
-      "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.insight-entities.category",
-      "type": "field",
-      "name": "category",
-      "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.insight-entities.description",
-      "type": "field",
-      "name": "description",
-      "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.insight-entities.asset-id",
-      "type": "field",
-      "name": "assetId",
-      "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.insight-entities.wpp-internal-data-flag",
-      "type": "field",
-      "name": "wppInternalDataFlag",
-      "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "boolean",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.insight-entities.conversation",
-      "type": "field",
-      "name": "conversation",
-      "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.dynamodb.insight-entities.created-by",
@@ -568,314 +497,175 @@
       "pii_confidence": 0.6
     },
     {
-      "id": "fld.dynamodb.insight-entities.status",
+      "id": "fld.insight-generation-queue.insight-id",
       "type": "field",
-      "name": "status",
-      "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "name": "insightId",
+      "owner": "q.insight-generation-queue",
+      "data_type": "string"
     },
     {
-      "id": "fld.dynamodb.insight-entities.review-status",
+      "id": "fld.insight-generation-queue.canvas-id",
       "type": "field",
-      "name": "reviewStatus",
-      "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "name": "canvasId",
+      "owner": "q.insight-generation-queue",
+      "data_type": "string"
     },
     {
-      "id": "fld.dynamodb.insight-entities.processing-state",
+      "id": "fld.insight-generation-queue.project-id",
       "type": "field",
-      "name": "processingState",
-      "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "name": "projectId",
+      "owner": "q.insight-generation-queue",
+      "data_type": "string"
     },
     {
-      "id": "fld.dynamodb.insight-entities.media",
+      "id": "fld.insight-editing-queue.insight-id",
       "type": "field",
-      "name": "media",
-      "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "name": "insightId",
+      "owner": "q.insight-editing-queue",
+      "data_type": "string"
     },
     {
-      "id": "fld.dynamodb.insight-entities.header-image",
+      "id": "fld.insight-editing-queue.canvas-id",
       "type": "field",
-      "name": "headerImage",
-      "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "name": "canvasId",
+      "owner": "q.insight-editing-queue",
+      "data_type": "string"
     },
     {
-      "id": "fld.dynamodb.insight-entities.sources",
+      "id": "fld.insight-editing-queue.project-id",
       "type": "field",
-      "name": "sources",
-      "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "list",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "name": "projectId",
+      "owner": "q.insight-editing-queue",
+      "data_type": "string"
     },
     {
-      "id": "fld.dynamodb.insight-entities.image-errors",
+      "id": "fld.insight-image-prompt-generation-queue.id",
       "type": "field",
-      "name": "imageErrors",
-      "owner": "tbl.dynamodb.insight-entities",
-      "data_type": "number",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "name": "id",
+      "owner": "q.insight-image-prompt-generation-queue",
+      "data_type": "string"
     },
     {
-      "id": "fld.insight.insight-created.operation",
+      "id": "fld.insight-image-prompt-generation-queue.timestamp",
       "type": "field",
-      "name": "operation",
-      "owner": "evt.insight.insight-created",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "name": "timestamp",
+      "owner": "q.insight-image-prompt-generation-queue",
+      "data_type": "string"
     },
     {
-      "id": "fld.insight.insight-created.entity-type",
-      "type": "field",
-      "name": "entityType",
-      "owner": "evt.insight.insight-created",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.insight-created.data",
+      "id": "fld.insight-image-prompt-generation-queue.data",
       "type": "field",
       "name": "data",
-      "owner": "evt.insight.insight-created",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "owner": "q.insight-image-prompt-generation-queue",
+      "data_type": "object"
     },
     {
-      "id": "fld.insight.insight-created.previous-data",
+      "id": "fld.insight-image-prompt-build.job-id",
       "type": "field",
-      "name": "previousData",
-      "owner": "evt.insight.insight-created",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "name": "jobId",
+      "owner": "q.insight-image-prompt-build",
+      "data_type": "string"
     },
     {
-      "id": "fld.insight.insight-updated.operation",
+      "id": "fld.insight-image-prompt-build.project-id",
       "type": "field",
-      "name": "operation",
-      "owner": "evt.insight.insight-updated",
+      "name": "projectId",
+      "owner": "q.insight-image-prompt-build",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.insight-image-prompt-build.request",
+      "type": "field",
+      "name": "request",
+      "owner": "q.insight-image-prompt-build",
+      "data_type": "object"
+    },
+    {
+      "id": "fld.insight-conversation-queue.project-id",
+      "type": "field",
+      "name": "projectId",
+      "owner": "q.insight-conversation-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.insight-conversation-queue.canvas-id",
+      "type": "field",
+      "name": "canvasId",
+      "owner": "q.insight-conversation-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.insight-conversation-queue.user-id",
+      "type": "field",
+      "name": "userId",
+      "owner": "q.insight-conversation-queue",
       "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "pii": true,
+      "pii_category": "id",
+      "pii_confidence": 0.6
     },
     {
-      "id": "fld.insight.insight-updated.entity-type",
+      "id": "fld.insight-conversation-queue.insight-id",
       "type": "field",
-      "name": "entityType",
-      "owner": "evt.insight.insight-updated",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "name": "insightId",
+      "owner": "q.insight-conversation-queue",
+      "data_type": "string"
     },
     {
-      "id": "fld.insight.insight-updated.data",
+      "id": "fld.insight-bulk-operation-queue.insight-id",
+      "type": "field",
+      "name": "insightId",
+      "owner": "q.insight-bulk-operation-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.insight-bulk-operation-queue.canvas-id",
+      "type": "field",
+      "name": "canvasId",
+      "owner": "q.insight-bulk-operation-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.insight-bulk-operation-queue.project-id",
+      "type": "field",
+      "name": "projectId",
+      "owner": "q.insight-bulk-operation-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.insight-bulk-operation-queue.job-id",
+      "type": "field",
+      "name": "jobId",
+      "owner": "q.insight-bulk-operation-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.insight-brand-colours-extract-queue.id",
+      "type": "field",
+      "name": "id",
+      "owner": "q.insight-brand-colours-extract-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.insight-brand-colours-extract-queue.timestamp",
+      "type": "field",
+      "name": "timestamp",
+      "owner": "q.insight-brand-colours-extract-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.insight-brand-colours-extract-queue.data",
       "type": "field",
       "name": "data",
-      "owner": "evt.insight.insight-updated",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "owner": "q.insight-brand-colours-extract-queue",
+      "data_type": "object"
     },
     {
-      "id": "fld.insight.insight-updated.previous-data",
+      "id": "fld.canvas-suggestions-queue.job-id",
       "type": "field",
-      "name": "previousData",
-      "owner": "evt.insight.insight-updated",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.insight-deleted.operation",
-      "type": "field",
-      "name": "operation",
-      "owner": "evt.insight.insight-deleted",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.insight-deleted.entity-type",
-      "type": "field",
-      "name": "entityType",
-      "owner": "evt.insight.insight-deleted",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.insight-deleted.data",
-      "type": "field",
-      "name": "data",
-      "owner": "evt.insight.insight-deleted",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.insight-deleted.previous-data",
-      "type": "field",
-      "name": "previousData",
-      "owner": "evt.insight.insight-deleted",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.canvas-created.operation",
-      "type": "field",
-      "name": "operation",
-      "owner": "evt.insight.canvas-created",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.canvas-created.entity-type",
-      "type": "field",
-      "name": "entityType",
-      "owner": "evt.insight.canvas-created",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.canvas-created.data",
-      "type": "field",
-      "name": "data",
-      "owner": "evt.insight.canvas-created",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.canvas-created.previous-data",
-      "type": "field",
-      "name": "previousData",
-      "owner": "evt.insight.canvas-created",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.canvas-updated.operation",
-      "type": "field",
-      "name": "operation",
-      "owner": "evt.insight.canvas-updated",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.canvas-updated.entity-type",
-      "type": "field",
-      "name": "entityType",
-      "owner": "evt.insight.canvas-updated",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.canvas-updated.data",
-      "type": "field",
-      "name": "data",
-      "owner": "evt.insight.canvas-updated",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.canvas-updated.previous-data",
-      "type": "field",
-      "name": "previousData",
-      "owner": "evt.insight.canvas-updated",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.canvas-deleted.operation",
-      "type": "field",
-      "name": "operation",
-      "owner": "evt.insight.canvas-deleted",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.canvas-deleted.entity-type",
-      "type": "field",
-      "name": "entityType",
-      "owner": "evt.insight.canvas-deleted",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.canvas-deleted.data",
-      "type": "field",
-      "name": "data",
-      "owner": "evt.insight.canvas-deleted",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.insight.canvas-deleted.previous-data",
-      "type": "field",
-      "name": "previousData",
-      "owner": "evt.insight.canvas-deleted",
-      "data_type": "object",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "name": "jobId",
+      "owner": "q.canvas-suggestions-queue",
+      "data_type": "string"
     },
     {
       "id": "test.insight.svc-application-handlers-events-ddb-ddb-event-notification-spec",
@@ -892,150 +682,10 @@
       "framework": "jest"
     },
     {
-      "id": "test.insight.svc-subscribers-group-generation-publisher-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-canvas-create-canvas-spec",
       "type": "test",
-      "name": "group-generation-publisher.spec.ts",
-      "file": "Unite/services/insight/src/subscribers/group-generation-publisher.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-eventbridge-asset-created-listener-spec",
-      "type": "test",
-      "name": "asset-created-listener.spec.ts",
-      "file": "Unite/services/insight/src/eventbridge/asset-created-listener.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-subscribers-insight-generation-worker-spec",
-      "type": "test",
-      "name": "insight-generation-worker.spec.ts",
-      "file": "Unite/services/insight/src/subscribers/insight-generation-worker.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-subscribers-insight-editing-worker-spec",
-      "type": "test",
-      "name": "insight-editing-worker.spec.ts",
-      "file": "Unite/services/insight/src/subscribers/insight-editing-worker.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-sqs-image-prompt-generation-worker-spec",
-      "type": "test",
-      "name": "image-prompt-generation-worker.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/sqs/image-prompt-generation-worker.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-subscribers-canvas-deleted-dynamo-listener-spec",
-      "type": "test",
-      "name": "canvas-deleted-dynamo-listener.spec.ts",
-      "file": "Unite/services/insight/src/subscribers/canvas-deleted-dynamo-listener.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-sqs-canvas-suggestions-spec",
-      "type": "test",
-      "name": "canvas-suggestions.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/sqs/canvas-suggestions.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-subscribers-insight-conversation-worker-spec",
-      "type": "test",
-      "name": "insight-conversation-worker.spec.ts",
-      "file": "Unite/services/insight/src/subscribers/insight-conversation-worker.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-subscribers-insight-bulk-operation-worker-spec",
-      "type": "test",
-      "name": "insight-bulk-operation-worker.spec.ts",
-      "file": "Unite/services/insight/src/subscribers/insight-bulk-operation-worker.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-http-v1-insights-create-insight-spec",
-      "type": "test",
-      "name": "create-insight.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/insights/create-insight.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-http-v1-insights-delete-insight-spec",
-      "type": "test",
-      "name": "delete-insight.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/insights/delete-insight.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-http-v1-insights-insight-bulk-ops-update-spec",
-      "type": "test",
-      "name": "insight-bulk-ops-update.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/insights/insight-bulk-ops-update.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-http-v1-insights-list-insights-spec",
-      "type": "test",
-      "name": "list-insights.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/insights/list-insights.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-http-v1-insights-insight-bulk-ops-delete-spec",
-      "type": "test",
-      "name": "insight-bulk-ops-delete.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/insights/insight-bulk-ops-delete.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-http-v1-insights-update-insight-spec",
-      "type": "test",
-      "name": "update-insight.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/insights/update-insight.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-group-insights-spec",
-      "type": "test",
-      "name": "group-insights.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/group-insights.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-ungroup-insights-spec",
-      "type": "test",
-      "name": "ungroup-insights.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/ungroup-insights.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-delete-custom-group-spec",
-      "type": "test",
-      "name": "delete-custom-group.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/delete-custom-group.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-rename-custom-group-spec",
-      "type": "test",
-      "name": "rename-custom-group.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/rename-custom-group.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-create-group-spec",
-      "type": "test",
-      "name": "create-group.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/create-group.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.insight.svc-application-handlers-http-v1-image-prompts-build-image-prompt-spec",
-      "type": "test",
-      "name": "build-image-prompt.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/image-prompts/build-image-prompt.spec.ts",
+      "name": "create-canvas.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/canvas/create-canvas.spec.ts",
       "framework": "jest"
     },
     {
@@ -1060,38 +710,38 @@
       "framework": "jest"
     },
     {
-      "id": "test.insight.svc-application-handlers-http-v1-canvas-create-canvas-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-create-group-spec",
       "type": "test",
-      "name": "create-canvas.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/canvas/create-canvas.spec.ts",
+      "name": "create-group.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/create-group.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.svc-application-handlers-http-v1-group-summaries-revert-summary-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-delete-custom-group-spec",
       "type": "test",
-      "name": "revert-summary.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/revert-summary.spec.ts",
+      "name": "delete-custom-group.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/delete-custom-group.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.svc-application-handlers-http-v1-group-summaries-generate-summary-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-group-insights-spec",
       "type": "test",
-      "name": "generate-summary.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/generate-summary.spec.ts",
+      "name": "group-insights.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/group-insights.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.svc-application-handlers-http-v1-group-summaries-update-summary-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-rename-custom-group-spec",
       "type": "test",
-      "name": "update-summary.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/update-summary.spec.ts",
+      "name": "rename-custom-group.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/rename-custom-group.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.insight.svc-application-handlers-http-v1-group-summaries-get-summary-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-custom-groups-ungroup-insights-spec",
       "type": "test",
-      "name": "get-summary.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/get-summary.spec.ts",
+      "name": "ungroup-insights.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/ungroup-insights.spec.ts",
       "framework": "jest"
     },
     {
@@ -1102,10 +752,80 @@
       "framework": "jest"
     },
     {
-      "id": "test.insight.svc-application-handlers-http-v1-suggestions-canvas-form-suggest-spec",
+      "id": "test.insight.svc-application-handlers-http-v1-group-summaries-generate-summary-spec",
       "type": "test",
-      "name": "canvas-form-suggest.spec.ts",
-      "file": "Unite/services/insight/src/application/handlers/http/v1/suggestions/canvas-form-suggest.spec.ts",
+      "name": "generate-summary.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/generate-summary.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-handlers-http-v1-group-summaries-get-summary-spec",
+      "type": "test",
+      "name": "get-summary.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/get-summary.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-handlers-http-v1-group-summaries-revert-summary-spec",
+      "type": "test",
+      "name": "revert-summary.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/revert-summary.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-handlers-http-v1-group-summaries-update-summary-spec",
+      "type": "test",
+      "name": "update-summary.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/update-summary.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-handlers-http-v1-image-prompts-build-image-prompt-spec",
+      "type": "test",
+      "name": "build-image-prompt.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/image-prompts/build-image-prompt.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-handlers-http-v1-insights-create-insight-spec",
+      "type": "test",
+      "name": "create-insight.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/insights/create-insight.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-handlers-http-v1-insights-delete-insight-spec",
+      "type": "test",
+      "name": "delete-insight.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/insights/delete-insight.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-handlers-http-v1-insights-insight-bulk-ops-delete-spec",
+      "type": "test",
+      "name": "insight-bulk-ops-delete.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/insights/insight-bulk-ops-delete.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-handlers-http-v1-insights-insight-bulk-ops-update-spec",
+      "type": "test",
+      "name": "insight-bulk-ops-update.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/insights/insight-bulk-ops-update.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-handlers-http-v1-insights-list-insights-spec",
+      "type": "test",
+      "name": "list-insights.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/insights/list-insights.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-handlers-http-v1-insights-update-insight-spec",
+      "type": "test",
+      "name": "update-insight.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/insights/update-insight.spec.ts",
       "framework": "jest"
     },
     {
@@ -1113,6 +833,195 @@
       "type": "test",
       "name": "autocomplete.spec.ts",
       "file": "Unite/services/insight/src/application/handlers/http/v1/suggestions/autocomplete.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-handlers-http-v1-suggestions-canvas-form-suggest-spec",
+      "type": "test",
+      "name": "canvas-form-suggest.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/http/v1/suggestions/canvas-form-suggest.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-handlers-sqs-canvas-suggestions-spec",
+      "type": "test",
+      "name": "canvas-suggestions.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/sqs/canvas-suggestions.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-handlers-sqs-image-prompt-generation-worker-spec",
+      "type": "test",
+      "name": "image-prompt-generation-worker.spec.ts",
+      "file": "Unite/services/insight/src/application/handlers/sqs/image-prompt-generation-worker.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-application-services-media-populate-media-for-entity-service-spec",
+      "type": "test",
+      "name": "populate-media-for-entity.service.spec.ts",
+      "file": "Unite/services/insight/src/application/services/media/populate-media-for-entity.service.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-domain-common-assert-never-spec",
+      "type": "test",
+      "name": "assert-never.spec.ts",
+      "file": "Unite/services/insight/src/domain/common/assert-never.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-domain-common-generation-style-spec",
+      "type": "test",
+      "name": "generation-style.spec.ts",
+      "file": "Unite/services/insight/src/domain/common/generation-style.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-domain-common-parse-helper-spec",
+      "type": "test",
+      "name": "parse.helper.spec.ts",
+      "file": "Unite/services/insight/src/domain/common/parse.helper.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-eventbridge-asset-created-listener-spec",
+      "type": "test",
+      "name": "asset-created-listener.spec.ts",
+      "file": "Unite/services/insight/src/eventbridge/asset-created-listener.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-infra-adapters-agent-brand-colours-agent-schema-spec",
+      "type": "test",
+      "name": "brand-colours-agent.schema.spec.ts",
+      "file": "Unite/services/insight/src/infra/adapters/agent/brand-colours-agent.schema.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-infra-adapters-agent-utils-invoke-structured-agent-spec",
+      "type": "test",
+      "name": "invoke-structured-agent.spec.ts",
+      "file": "Unite/services/insight/src/infra/adapters/agent/utils/invoke-structured-agent.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-infra-adapters-agent-utils-json-spec",
+      "type": "test",
+      "name": "json.spec.ts",
+      "file": "Unite/services/insight/src/infra/adapters/agent/utils/json.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-infra-adapters-env-env-adapter-spec",
+      "type": "test",
+      "name": "env.adapter.spec.ts",
+      "file": "Unite/services/insight/src/infra/adapters/env/env.adapter.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-infra-adapters-events-ddb-stream-adapter-spec",
+      "type": "test",
+      "name": "ddb.stream.adapter.spec.ts",
+      "file": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-infra-adapters-events-eventbridge-adapter-spec",
+      "type": "test",
+      "name": "eventbridge.adapter.spec.ts",
+      "file": "Unite/services/insight/src/infra/adapters/events/eventbridge.adapter.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-infra-adapters-http-schemas-canvas-schemas-http-spec",
+      "type": "test",
+      "name": "canvas.schemas.http.spec.ts",
+      "file": "Unite/services/insight/src/infra/adapters/http/schemas/canvas.schemas.http.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-infra-adapters-http-schemas-group-summary-schemas-http-spec",
+      "type": "test",
+      "name": "group-summary.schemas.http.spec.ts",
+      "file": "Unite/services/insight/src/infra/adapters/http/schemas/group-summary.schemas.http.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-infra-adapters-http-schemas-group-schemas-http-spec",
+      "type": "test",
+      "name": "group.schemas.http.spec.ts",
+      "file": "Unite/services/insight/src/infra/adapters/http/schemas/group.schemas.http.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-infra-adapters-http-schemas-image-prompt-schemas-http-spec",
+      "type": "test",
+      "name": "image-prompt.schemas.http.spec.ts",
+      "file": "Unite/services/insight/src/infra/adapters/http/schemas/image-prompt.schemas.http.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-infra-adapters-http-schemas-insight-schemas-http-spec",
+      "type": "test",
+      "name": "insight.schemas.http.spec.ts",
+      "file": "Unite/services/insight/src/infra/adapters/http/schemas/insight.schemas.http.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-infra-adapters-queue-common-spec",
+      "type": "test",
+      "name": "common.spec.ts",
+      "file": "Unite/services/insight/src/infra/adapters/queue/common.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-subscribers-canvas-deleted-dynamo-listener-spec",
+      "type": "test",
+      "name": "canvas-deleted-dynamo-listener.spec.ts",
+      "file": "Unite/services/insight/src/subscribers/canvas-deleted-dynamo-listener.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-subscribers-group-generation-publisher-spec",
+      "type": "test",
+      "name": "group-generation-publisher.spec.ts",
+      "file": "Unite/services/insight/src/subscribers/group-generation-publisher.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-subscribers-image-generation-dynamo-listener-spec",
+      "type": "test",
+      "name": "image-generation-dynamo-listener.spec.ts",
+      "file": "Unite/services/insight/src/subscribers/image-generation-dynamo-listener.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-subscribers-insight-bulk-operation-worker-spec",
+      "type": "test",
+      "name": "insight-bulk-operation-worker.spec.ts",
+      "file": "Unite/services/insight/src/subscribers/insight-bulk-operation-worker.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-subscribers-insight-conversation-worker-spec",
+      "type": "test",
+      "name": "insight-conversation-worker.spec.ts",
+      "file": "Unite/services/insight/src/subscribers/insight-conversation-worker.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-subscribers-insight-editing-worker-spec",
+      "type": "test",
+      "name": "insight-editing-worker.spec.ts",
+      "file": "Unite/services/insight/src/subscribers/insight-editing-worker.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.insight.svc-subscribers-insight-generation-worker-spec",
+      "type": "test",
+      "name": "insight-generation-worker.spec.ts",
+      "file": "Unite/services/insight/src/subscribers/insight-generation-worker.spec.ts",
       "framework": "jest"
     },
     {
@@ -1165,7 +1074,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.ddb-event-notification-processor",
       "evidence": "Unite/services/insight/serverless.yml:138",
-      "snippet": "src/application/handlers/events/ddb/ddb-event-notification.eventNotificationProcessor",
+      "snippet": "eventNotificationProcessor",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1174,7 +1083,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.eventbridge-insight-listener-handler",
       "evidence": "Unite/services/insight/serverless.yml:159",
-      "snippet": "src/application/handlers/events/eb/eventbridge.eventbridgeEventProcessor",
+      "snippet": "eventbridgeEventProcessor",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1183,7 +1092,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.group-generation-publisher-handler",
       "evidence": "Unite/services/insight/serverless.yml:175",
-      "snippet": "src/http.groupGenerationPublisher",
+      "snippet": "groupGenerationPublisher",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1192,7 +1101,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.asset-created-listener-handler",
       "evidence": "Unite/services/insight/serverless.yml:200",
-      "snippet": "src/http.assetCreated",
+      "snippet": "assetCreated",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1201,7 +1110,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.resource-failed-listener-handler",
       "evidence": "Unite/services/insight/serverless.yml:222",
-      "snippet": "src/http.resourceFailedListener",
+      "snippet": "resourceFailedListener",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1210,7 +1119,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.insight-generation-worker-handler",
       "evidence": "Unite/services/insight/serverless.yml:237",
-      "snippet": "src/http.insightGenerationWorker",
+      "snippet": "insightGenerationWorker",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1219,7 +1128,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.insight-editing-worker-handler",
       "evidence": "Unite/services/insight/serverless.yml:247",
-      "snippet": "src/http.insightEditingWorker",
+      "snippet": "insightEditingWorker",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1228,7 +1137,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.image-prompt-generation-worker-handler",
       "evidence": "Unite/services/insight/serverless.yml:258",
-      "snippet": "src/application/handlers/sqs/sqs.imagePromptGenerationWorker",
+      "snippet": "imagePromptGenerationWorker",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1237,7 +1146,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.image-prompt-build-worker-handler",
       "evidence": "Unite/services/insight/serverless.yml:267",
-      "snippet": "src/application/handlers/sqs/sqs.imagePromptBuildWorker",
+      "snippet": "imagePromptBuildWorker",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1246,7 +1155,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.canvas-deleted-dynamo-listener",
       "evidence": "Unite/services/insight/serverless.yml:277",
-      "snippet": "src/http.canvasDeletedDynamoListener",
+      "snippet": "canvasDeletedDynamoListener",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1255,7 +1164,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.canvas-suggestions-worker-handler",
       "evidence": "Unite/services/insight/serverless.yml:303",
-      "snippet": "src/application/handlers/sqs/sqs.canvasSuggestionsQueueHandler",
+      "snippet": "canvasSuggestionsQueueHandler",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1264,7 +1173,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.insight-conversation-worker-handler",
       "evidence": "Unite/services/insight/serverless.yml:311",
-      "snippet": "src/http.insightConversationWorker",
+      "snippet": "insightConversationWorker",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1273,7 +1182,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.insight-bulk-operation-worker-handler",
       "evidence": "Unite/services/insight/serverless.yml:320",
-      "snippet": "src/http.insightBulkOperationWorker",
+      "snippet": "insightBulkOperationWorker",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1282,7 +1191,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.brand-colours-extraction-queue-handler",
       "evidence": "Unite/services/insight/serverless.yml:329",
-      "snippet": "src/application/handlers/sqs/brand-colours-extraction.handler",
+      "snippet": "brand-colours-extraction.handler",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1291,7 +1200,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.search-index-listener",
       "evidence": "Unite/services/insight/serverless.yml:338",
-      "snippet": "src/http.searchIndex",
+      "snippet": "searchIndex",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1300,7 +1209,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.insight-changed-mark-stale-listener",
       "evidence": "Unite/services/insight/serverless.yml:379",
-      "snippet": "src/http.insightChangedMarkStale",
+      "snippet": "insightChangedMarkStale",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1309,7 +1218,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.group-membership-changed-mark-stale-listener",
       "evidence": "Unite/services/insight/serverless.yml:403",
-      "snippet": "src/http.groupMembershipChangedMarkStale",
+      "snippet": "groupMembershipChangedMarkStale",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1318,7 +1227,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.image-generation-reaper-handler",
       "evidence": "Unite/services/insight/serverless.yml:431",
-      "snippet": "src/application/handlers/scheduled/scheduled.imageGenerationReaper",
+      "snippet": "imageGenerationReaper",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1327,7 +1236,7 @@
       "type": "EXPOSES",
       "to": "fn.insight.insight-dlq-consumer-handler",
       "evidence": "Unite/services/insight/serverless.yml:440",
-      "snippet": "src/http.insightDLQConsumer",
+      "snippet": "insightDLQConsumer",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1363,53 +1272,107 @@
       "from": "svc.insight",
       "type": "CONSUMES",
       "to": "evt.insight.insight-created",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:11",
-      "snippet": "INSIGHT.CREATED",
-      "confidence": 0.9,
-      "via": "service-code"
+      "evidence": "Unite/services/insight/serverless.yml:172",
+      "snippet": "insight.${self:custom.T.STAGE}",
+      "confidence": 0.6,
+      "via": "serverless.yml"
     },
     {
       "from": "svc.insight",
       "type": "CONSUMES",
       "to": "evt.insight.insight-updated",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:12",
-      "snippet": "INSIGHT.UPDATED",
-      "confidence": 0.9,
-      "via": "service-code"
+      "evidence": "Unite/services/insight/serverless.yml:172",
+      "snippet": "insight.${self:custom.T.STAGE}",
+      "confidence": 0.6,
+      "via": "serverless.yml"
     },
     {
       "from": "svc.insight",
       "type": "CONSUMES",
       "to": "evt.insight.insight-deleted",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:13",
-      "snippet": "INSIGHT.DELETED",
-      "confidence": 0.9,
-      "via": "service-code"
+      "evidence": "Unite/services/insight/serverless.yml:172",
+      "snippet": "insight.${self:custom.T.STAGE}",
+      "confidence": 0.6,
+      "via": "serverless.yml"
     },
     {
       "from": "svc.insight",
       "type": "CONSUMES",
       "to": "evt.insight.canvas-created",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:14",
-      "snippet": "CANVAS.CREATED",
-      "confidence": 0.9,
-      "via": "service-code"
+      "evidence": "Unite/services/insight/serverless.yml:172",
+      "snippet": "insight.${self:custom.T.STAGE}",
+      "confidence": 0.6,
+      "via": "serverless.yml"
     },
     {
       "from": "svc.insight",
       "type": "CONSUMES",
       "to": "evt.insight.canvas-updated",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:15",
-      "snippet": "CANVAS.UPDATED",
-      "confidence": 0.9,
-      "via": "service-code"
+      "evidence": "Unite/services/insight/serverless.yml:172",
+      "snippet": "insight.${self:custom.T.STAGE}",
+      "confidence": 0.6,
+      "via": "serverless.yml"
     },
     {
       "from": "svc.insight",
       "type": "CONSUMES",
       "to": "evt.insight.canvas-deleted",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:16",
-      "snippet": "CANVAS.DELETED",
+      "evidence": "Unite/services/insight/serverless.yml:172",
+      "snippet": "insight.${self:custom.T.STAGE}",
+      "confidence": 0.6,
+      "via": "serverless.yml"
+    },
+    {
+      "from": "svc.insight",
+      "type": "PUBLISHES",
+      "to": "evt.insight.insight-created",
+      "evidence": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.ts:173",
+      "snippet": "detailType: eventType",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.insight",
+      "type": "PUBLISHES",
+      "to": "evt.insight.insight-updated",
+      "evidence": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.ts:173",
+      "snippet": "detailType: eventType",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.insight",
+      "type": "PUBLISHES",
+      "to": "evt.insight.insight-deleted",
+      "evidence": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.ts:173",
+      "snippet": "detailType: eventType",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.insight",
+      "type": "PUBLISHES",
+      "to": "evt.insight.canvas-created",
+      "evidence": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.ts:173",
+      "snippet": "detailType: eventType",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.insight",
+      "type": "PUBLISHES",
+      "to": "evt.insight.canvas-updated",
+      "evidence": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.ts:173",
+      "snippet": "detailType: eventType",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.insight",
+      "type": "PUBLISHES",
+      "to": "evt.insight.canvas-deleted",
+      "evidence": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.ts:173",
+      "snippet": "detailType: eventType",
       "confidence": 0.9,
       "via": "service-code"
     },
@@ -1418,7 +1381,7 @@
       "type": "CONSUMES",
       "to": "q.insight-generation-queue",
       "evidence": "Unite/services/insight/serverless.yml:241",
-      "snippet": "InsightGenerationQueue",
+      "snippet": "InsightGenerationQueue.Arn",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1427,7 +1390,7 @@
       "type": "CONSUMES",
       "to": "q.insight-editing-queue",
       "evidence": "Unite/services/insight/serverless.yml:251",
-      "snippet": "InsightEditingQueue",
+      "snippet": "InsightEditingQueue.Arn",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1436,7 +1399,7 @@
       "type": "CONSUMES",
       "to": "q.insight-image-prompt-generation-queue",
       "evidence": "Unite/services/insight/serverless.yml:262",
-      "snippet": "InsightImagePromptGenerationQueue",
+      "snippet": "InsightImagePromptGenerationQueue.Arn",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1445,7 +1408,7 @@
       "type": "CONSUMES",
       "to": "q.insight-image-prompt-build",
       "evidence": "Unite/services/insight/serverless.yml:271",
-      "snippet": "InsightImagePromptBuildQueue",
+      "snippet": "InsightImagePromptBuildQueue.Arn",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1454,7 +1417,7 @@
       "type": "CONSUMES",
       "to": "q.canvas-suggestions-queue",
       "evidence": "Unite/services/insight/serverless.yml:307",
-      "snippet": "CanvasSuggestionsQueue",
+      "snippet": "CanvasSuggestionsQueue.Arn",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1463,7 +1426,7 @@
       "type": "CONSUMES",
       "to": "q.insight-conversation-queue",
       "evidence": "Unite/services/insight/serverless.yml:315",
-      "snippet": "InsightConversationQueue",
+      "snippet": "InsightConversationQueue.Arn",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1472,7 +1435,7 @@
       "type": "CONSUMES",
       "to": "q.insight-bulk-operation-queue",
       "evidence": "Unite/services/insight/serverless.yml:324",
-      "snippet": "InsightBulkOperationQueue",
+      "snippet": "InsightBulkOperationQueue.Arn",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1481,7 +1444,7 @@
       "type": "CONSUMES",
       "to": "q.insight-brand-colours-extract-queue",
       "evidence": "Unite/services/insight/serverless.yml:333",
-      "snippet": "BrandColoursExtractionQueue",
+      "snippet": "BrandColoursExtractionQueue.Arn",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1490,7 +1453,7 @@
       "type": "CONSUMES",
       "to": "q.insight-generation-dlq",
       "evidence": "Unite/services/insight/serverless.yml:444",
-      "snippet": "InsightGenerationDLQ",
+      "snippet": "InsightGenerationDLQ.Arn",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1499,70 +1462,16 @@
       "type": "CONSUMES",
       "to": "q.insight-editing-dlq",
       "evidence": "Unite/services/insight/serverless.yml:447",
-      "snippet": "InsightEditingDLQ",
+      "snippet": "InsightEditingDLQ.Arn",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
     {
       "from": "svc.insight",
       "type": "PUBLISHES",
-      "to": "evt.insight.insight-created",
-      "evidence": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.ts:173",
-      "snippet": "detailType",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.insight",
-      "type": "PUBLISHES",
-      "to": "evt.insight.insight-updated",
-      "evidence": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.ts:173",
-      "snippet": "detailType",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.insight",
-      "type": "PUBLISHES",
-      "to": "evt.insight.insight-deleted",
-      "evidence": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.ts:173",
-      "snippet": "detailType",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.insight",
-      "type": "PUBLISHES",
-      "to": "evt.insight.canvas-created",
-      "evidence": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.ts:173",
-      "snippet": "detailType",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.insight",
-      "type": "PUBLISHES",
-      "to": "evt.insight.canvas-updated",
-      "evidence": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.ts:173",
-      "snippet": "detailType",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.insight",
-      "type": "PUBLISHES",
-      "to": "evt.insight.canvas-deleted",
-      "evidence": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.ts:173",
-      "snippet": "detailType",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.insight",
-      "type": "PUBLISHES",
       "to": "q.insight-brand-colours-extract-queue",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/canvas.ts:24",
-      "snippet": "queuePort.enqueue",
+      "evidence": "Unite/services/insight/src/application/handlers/events/eb/canvas.ts:23",
+      "snippet": "INSIGHT_BRAND_COLOURS_EXTRACT_QUEUE_NAME",
       "confidence": 0.9,
       "via": "service-code"
     },
@@ -1570,8 +1479,8 @@
       "from": "svc.insight",
       "type": "PUBLISHES",
       "to": "q.insight-image-prompt-generation-queue",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/image-generation.ts:89",
-      "snippet": "queuePort.enqueue",
+      "evidence": "Unite/services/insight/src/application/handlers/events/eb/image-generation.ts:81",
+      "snippet": "INSIGHT_IMAGE_GENERATION_QUEUE_NAME",
       "confidence": 0.9,
       "via": "service-code"
     },
@@ -1580,25 +1489,7 @@
       "type": "PUBLISHES",
       "to": "q.insight-bulk-operation-queue",
       "evidence": "Unite/services/insight/src/infra/adapters/queue/enqueue-insight-for-bulk-operations.ts:69",
-      "snippet": "new SendMessageCommand",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.insight",
-      "type": "PUBLISHES",
-      "to": "q.insight-image-prompt-build",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/image-prompts/build-image-prompt.ts:43",
-      "snippet": "new SendMessageCommand",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.insight",
-      "type": "PUBLISHES",
-      "to": "q.canvas-suggestions-queue",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/suggestions/canvas-form-suggest.ts:114",
-      "snippet": "new SendMessageCommand",
+      "snippet": "SendMessageCommand",
       "confidence": 0.9,
       "via": "service-code"
     },
@@ -1607,7 +1498,25 @@
       "type": "PUBLISHES",
       "to": "q.insight-editing-queue",
       "evidence": "Unite/services/insight/src/subscribers/insight-generation-worker.ts:292",
-      "snippet": "new SendMessageCommand",
+      "snippet": "SendMessageCommand",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.insight",
+      "type": "PUBLISHES",
+      "to": "q.insight-image-prompt-build",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/image-prompts/build-image-prompt.ts:43",
+      "snippet": "SendMessageCommand",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.insight",
+      "type": "PUBLISHES",
+      "to": "q.canvas-suggestions-queue",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/suggestions/canvas-form-suggest.ts:114",
+      "snippet": "SendMessageCommand",
       "confidence": 0.9,
       "via": "service-code"
     },
@@ -1616,16 +1525,34 @@
       "type": "PUBLISHES",
       "to": "q.insight-conversation-queue",
       "evidence": "Unite/packages/insight-core/src/queue/enqueue-insight-for-conversation.ts:28",
-      "snippet": "new SendMessageCommand",
+      "snippet": "SendMessageCommand(commandInput)",
       "confidence": 0.8,
+      "via": "package:insight-core"
+    },
+    {
+      "from": "svc.insight",
+      "type": "PUBLISHES",
+      "to": "q.insight-generation-queue",
+      "evidence": "Unite/services/insight/src/subscribers/group-generation-publisher.ts:347",
+      "snippet": "sendSqsMessageWithJitter({",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.insight",
+      "type": "PUBLISHES",
+      "to": "q.resource-queue",
+      "evidence": "Unite/packages/insight-core/src/service/file-context-aggregator.ts:102",
+      "snippet": "addRequest(rmRequestInput)",
+      "confidence": 0.6,
       "via": "package:insight-core"
     },
     {
       "from": "svc.insight",
       "type": "READS",
       "to": "tbl.dynamodb.insight-entities",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:387",
-      "snippet": "BatchGetCommand",
+      "evidence": "Unite/packages/insight-core/src/db/job.ts:305",
+      "snippet": "QueryCommand",
       "confidence": 0.8,
       "via": "package:insight-core"
     },
@@ -1641,20 +1568,20 @@
     {
       "from": "svc.insight",
       "type": "READS",
-      "to": "tbl.dynamodb.user-user-table",
-      "evidence": "Unite/packages/user/src/db/user-entity/repository.ts:152",
-      "snippet": ".build(QueryCommand)",
-      "confidence": 0.8,
-      "via": "package:user"
-    },
-    {
-      "from": "svc.insight",
-      "type": "READS",
       "to": "tbl.dynamodb.relation-relation-generic",
       "evidence": "Unite/packages/relation/src/get-relation.ts:33",
       "snippet": "dynamoDb.get",
       "confidence": 0.8,
       "via": "package:relation"
+    },
+    {
+      "from": "svc.insight",
+      "type": "READS",
+      "to": "tbl.dynamodb.user-user-table",
+      "evidence": "Unite/packages/user/src/db/user-entity/repository.ts:152",
+      "snippet": "QueryCommand",
+      "confidence": 0.6,
+      "via": "package:user"
     },
     {
       "from": "svc.insight",
@@ -1667,406 +1594,316 @@
     },
     {
       "from": "svc.insight",
+      "type": "WRITES",
+      "to": "tbl.dynamodb.toolresult-tool-result",
+      "evidence": "Unite/packages/insight-core/src/db/conversation.ts:52",
+      "snippet": "createToolResult(",
+      "confidence": 0.6,
+      "via": "package:insight-core"
+    },
+    {
+      "from": "svc.insight",
+      "type": "CALLS",
+      "to": "fn.switchyard.route",
+      "evidence": "Unite/packages/agentexec/src/utils/llm-router-switchyard.ts:87",
+      "snippet": "FunctionName: functionName",
+      "confidence": 0.6,
+      "via": "package:agentexec"
+    },
+    {
+      "from": "svc.insight",
+      "type": "CALLS",
+      "to": "fn.llm-router-encoder.route",
+      "evidence": "Unite/packages/agentexec/src/utils/encoder-router-client.ts:102",
+      "snippet": "new InvokeCommand({ FunctionName: functionName",
+      "confidence": 0.6,
+      "via": "package:agentexec"
+    },
+    {
+      "from": "svc.insight",
       "type": "DEPENDS_ON",
       "to": "ext.google-genai",
       "evidence": "Unite/packages/agentexec/src/gemini/client.ts:1",
-      "snippet": "GoogleGenAI",
+      "snippet": "@google/genai",
       "confidence": 0.8,
       "via": "package:agentexec"
     },
     {
       "from": "svc.insight",
       "type": "DEPENDS_ON",
-      "to": "ext.anthropic-ai-sdk",
-      "evidence": "Unite/packages/agentexec/src/claude/claude-options.ts:1",
+      "to": "ext.anthropic-sdk",
+      "evidence": "Unite/packages/agentexec/src/claude/get-chat-response.ts:2",
       "snippet": "@anthropic-ai/sdk",
       "confidence": 0.8,
       "via": "package:agentexec"
     },
     {
       "from": "svc.insight",
-      "type": "CALLS",
-      "to": "ext.wss-agents-api",
-      "evidence": "Unite/packages/insight-core/src/insights/wss-agents-resolver.ts:3",
-      "snippet": "wss-agents-client",
+      "type": "DEPENDS_ON",
+      "to": "ext.launchdarkly",
+      "evidence": "Unite/packages/agentexec/src/utils/llm-router-flags.ts:2",
+      "snippet": "launchdarkly-node",
       "confidence": 0.8,
-      "via": "package:insight-core"
+      "via": "package:agentexec"
     },
     {
       "from": "tbl.dynamodb.insight-entities",
       "type": "HAS_FIELD",
       "to": "fld.dynamodb.insight-entities.insight-id",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:71",
+      "evidence": "Unite/packages/insight-types/src/types.ts:162",
       "snippet": "insightId",
       "confidence": 0.8,
-      "via": "package:insight-core"
+      "via": "package:insight-types"
     },
     {
       "from": "tbl.dynamodb.insight-entities",
       "type": "HAS_FIELD",
       "to": "fld.dynamodb.insight-entities.canvas-id",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:72",
+      "evidence": "Unite/packages/insight-types/src/types.ts:163",
       "snippet": "canvasId",
       "confidence": 0.8,
-      "via": "package:insight-core"
+      "via": "package:insight-types"
     },
     {
       "from": "tbl.dynamodb.insight-entities",
       "type": "HAS_FIELD",
       "to": "fld.dynamodb.insight-entities.project-id",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:73",
+      "evidence": "Unite/packages/insight-types/src/types.ts:164",
       "snippet": "projectId",
       "confidence": 0.8,
-      "via": "package:insight-core"
-    },
-    {
-      "from": "tbl.dynamodb.insight-entities",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.insight-entities.title",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:75",
-      "snippet": "title",
-      "confidence": 0.8,
-      "via": "package:insight-core"
-    },
-    {
-      "from": "tbl.dynamodb.insight-entities",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.insight-entities.category",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:76",
-      "snippet": "category",
-      "confidence": 0.8,
-      "via": "package:insight-core"
-    },
-    {
-      "from": "tbl.dynamodb.insight-entities",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.insight-entities.description",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:77",
-      "snippet": "description",
-      "confidence": 0.8,
-      "via": "package:insight-core"
-    },
-    {
-      "from": "tbl.dynamodb.insight-entities",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.insight-entities.asset-id",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:79",
-      "snippet": "assetId",
-      "confidence": 0.8,
-      "via": "package:insight-core"
-    },
-    {
-      "from": "tbl.dynamodb.insight-entities",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.insight-entities.wpp-internal-data-flag",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:80",
-      "snippet": "wppInternalDataFlag",
-      "confidence": 0.8,
-      "via": "package:insight-core"
-    },
-    {
-      "from": "tbl.dynamodb.insight-entities",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.insight-entities.conversation",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:81",
-      "snippet": "conversation",
-      "confidence": 0.8,
-      "via": "package:insight-core"
+      "via": "package:insight-types"
     },
     {
       "from": "tbl.dynamodb.insight-entities",
       "type": "HAS_FIELD",
       "to": "fld.dynamodb.insight-entities.created-by",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:83",
+      "evidence": "Unite/packages/insight-types/src/types.ts:176",
       "snippet": "createdBy",
       "confidence": 0.8,
-      "via": "package:insight-core"
+      "via": "package:insight-types"
     },
     {
-      "from": "tbl.dynamodb.insight-entities",
+      "from": "q.insight-generation-queue",
       "type": "HAS_FIELD",
-      "to": "fld.dynamodb.insight-entities.status",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:84",
-      "snippet": "status",
-      "confidence": 0.8,
-      "via": "package:insight-core"
-    },
-    {
-      "from": "tbl.dynamodb.insight-entities",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.insight-entities.review-status",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:85",
-      "snippet": "reviewStatus",
-      "confidence": 0.8,
-      "via": "package:insight-core"
-    },
-    {
-      "from": "tbl.dynamodb.insight-entities",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.insight-entities.processing-state",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:86",
-      "snippet": "processingState",
-      "confidence": 0.8,
-      "via": "package:insight-core"
-    },
-    {
-      "from": "tbl.dynamodb.insight-entities",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.insight-entities.media",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:87",
-      "snippet": "media",
-      "confidence": 0.8,
-      "via": "package:insight-core"
-    },
-    {
-      "from": "tbl.dynamodb.insight-entities",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.insight-entities.header-image",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:88",
-      "snippet": "headerImage",
-      "confidence": 0.8,
-      "via": "package:insight-core"
-    },
-    {
-      "from": "tbl.dynamodb.insight-entities",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.insight-entities.sources",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:90",
-      "snippet": "sources",
-      "confidence": 0.8,
-      "via": "package:insight-core"
-    },
-    {
-      "from": "tbl.dynamodb.insight-entities",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.insight-entities.image-errors",
-      "evidence": "Unite/packages/insight-core/src/db/insight.ts:97",
-      "snippet": "imageErrors",
-      "confidence": 0.8,
-      "via": "package:insight-core"
-    },
-    {
-      "from": "evt.insight.insight-created",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.insight-created.operation",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:20",
-      "snippet": "operation",
+      "to": "fld.insight-generation-queue.insight-id",
+      "evidence": "Unite/services/insight/src/domain/types/queue-messages.ts:15",
+      "snippet": "insightId",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "evt.insight.insight-created",
+      "from": "q.insight-generation-queue",
       "type": "HAS_FIELD",
-      "to": "fld.insight.insight-created.entity-type",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:24",
-      "snippet": "entityType",
+      "to": "fld.insight-generation-queue.canvas-id",
+      "evidence": "Unite/services/insight/src/domain/types/queue-messages.ts:16",
+      "snippet": "canvasId",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "evt.insight.insight-created",
+      "from": "q.insight-generation-queue",
       "type": "HAS_FIELD",
-      "to": "fld.insight.insight-created.data",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:25",
+      "to": "fld.insight-generation-queue.project-id",
+      "evidence": "Unite/services/insight/src/domain/types/queue-messages.ts:17",
+      "snippet": "projectId",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "q.insight-editing-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-editing-queue.insight-id",
+      "evidence": "Unite/packages/insight-types/src/types.ts:352",
+      "snippet": "insightId",
+      "confidence": 0.8,
+      "via": "package:insight-types"
+    },
+    {
+      "from": "q.insight-editing-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-editing-queue.canvas-id",
+      "evidence": "Unite/packages/insight-types/src/types.ts:353",
+      "snippet": "canvasId",
+      "confidence": 0.8,
+      "via": "package:insight-types"
+    },
+    {
+      "from": "q.insight-editing-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-editing-queue.project-id",
+      "evidence": "Unite/packages/insight-types/src/types.ts:354",
+      "snippet": "projectId",
+      "confidence": 0.8,
+      "via": "package:insight-types"
+    },
+    {
+      "from": "q.insight-image-prompt-generation-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-image-prompt-generation-queue.id",
+      "evidence": "Unite/services/insight/src/application/handlers/events/eb/image-generation.ts:93",
+      "snippet": "id: insightId",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "q.insight-image-prompt-generation-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-image-prompt-generation-queue.timestamp",
+      "evidence": "Unite/services/insight/src/application/handlers/events/eb/image-generation.ts:94",
+      "snippet": "timestamp",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "q.insight-image-prompt-generation-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-image-prompt-generation-queue.data",
+      "evidence": "Unite/services/insight/src/application/handlers/events/eb/image-generation.ts:95",
       "snippet": "data",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "evt.insight.insight-created",
+      "from": "q.insight-image-prompt-build",
       "type": "HAS_FIELD",
-      "to": "fld.insight.insight-created.previous-data",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:26",
-      "snippet": "previousData",
+      "to": "fld.insight-image-prompt-build.job-id",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/image-prompts/build-image-prompt.ts:24",
+      "snippet": "jobId",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "evt.insight.insight-updated",
+      "from": "q.insight-image-prompt-build",
       "type": "HAS_FIELD",
-      "to": "fld.insight.insight-updated.operation",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:20",
-      "snippet": "operation",
+      "to": "fld.insight-image-prompt-build.project-id",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/image-prompts/build-image-prompt.ts:25",
+      "snippet": "projectId",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "evt.insight.insight-updated",
+      "from": "q.insight-image-prompt-build",
       "type": "HAS_FIELD",
-      "to": "fld.insight.insight-updated.entity-type",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:24",
-      "snippet": "entityType",
+      "to": "fld.insight-image-prompt-build.request",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/image-prompts/build-image-prompt.ts:26",
+      "snippet": "request",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "evt.insight.insight-updated",
+      "from": "q.insight-conversation-queue",
       "type": "HAS_FIELD",
-      "to": "fld.insight.insight-updated.data",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:25",
+      "to": "fld.insight-conversation-queue.project-id",
+      "evidence": "Unite/packages/insight-types/src/types.ts:458",
+      "snippet": "projectId",
+      "confidence": 0.8,
+      "via": "package:insight-types"
+    },
+    {
+      "from": "q.insight-conversation-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-conversation-queue.canvas-id",
+      "evidence": "Unite/packages/insight-types/src/types.ts:459",
+      "snippet": "canvasId",
+      "confidence": 0.8,
+      "via": "package:insight-types"
+    },
+    {
+      "from": "q.insight-conversation-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-conversation-queue.user-id",
+      "evidence": "Unite/packages/insight-types/src/types.ts:460",
+      "snippet": "userId",
+      "confidence": 0.8,
+      "via": "package:insight-types"
+    },
+    {
+      "from": "q.insight-conversation-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-conversation-queue.insight-id",
+      "evidence": "Unite/packages/insight-types/src/types.ts:461",
+      "snippet": "insightId",
+      "confidence": 0.8,
+      "via": "package:insight-types"
+    },
+    {
+      "from": "q.insight-bulk-operation-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-bulk-operation-queue.insight-id",
+      "evidence": "Unite/packages/insight-types/src/types.ts:472",
+      "snippet": "insightId",
+      "confidence": 0.8,
+      "via": "package:insight-types"
+    },
+    {
+      "from": "q.insight-bulk-operation-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-bulk-operation-queue.canvas-id",
+      "evidence": "Unite/packages/insight-types/src/types.ts:473",
+      "snippet": "canvasId",
+      "confidence": 0.8,
+      "via": "package:insight-types"
+    },
+    {
+      "from": "q.insight-bulk-operation-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-bulk-operation-queue.project-id",
+      "evidence": "Unite/packages/insight-types/src/types.ts:474",
+      "snippet": "projectId",
+      "confidence": 0.8,
+      "via": "package:insight-types"
+    },
+    {
+      "from": "q.insight-bulk-operation-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-bulk-operation-queue.job-id",
+      "evidence": "Unite/packages/insight-types/src/types.ts:475",
+      "snippet": "jobId",
+      "confidence": 0.8,
+      "via": "package:insight-types"
+    },
+    {
+      "from": "q.insight-brand-colours-extract-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-brand-colours-extract-queue.id",
+      "evidence": "Unite/services/insight/src/application/handlers/events/eb/canvas.ts:27",
+      "snippet": "id: canvasId",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "q.insight-brand-colours-extract-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-brand-colours-extract-queue.timestamp",
+      "evidence": "Unite/services/insight/src/application/handlers/events/eb/canvas.ts:28",
+      "snippet": "timestamp",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "q.insight-brand-colours-extract-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.insight-brand-colours-extract-queue.data",
+      "evidence": "Unite/services/insight/src/application/handlers/events/eb/canvas.ts:29",
       "snippet": "data",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "evt.insight.insight-updated",
+      "from": "q.canvas-suggestions-queue",
       "type": "HAS_FIELD",
-      "to": "fld.insight.insight-updated.previous-data",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:26",
-      "snippet": "previousData",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.insight-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.insight-deleted.operation",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:20",
-      "snippet": "operation",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.insight-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.insight-deleted.entity-type",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:24",
-      "snippet": "entityType",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.insight-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.insight-deleted.data",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:25",
-      "snippet": "data",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.insight-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.insight-deleted.previous-data",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:26",
-      "snippet": "previousData",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.canvas-created",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.canvas-created.operation",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:20",
-      "snippet": "operation",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.canvas-created",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.canvas-created.entity-type",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:30",
-      "snippet": "entityType",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.canvas-created",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.canvas-created.data",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:31",
-      "snippet": "data",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.canvas-created",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.canvas-created.previous-data",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:32",
-      "snippet": "previousData",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.canvas-updated",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.canvas-updated.operation",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:20",
-      "snippet": "operation",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.canvas-updated",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.canvas-updated.entity-type",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:30",
-      "snippet": "entityType",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.canvas-updated",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.canvas-updated.data",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:31",
-      "snippet": "data",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.canvas-updated",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.canvas-updated.previous-data",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:32",
-      "snippet": "previousData",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.canvas-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.canvas-deleted.operation",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:20",
-      "snippet": "operation",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.canvas-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.canvas-deleted.entity-type",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:30",
-      "snippet": "entityType",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.canvas-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.canvas-deleted.data",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:31",
-      "snippet": "data",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "evt.insight.canvas-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.insight.canvas-deleted.previous-data",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.ts:32",
-      "snippet": "previousData",
-      "confidence": 0.9,
-      "via": "service-code"
+      "to": "fld.canvas-suggestions-queue.job-id",
+      "evidence": "Unite/packages/insight-types/src/types.ts:495",
+      "snippet": "jobId",
+      "confidence": 0.8,
+      "via": "package:insight-types"
     },
     {
       "from": "test.insight.svc-application-handlers-events-ddb-ddb-event-notification-spec",
       "type": "TESTS",
       "to": "fn.insight.ddb-event-notification-processor",
-      "evidence": "Unite/services/insight/src/application/handlers/events/ddb/ddb-event-notification.spec.ts:28",
-      "snippet": "eventNotificationProcessor",
+      "evidence": "Unite/services/insight/src/application/handlers/events/ddb/ddb-event-notification.spec.ts:1",
+      "snippet": "eslint-disable import/first",
       "confidence": 0.9,
       "via": "service-code"
     },
@@ -2074,224 +1911,8 @@
       "from": "test.insight.svc-application-handlers-events-eb-eventbridge-spec",
       "type": "TESTS",
       "to": "fn.insight.eventbridge-insight-listener-handler",
-      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.spec.ts:32",
-      "snippet": "eventbridgeEventProcessor",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-subscribers-group-generation-publisher-spec",
-      "type": "TESTS",
-      "to": "fn.insight.group-generation-publisher-handler",
-      "evidence": "Unite/services/insight/src/subscribers/group-generation-publisher.spec.ts:69",
-      "snippet": "groupGenerationPublisher",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-eventbridge-asset-created-listener-spec",
-      "type": "TESTS",
-      "to": "fn.insight.asset-created-listener-handler",
-      "evidence": "Unite/services/insight/src/eventbridge/asset-created-listener.spec.ts:26",
-      "snippet": "assetCreatedListener",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-subscribers-insight-generation-worker-spec",
-      "type": "TESTS",
-      "to": "fn.insight.insight-generation-worker-handler",
-      "evidence": "Unite/services/insight/src/subscribers/insight-generation-worker.spec.ts:62",
-      "snippet": "insightGenerationWorker",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-subscribers-insight-editing-worker-spec",
-      "type": "TESTS",
-      "to": "fn.insight.insight-editing-worker-handler",
-      "evidence": "Unite/services/insight/src/subscribers/insight-editing-worker.spec.ts:38",
-      "snippet": "insightEditingWorker",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-sqs-image-prompt-generation-worker-spec",
-      "type": "TESTS",
-      "to": "fn.insight.image-prompt-generation-worker-handler",
-      "evidence": "Unite/services/insight/src/application/handlers/sqs/image-prompt-generation-worker.spec.ts:115",
-      "snippet": "imagePromptGenerationWorker",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-subscribers-canvas-deleted-dynamo-listener-spec",
-      "type": "TESTS",
-      "to": "fn.insight.canvas-deleted-dynamo-listener",
-      "evidence": "Unite/services/insight/src/subscribers/canvas-deleted-dynamo-listener.spec.ts:28",
-      "snippet": "canvasDeletedDynamoListener",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-sqs-canvas-suggestions-spec",
-      "type": "TESTS",
-      "to": "fn.insight.canvas-suggestions-worker-handler",
-      "evidence": "Unite/services/insight/src/application/handlers/sqs/canvas-suggestions.spec.ts:154",
-      "snippet": "canvasSuggestionsQueueHandler",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-subscribers-insight-conversation-worker-spec",
-      "type": "TESTS",
-      "to": "fn.insight.insight-conversation-worker-handler",
-      "evidence": "Unite/services/insight/src/subscribers/insight-conversation-worker.spec.ts:37",
-      "snippet": "insightConversationWorker",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-subscribers-insight-bulk-operation-worker-spec",
-      "type": "TESTS",
-      "to": "fn.insight.insight-bulk-operation-worker-handler",
-      "evidence": "Unite/services/insight/src/subscribers/insight-bulk-operation-worker.spec.ts:22",
-      "snippet": "insightBulkOperationWorker",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-insights-create-insight-spec",
-      "type": "TESTS",
-      "to": "api.insight.post-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/create-insight.spec.ts:47",
-      "snippet": "createInsight",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-insights-delete-insight-spec",
-      "type": "TESTS",
-      "to": "api.insight.delete-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/delete-insight.spec.ts:78",
-      "snippet": "delete-insight processor",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-insights-insight-bulk-ops-update-spec",
-      "type": "TESTS",
-      "to": "api.insight.post-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/insight-bulk-ops-update.spec.ts:53",
-      "snippet": "insightBulkOpsHandler",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-insights-list-insights-spec",
-      "type": "TESTS",
-      "to": "api.insight.get-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/list-insights.spec.ts:103",
-      "snippet": "listInsightsHandler",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-insights-insight-bulk-ops-delete-spec",
-      "type": "TESTS",
-      "to": "api.insight.post-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/insight-bulk-ops-delete.spec.ts:54",
-      "snippet": "insightBulkOpsHandler",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-insights-update-insight-spec",
-      "type": "TESTS",
-      "to": "api.insight.put-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/update-insight.spec.ts:125",
-      "snippet": "update-insight processor",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-group-insights-spec",
-      "type": "TESTS",
-      "to": "api.insight.post-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/group-insights.spec.ts:50",
-      "snippet": "groupInsights",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-ungroup-insights-spec",
-      "type": "TESTS",
-      "to": "api.insight.delete-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/ungroup-insights.spec.ts:82",
-      "snippet": "ungroup-insights processor",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-delete-custom-group-spec",
-      "type": "TESTS",
-      "to": "api.insight.delete-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/delete-custom-group.spec.ts:79",
-      "snippet": "delete-custom-group processor",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-rename-custom-group-spec",
-      "type": "TESTS",
-      "to": "api.insight.put-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/rename-custom-group.spec.ts:93",
-      "snippet": "rename-custom-group processor",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-create-group-spec",
-      "type": "TESTS",
-      "to": "api.insight.post-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/create-group.spec.ts:48",
-      "snippet": "createGroup",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-image-prompts-build-image-prompt-spec",
-      "type": "TESTS",
-      "to": "api.insight.post-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/image-prompts/build-image-prompt.spec.ts:107",
-      "snippet": "build-image-prompt processor",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-canvas-delete-canvas-spec",
-      "type": "TESTS",
-      "to": "api.insight.delete-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/canvas/delete-canvas.spec.ts:82",
-      "snippet": "delete-canvas processor",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-canvas-list-canvases-spec",
-      "type": "TESTS",
-      "to": "api.insight.get-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/canvas/list-canvases.spec.ts:81",
-      "snippet": "listCanvasesHandler",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-canvas-update-canvas-spec",
-      "type": "TESTS",
-      "to": "api.insight.put-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/canvas/update-canvas.spec.ts:171",
-      "snippet": "update-canvas processor",
+      "evidence": "Unite/services/insight/src/application/handlers/events/eb/eventbridge.spec.ts:1",
+      "snippet": "eslint-disable import/first",
       "confidence": 0.9,
       "via": "service-code"
     },
@@ -2299,44 +1920,80 @@
       "from": "test.insight.svc-application-handlers-http-v1-canvas-create-canvas-spec",
       "type": "TESTS",
       "to": "api.insight.post-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/canvas/create-canvas.spec.ts:107",
-      "snippet": "create-canvas processor",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/canvas/create-canvas.spec.ts:1",
+      "snippet": "Set required environment variable",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.svc-application-handlers-http-v1-group-summaries-revert-summary-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-canvas-delete-canvas-spec",
       "type": "TESTS",
-      "to": "api.insight.post-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/revert-summary.spec.ts:37",
-      "snippet": "revertSummary handler",
+      "to": "api.insight.delete-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/canvas/delete-canvas.spec.ts:1",
+      "snippet": "eslint-disable import/first",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.svc-application-handlers-http-v1-group-summaries-generate-summary-spec",
-      "type": "TESTS",
-      "to": "api.insight.post-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/generate-summary.spec.ts:76",
-      "snippet": "generateSummary",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-group-summaries-update-summary-spec",
-      "type": "TESTS",
-      "to": "api.insight.put-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/update-summary.spec.ts:129",
-      "snippet": "update-summary processor",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.insight.svc-application-handlers-http-v1-group-summaries-get-summary-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-canvas-list-canvases-spec",
       "type": "TESTS",
       "to": "api.insight.get-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/get-summary.spec.ts:67",
-      "snippet": "getSummary handler",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/canvas/list-canvases.spec.ts:1",
+      "snippet": "APIGatewayProxyEvent",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-canvas-update-canvas-spec",
+      "type": "TESTS",
+      "to": "api.insight.put-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/canvas/update-canvas.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-create-group-spec",
+      "type": "TESTS",
+      "to": "api.insight.post-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/create-group.spec.ts:1",
+      "snippet": "eslint-disable import/no-extraneous-dependencies",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-delete-custom-group-spec",
+      "type": "TESTS",
+      "to": "api.insight.delete-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/delete-custom-group.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-group-insights-spec",
+      "type": "TESTS",
+      "to": "api.insight.post-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/group-insights.spec.ts:1",
+      "snippet": "eslint-disable import/no-extraneous-dependencies",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-rename-custom-group-spec",
+      "type": "TESTS",
+      "to": "api.insight.put-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/rename-custom-group.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-custom-groups-ungroup-insights-spec",
+      "type": "TESTS",
+      "to": "api.insight.delete-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/custom-groups/ungroup-insights.spec.ts:1",
+      "snippet": "eslint-disable import/first",
       "confidence": 0.9,
       "via": "service-code"
     },
@@ -2344,17 +2001,107 @@
       "from": "test.insight.svc-application-handlers-http-v1-group-summaries-delete-summary-spec",
       "type": "TESTS",
       "to": "api.insight.delete-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/delete-summary.spec.ts:79",
-      "snippet": "delete-summary processor",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/delete-summary.spec.ts:1",
+      "snippet": "eslint-disable import/first",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "test.insight.svc-application-handlers-http-v1-suggestions-canvas-form-suggest-spec",
+      "from": "test.insight.svc-application-handlers-http-v1-group-summaries-generate-summary-spec",
       "type": "TESTS",
       "to": "api.insight.post-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/suggestions/canvas-form-suggest.spec.ts:312",
-      "snippet": "processor",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/generate-summary.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-group-summaries-get-summary-spec",
+      "type": "TESTS",
+      "to": "api.insight.get-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/get-summary.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-group-summaries-revert-summary-spec",
+      "type": "TESTS",
+      "to": "api.insight.post-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/revert-summary.spec.ts:1",
+      "snippet": "buildSuccessResponse",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-group-summaries-update-summary-spec",
+      "type": "TESTS",
+      "to": "api.insight.put-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/group-summaries/update-summary.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-image-prompts-build-image-prompt-spec",
+      "type": "TESTS",
+      "to": "api.insight.post-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/image-prompts/build-image-prompt.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-insights-create-insight-spec",
+      "type": "TESTS",
+      "to": "api.insight.post-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/create-insight.spec.ts:1",
+      "snippet": "eslint-disable import/no-extraneous-dependencies",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-insights-delete-insight-spec",
+      "type": "TESTS",
+      "to": "api.insight.delete-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/delete-insight.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-insights-insight-bulk-ops-delete-spec",
+      "type": "TESTS",
+      "to": "api.insight.post-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/insight-bulk-ops-delete.spec.ts:1",
+      "snippet": "INSIGHT_ENTITY_TABLE_NAME",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-insights-insight-bulk-ops-update-spec",
+      "type": "TESTS",
+      "to": "api.insight.post-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/insight-bulk-ops-update.spec.ts:1",
+      "snippet": "INSIGHT_ENTITY_TABLE_NAME",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-insights-list-insights-spec",
+      "type": "TESTS",
+      "to": "api.insight.get-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/list-insights.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-insights-update-insight-spec",
+      "type": "TESTS",
+      "to": "api.insight.put-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/insights/update-insight.spec.ts:1",
+      "snippet": "eslint-disable import/first",
       "confidence": 0.9,
       "via": "service-code"
     },
@@ -2362,8 +2109,251 @@
       "from": "test.insight.svc-application-handlers-http-v1-suggestions-autocomplete-spec",
       "type": "TESTS",
       "to": "api.insight.get-v1-insight-proxy",
-      "evidence": "Unite/services/insight/src/application/handlers/http/v1/suggestions/autocomplete.spec.ts:101",
-      "snippet": "autocomplete handler",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/suggestions/autocomplete.spec.ts:1",
+      "snippet": "no-explicit-any",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-http-v1-suggestions-canvas-form-suggest-spec",
+      "type": "TESTS",
+      "to": "api.insight.post-v1-insight-proxy",
+      "evidence": "Unite/services/insight/src/application/handlers/http/v1/suggestions/canvas-form-suggest.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-sqs-canvas-suggestions-spec",
+      "type": "TESTS",
+      "to": "fn.insight.canvas-suggestions-worker-handler",
+      "evidence": "Unite/services/insight/src/application/handlers/sqs/canvas-suggestions.spec.ts:1",
+      "snippet": "INSIGHT_ENTITY_TABLE_NAME",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-handlers-sqs-image-prompt-generation-worker-spec",
+      "type": "TESTS",
+      "to": "fn.insight.image-prompt-generation-worker-handler",
+      "evidence": "Unite/services/insight/src/application/handlers/sqs/image-prompt-generation-worker.spec.ts:1",
+      "snippet": "INSIGHT_ENTITY_TABLE_NAME",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-application-services-media-populate-media-for-entity-service-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/application/services/media/populate-media-for-entity.service.spec.ts:1",
+      "snippet": "runImagePromptAgentWithAssertions",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-domain-common-assert-never-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/domain/common/assert-never.spec.ts:1",
+      "snippet": "assertNever",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-domain-common-generation-style-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/domain/common/generation-style.spec.ts:1",
+      "snippet": "ImageGenerationStyle",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-domain-common-parse-helper-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/domain/common/parse.helper.spec.ts:1",
+      "snippet": "import * as z from",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-eventbridge-asset-created-listener-spec",
+      "type": "TESTS",
+      "to": "fn.insight.asset-created-listener-handler",
+      "evidence": "Unite/services/insight/src/eventbridge/asset-created-listener.spec.ts:1",
+      "snippet": "AssetEventDetail",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-infra-adapters-agent-brand-colours-agent-schema-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/infra/adapters/agent/brand-colours-agent.schema.spec.ts:1",
+      "snippet": "BrandColoursAgentPaletteSchema",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-infra-adapters-agent-utils-invoke-structured-agent-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/infra/adapters/agent/utils/invoke-structured-agent.spec.ts:1",
+      "snippet": "mockUseAgent",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-infra-adapters-agent-utils-json-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/infra/adapters/agent/utils/json.spec.ts:1",
+      "snippet": "extractJsonFromLlmResponse",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-infra-adapters-env-env-adapter-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/infra/adapters/env/env.adapter.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-infra-adapters-events-ddb-stream-adapter-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/infra/adapters/events/ddb.stream.adapter.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-infra-adapters-events-eventbridge-adapter-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/infra/adapters/events/eventbridge.adapter.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-infra-adapters-http-schemas-canvas-schemas-http-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/infra/adapters/http/schemas/canvas.schemas.http.spec.ts:1",
+      "snippet": "CanvasIdSchema",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-infra-adapters-http-schemas-group-summary-schemas-http-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/infra/adapters/http/schemas/group-summary.schemas.http.spec.ts:1",
+      "snippet": "UpdateSummaryBodySchema",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-infra-adapters-http-schemas-group-schemas-http-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/infra/adapters/http/schemas/group.schemas.http.spec.ts:1",
+      "snippet": "GroupType",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-infra-adapters-http-schemas-image-prompt-schemas-http-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/infra/adapters/http/schemas/image-prompt.schemas.http.spec.ts:1",
+      "snippet": "BuildImagePromptBodySchema",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-infra-adapters-http-schemas-insight-schemas-http-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/infra/adapters/http/schemas/insight.schemas.http.spec.ts:1",
+      "snippet": "import {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-infra-adapters-queue-common-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/infra/adapters/queue/common.spec.ts:1",
+      "snippet": "REGION",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-subscribers-canvas-deleted-dynamo-listener-spec",
+      "type": "TESTS",
+      "to": "fn.insight.canvas-deleted-dynamo-listener",
+      "evidence": "Unite/services/insight/src/subscribers/canvas-deleted-dynamo-listener.spec.ts:1",
+      "snippet": "DynamoDBBatchResponse",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-subscribers-group-generation-publisher-spec",
+      "type": "TESTS",
+      "to": "fn.insight.group-generation-publisher-handler",
+      "evidence": "Unite/services/insight/src/subscribers/group-generation-publisher.spec.ts:1",
+      "snippet": "Set required environment variable",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-subscribers-image-generation-dynamo-listener-spec",
+      "type": "TESTS",
+      "to": "svc.insight",
+      "evidence": "Unite/services/insight/src/subscribers/image-generation-dynamo-listener.spec.ts:1",
+      "snippet": "Set required environment variable",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-subscribers-insight-bulk-operation-worker-spec",
+      "type": "TESTS",
+      "to": "fn.insight.insight-bulk-operation-worker-handler",
+      "evidence": "Unite/services/insight/src/subscribers/insight-bulk-operation-worker.spec.ts:1",
+      "snippet": "INSIGHT_ENTITY_TABLE_NAME",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-subscribers-insight-conversation-worker-spec",
+      "type": "TESTS",
+      "to": "fn.insight.insight-conversation-worker-handler",
+      "evidence": "Unite/services/insight/src/subscribers/insight-conversation-worker.spec.ts:1",
+      "snippet": "eslint-disable import/first",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-subscribers-insight-editing-worker-spec",
+      "type": "TESTS",
+      "to": "fn.insight.insight-editing-worker-handler",
+      "evidence": "Unite/services/insight/src/subscribers/insight-editing-worker.spec.ts:1",
+      "snippet": "Set required environment variables",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.insight.svc-subscribers-insight-generation-worker-spec",
+      "type": "TESTS",
+      "to": "fn.insight.insight-generation-worker-handler",
+      "evidence": "Unite/services/insight/src/subscribers/insight-generation-worker.spec.ts:1",
+      "snippet": "Set required environment variable",
       "confidence": 0.9,
       "via": "service-code"
     },
@@ -2371,8 +2361,8 @@
       "from": "test.insight.svc-subscribers-search-index-spec",
       "type": "TESTS",
       "to": "fn.insight.search-index-listener",
-      "evidence": "Unite/services/insight/src/subscribers/search-index.spec.ts:24",
-      "snippet": "searchIndexListener",
+      "evidence": "Unite/services/insight/src/subscribers/search-index.spec.ts:1",
+      "snippet": "DynamoDBRecord",
       "confidence": 0.9,
       "via": "service-code"
     }

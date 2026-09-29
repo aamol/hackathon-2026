@@ -2,11 +2,12 @@
 id: api.creative.patch-v1-creative-creative-id
 type: api
 name: PATCH /v1/creative/{creativeId}
+authorizer: CUSTOM
 handler: Unite/services/creative/src/handlers/creative/update-creative.ts:28
 method: PATCH
 path: /v1/creative/{creativeId}
 service: creative
-generated_at: '2026-09-28T09:40:26Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - creative

@@ -7,10 +7,11 @@ owner: tbl.dynamodb.asset-assets
 pii: false
 pii_category: none
 pii_confidence: 1.0
-generated_at: '2026-09-28T09:36:30Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - asset
+- creative
 edges: []
 ---
 # formatId

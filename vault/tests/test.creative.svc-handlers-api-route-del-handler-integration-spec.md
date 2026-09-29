@@ -4,7 +4,7 @@ type: test
 name: route-del-handler.integration.spec.ts
 file: Unite/services/creative/src/handlers/api/route-del-handler.integration.spec.ts
 framework: jest
-generated_at: '2026-09-28T09:40:26Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - creative

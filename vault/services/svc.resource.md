@@ -21,16 +21,16 @@ packages:
 - resource-types
 - validator
 path: Unite/services/resource
-generated_at: '2026-09-28T09:35:50Z'
+generated_at: '2026-09-28T10:17:00Z'
 contract_version: '0.2'
 sources:
 - resource
 edges:
 - type: CALLS
-  to: ext.wpp-open
-  evidence: Unite/services/resource/src/handlers/http.ts:131
-  confidence: 0.9
-  via: service-code
+  to: ext.wpp-open-project-api
+  evidence: Unite/packages/open-api-client/src/verify-project-access.ts:42
+  confidence: 0.8
+  via: package:open-api-client
 - type: CONSUMES
   to: q.resource-queue
   evidence: Unite/services/resource/serverless.yml:94
@@ -38,42 +38,27 @@ edges:
   via: serverless.yml
 - type: EXPOSES
   to: api.resource.delete-v1-okta-resource-request-resource-group-id-resource-id
-  evidence: Unite/services/resource/serverless.yml:140
+  evidence: Unite/services/resource/serverless.yml:139
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: api.resource.get-v1-resource-id-resource-id
-  evidence: Unite/services/resource/serverless.yml:156
+  evidence: Unite/services/resource/serverless.yml:155
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: api.resource.get-v1-resource-resource-group-id-list
-  evidence: Unite/services/resource/serverless.yml:176
-  confidence: 1.0
-  via: serverless.yml
-- type: EXPOSES
-  to: api.resource.options-v1-resource-id-resource-id
-  evidence: Unite/services/resource/serverless.yml:163
-  confidence: 1.0
-  via: serverless.yml
-- type: EXPOSES
-  to: api.resource.options-v1-resource-request-resource-group-id
-  evidence: Unite/services/resource/serverless.yml:119
-  confidence: 1.0
-  via: serverless.yml
-- type: EXPOSES
-  to: api.resource.options-v1-resource-resource-group-id-list
-  evidence: Unite/services/resource/serverless.yml:187
+  evidence: Unite/services/resource/serverless.yml:175
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: api.resource.post-v1-okta-resource-request-resource-group-id
-  evidence: Unite/services/resource/serverless.yml:123
+  evidence: Unite/services/resource/serverless.yml:122
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: api.resource.post-v1-resource-request-resource-group-id
-  evidence: Unite/services/resource/serverless.yml:112
+  evidence: Unite/services/resource/serverless.yml:111
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
@@ -93,12 +78,12 @@ edges:
   via: serverless.yml
 - type: PUBLISHES
   to: evt.resource.resource-available
-  evidence: Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:8
+  evidence: Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:70
   confidence: 0.8
   via: package:resource-manager
 - type: PUBLISHES
   to: evt.resource.resource-failed
-  evidence: Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:9
+  evidence: Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:70
   confidence: 0.8
   via: package:resource-manager
 - type: PUBLISHES
@@ -254,7 +239,7 @@ edges:
 - type: PUBLISHES
   to: q.resource-queue
   evidence: Unite/packages/resource-manager/src/resource/create-resource.ts:106
-  confidence: 0.8
+  confidence: 0.6
   via: package:resource-manager
 - type: PUBLISHES
   to: q.resource-queue
@@ -308,74 +293,34 @@ edges:
   via: service-code
 - type: READS
   to: tbl.dynamodb.relation-relation-generic
-  evidence: Unite/services/resource/src/handlers/stream.ts:92
+  evidence: Unite/packages/resource-manager/src/resource/update-relation-listings.ts:19
   confidence: 0.6
-  via: service-code
-- type: READS
-  to: tbl.dynamodb.resource-resources
-  evidence: Unite/packages/resource-manager/src/resource/index.ts:144
-  confidence: 0.8
-  via: package:resource-manager
-- type: READS
-  to: tbl.dynamodb.resource-resources
-  evidence: Unite/packages/resource-manager/src/resource/index.ts:184
-  confidence: 0.8
   via: package:resource-manager
 - type: READS
   to: tbl.dynamodb.resource-resources
   evidence: Unite/packages/resource-manager/src/resource/index.ts:33
   confidence: 0.8
   via: package:resource-manager
-- type: READS
-  to: tbl.dynamodb.resource-resources
-  evidence: Unite/packages/resource-manager/src/resource/index.ts:75
-  confidence: 0.8
-  via: package:resource-manager
-- type: READS
-  to: tbl.dynamodb.resource-resources
-  evidence: Unite/packages/resource-manager/src/resource/pull-prioritized-resource.ts:45
-  confidence: 0.8
-  via: package:resource-manager
 - type: WRITES
   to: tbl.dynamodb.relation-relation-generic
-  evidence: Unite/services/resource/src/handlers/stream.ts:92
+  evidence: Unite/packages/resource-manager/src/resource/update-relation-listings.ts:31
   confidence: 0.6
-  via: service-code
+  via: package:resource-manager
 - type: WRITES
   to: tbl.dynamodb.resource-resources
   evidence: Unite/packages/resource-manager/src/resource/create-resource.ts:49
-  confidence: 0.8
-  via: package:resource-manager
-- type: WRITES
-  to: tbl.dynamodb.resource-resources
-  evidence: Unite/packages/resource-manager/src/resource/delete-resource.ts:20
-  confidence: 0.8
-  via: package:resource-manager
-- type: WRITES
-  to: tbl.dynamodb.resource-resources
-  evidence: Unite/packages/resource-manager/src/resource/index.ts:195
-  confidence: 0.8
-  via: package:resource-manager
-- type: WRITES
-  to: tbl.dynamodb.resource-resources
-  evidence: Unite/packages/resource-manager/src/resource/pull-prioritized-resource.ts:186
-  confidence: 0.8
-  via: package:resource-manager
-- type: WRITES
-  to: tbl.dynamodb.resource-resources
-  evidence: Unite/packages/resource-manager/src/resource/update-resource.ts:266
   confidence: 0.8
   via: package:resource-manager
 ---
 # resource
 
 ## Summary
-Generic async resource request/queue/priority orchestration hub: exposes request/list/lookup APIs, fans SQS work out to ~40 downstream microservice queues by resource type, and emits EventBridge callbacks on completion.
+Central broker for async AI/media generation requests: tracks resources in DynamoDB, dispatches work to dozens of downstream microservice queues, and notifies callers via EventBridge, task tokens or polling.
 
 ## Links
-- CALLS [[ext.wpp-open]]
+- CALLS [[ext.wpp-open-project-api]]
 - CONSUMES [[q.resource-queue]]
-- EXPOSES [[api.resource.delete-v1-okta-resource-request-resource-group-id-resource-id]], [[api.resource.get-v1-resource-id-resource-id]], [[api.resource.get-v1-resource-resource-group-id-list]], [[api.resource.options-v1-resource-id-resource-id]], [[api.resource.options-v1-resource-request-resource-group-id]], [[api.resource.options-v1-resource-resource-group-id-list]], [[api.resource.post-v1-okta-resource-request-resource-group-id]], [[api.resource.post-v1-resource-request-resource-group-id]], [[fn.resource.external-update-resource]], [[fn.resource.handle-resource-queue]], [[fn.resource.handle-resource-stream]]
+- EXPOSES [[api.resource.delete-v1-okta-resource-request-resource-group-id-resource-id]], [[api.resource.get-v1-resource-id-resource-id]], [[api.resource.get-v1-resource-resource-group-id-list]], [[api.resource.post-v1-okta-resource-request-resource-group-id]], [[api.resource.post-v1-resource-request-resource-group-id]], [[fn.resource.external-update-resource]], [[fn.resource.handle-resource-queue]], [[fn.resource.handle-resource-stream]]
 - PUBLISHES [[evt.resource.resource-available]], [[evt.resource.resource-failed]], [[q.agentexec-queue]], [[q.audioopt-queue]], [[q.azureimg-queue]], [[q.azurevid-queue]], [[q.bedrockimg-queue]], [[q.bedrockvect-queue]], [[q.bedrockvid-queue]], [[q.bria-queue]], [[q.bytedanceimg-queue]], [[q.bytedancetts-queue]], [[q.bytedancevid-queue]], [[q.convsummary-queue]], [[q.echo-queue]], [[q.elevenlabs-queue]], [[q.ffmpeg-concat-queue]], [[q.ffmpeg-edit-audio-queue]], [[q.ffmpeg-extract-audio-queue]], [[q.ffmpeg-split-queue]], [[q.fileopt-queue]], [[q.fileparse-queue]], [[q.firefly-queue]], [[q.huaweiimg-queue]], [[q.huaweivid-queue]], [[q.imageopt-crop-queue]], [[q.imageopt-queue]], [[q.minimaxvid-queue]], [[q.podcast-queue]], [[q.python-markitdown-queue]], [[q.renderer-task-queue]], [[q.renderer-worker-queue]], [[q.resource-queue]], [[q.resourcename-queue]], [[q.vertexaiimg-queue]], [[q.vertexaimus-queue]], [[q.vertexaivid-queue]], [[q.vertexaivoic-queue]], [[q.videoextf-queue]], [[q.videoopt-queue]], [[q.zhipuimg-queue]], [[q.zhipuvid-queue]]
 - READS [[tbl.dynamodb.relation-relation-generic]], [[tbl.dynamodb.resource-resources]]
 - WRITES [[tbl.dynamodb.relation-relation-generic]], [[tbl.dynamodb.resource-resources]]

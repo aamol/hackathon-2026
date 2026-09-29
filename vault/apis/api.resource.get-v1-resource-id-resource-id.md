@@ -7,7 +7,7 @@ handler: Unite/services/resource/src/handlers/http.ts:184
 method: GET
 path: /v1/resource/id/{resourceId}
 service: resource
-generated_at: '2026-09-28T09:35:50Z'
+generated_at: '2026-09-28T10:17:00Z'
 contract_version: '0.2'
 sources:
 - resource

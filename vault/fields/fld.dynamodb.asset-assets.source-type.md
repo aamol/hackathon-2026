@@ -2,16 +2,12 @@
 id: fld.dynamodb.asset-assets.source-type
 type: field
 name: sourceType
-data_type: SourceType (enum)
+data_type: SourceType
 owner: tbl.dynamodb.asset-assets
-pii: false
-pii_category: none
-pii_confidence: 1.0
-generated_at: '2026-09-28T09:40:26Z'
+generated_at: '2026-09-28T10:17:00Z'
 contract_version: '0.2'
 sources:
 - asset
-- creative
 edges: []
 ---
 # sourceType

@@ -4,14 +4,14 @@ type: test
 name: get-creative.spec.ts
 file: Unite/services/creative/src/handlers/internal/get-creative.spec.ts
 framework: jest
-generated_at: '2026-09-28T09:40:26Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - creative
 edges:
 - type: TESTS
   to: fn.creative.get-creative-internal
-  evidence: Unite/services/creative/src/handlers/internal/get-creative.spec.ts:20
+  evidence: Unite/services/creative/src/handlers/internal/get-creative.spec.ts:1
   confidence: 0.9
   via: service-code
 ---

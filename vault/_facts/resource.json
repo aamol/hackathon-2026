@@ -2,7 +2,7 @@
   "facts_version": "0.2",
   "service": "resource",
   "source_commit": "1207f6f735f0",
-  "extracted_at": "2026-09-28T09:35:50Z",
+  "extracted_at": "2026-09-28T10:17:00Z",
   "nodes": [
     {
       "id": "svc.resource",
@@ -28,7 +28,7 @@
         "resource-types",
         "validator"
       ],
-      "summary": "Generic async resource request/queue/priority orchestration hub: exposes request/list/lookup APIs, fans SQS work out to ~40 downstream microservice queues by resource type, and emits EventBridge callbacks on completion."
+      "summary": "Central broker for async AI/media generation requests: tracks resources in DynamoDB, dispatches work to dozens of downstream microservice queues, and notifies callers via EventBridge, task tokens or polling."
     },
     {
       "id": "api.resource.post-v1-resource-request-resource-group-id",
@@ -39,15 +39,6 @@
       "path": "/v1/resource/request/{ResourceGroupId}",
       "handler": "Unite/services/resource/src/handlers/http.ts:97",
       "authorizer": "CUSTOM"
-    },
-    {
-      "id": "api.resource.options-v1-resource-request-resource-group-id",
-      "type": "api",
-      "name": "OPTIONS /v1/resource/request/{ResourceGroupId}",
-      "service": "resource",
-      "method": "OPTIONS",
-      "path": "/v1/resource/request/{ResourceGroupId}",
-      "handler": "Unite/services/resource/src/handlers/http.ts:97"
     },
     {
       "id": "api.resource.post-v1-okta-resource-request-resource-group-id",
@@ -80,15 +71,6 @@
       "authorizer": "CUSTOM"
     },
     {
-      "id": "api.resource.options-v1-resource-id-resource-id",
-      "type": "api",
-      "name": "OPTIONS /v1/resource/id/{resourceId}",
-      "service": "resource",
-      "method": "OPTIONS",
-      "path": "/v1/resource/id/{resourceId}",
-      "handler": "Unite/services/resource/src/handlers/http.ts:184"
-    },
-    {
       "id": "api.resource.get-v1-resource-resource-group-id-list",
       "type": "api",
       "name": "GET /v1/resource/{ResourceGroupId}/list",
@@ -97,15 +79,6 @@
       "path": "/v1/resource/{ResourceGroupId}/list",
       "handler": "Unite/services/resource/src/handlers/http.ts:207",
       "authorizer": "CUSTOM"
-    },
-    {
-      "id": "api.resource.options-v1-resource-resource-group-id-list",
-      "type": "api",
-      "name": "OPTIONS /v1/resource/{ResourceGroupId}/list",
-      "service": "resource",
-      "method": "OPTIONS",
-      "path": "/v1/resource/{ResourceGroupId}/list",
-      "handler": "Unite/services/resource/src/handlers/http.ts:207"
     },
     {
       "id": "fn.resource.handle-resource-stream",
@@ -136,8 +109,281 @@
       "type": "queue",
       "name": "resource-queue",
       "physical_name": "resource-${self:custom.T.STAGE}-queue.fifo",
-      "fifo": true,
-      "owner_service": "resource"
+      "owner_service": "resource",
+      "fifo": true
+    },
+    {
+      "id": "q.agentexec-queue",
+      "type": "queue",
+      "name": "agentexec-queue",
+      "physical_name": "agentexec-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.audioopt-queue",
+      "type": "queue",
+      "name": "audioopt-queue",
+      "physical_name": "audioopt-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.azureimg-queue",
+      "type": "queue",
+      "name": "azureimg-queue",
+      "physical_name": "azureimg-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.azurevid-queue",
+      "type": "queue",
+      "name": "azurevid-queue",
+      "physical_name": "azurevid-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.bedrockimg-queue",
+      "type": "queue",
+      "name": "bedrockimg-queue",
+      "physical_name": "bedrockimg-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.bedrockvect-queue",
+      "type": "queue",
+      "name": "bedrockvect-queue",
+      "physical_name": "bedrockvect-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.bedrockvid-queue",
+      "type": "queue",
+      "name": "bedrockvid-queue",
+      "physical_name": "bedrockvid-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.bria-queue",
+      "type": "queue",
+      "name": "bria-queue",
+      "physical_name": "bria-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.bytedanceimg-queue",
+      "type": "queue",
+      "name": "bytedanceimg-queue",
+      "physical_name": "bytedanceimg-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.bytedancetts-queue",
+      "type": "queue",
+      "name": "bytedancetts-queue",
+      "physical_name": "bytedancetts-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.bytedancevid-queue",
+      "type": "queue",
+      "name": "bytedancevid-queue",
+      "physical_name": "bytedancevid-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.convsummary-queue",
+      "type": "queue",
+      "name": "convsummary-queue",
+      "physical_name": "convsummary-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.echo-queue",
+      "type": "queue",
+      "name": "echo-queue",
+      "physical_name": "echo-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.elevenlabs-queue",
+      "type": "queue",
+      "name": "elevenlabs-queue",
+      "physical_name": "elevenlabs-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.ffmpeg-concat-queue",
+      "type": "queue",
+      "name": "ffmpeg-concat-queue",
+      "physical_name": "ffmpeg-${self:custom.T.STAGE}-concat-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.ffmpeg-edit-audio-queue",
+      "type": "queue",
+      "name": "ffmpeg-edit-audio-queue",
+      "physical_name": "ffmpeg-${self:custom.T.STAGE}-edit-audio-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.ffmpeg-extract-audio-queue",
+      "type": "queue",
+      "name": "ffmpeg-extract-audio-queue",
+      "physical_name": "ffmpeg-${self:custom.T.STAGE}-extract-audio-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.ffmpeg-split-queue",
+      "type": "queue",
+      "name": "ffmpeg-split-queue",
+      "physical_name": "ffmpeg-${self:custom.T.STAGE}-split-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.fileopt-queue",
+      "type": "queue",
+      "name": "fileopt-queue",
+      "physical_name": "fileopt-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.fileparse-queue",
+      "type": "queue",
+      "name": "fileparse-queue",
+      "physical_name": "fileparse-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.firefly-queue",
+      "type": "queue",
+      "name": "firefly-queue",
+      "physical_name": "firefly-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.huaweiimg-queue",
+      "type": "queue",
+      "name": "huaweiimg-queue",
+      "physical_name": "huaweiimg-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.huaweivid-queue",
+      "type": "queue",
+      "name": "huaweivid-queue",
+      "physical_name": "huaweivid-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.imageopt-crop-queue",
+      "type": "queue",
+      "name": "imageopt-crop-queue",
+      "physical_name": "imageopt-${self:custom.T.STAGE}-crop-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.imageopt-queue",
+      "type": "queue",
+      "name": "imageopt-queue",
+      "physical_name": "imageopt-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.python-markitdown-queue",
+      "type": "queue",
+      "name": "python-markitdown-queue",
+      "physical_name": "python-markitdown-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.minimaxvid-queue",
+      "type": "queue",
+      "name": "minimaxvid-queue",
+      "physical_name": "minimaxvid-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.podcast-queue",
+      "type": "queue",
+      "name": "podcast-queue",
+      "physical_name": "podcast-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.renderer-task-queue",
+      "type": "queue",
+      "name": "renderer-task-queue",
+      "physical_name": "renderer-${self:custom.T.STAGE}-task-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.renderer-worker-queue",
+      "type": "queue",
+      "name": "renderer-worker-queue",
+      "physical_name": "renderer-${self:custom.T.STAGE}-worker-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.resourcename-queue",
+      "type": "queue",
+      "name": "resourcename-queue",
+      "physical_name": "resourcename-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.vertexaiimg-queue",
+      "type": "queue",
+      "name": "vertexaiimg-queue",
+      "physical_name": "vertexaiimg-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.vertexaimus-queue",
+      "type": "queue",
+      "name": "vertexaimus-queue",
+      "physical_name": "vertexaimus-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.vertexaivid-queue",
+      "type": "queue",
+      "name": "vertexaivid-queue",
+      "physical_name": "vertexaivid-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.vertexaivoic-queue",
+      "type": "queue",
+      "name": "vertexaivoic-queue",
+      "physical_name": "vertexaivoic-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.videoextf-queue",
+      "type": "queue",
+      "name": "videoextf-queue",
+      "physical_name": "videoextf-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.videoopt-queue",
+      "type": "queue",
+      "name": "videoopt-queue",
+      "physical_name": "videoopt-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.zhipuimg-queue",
+      "type": "queue",
+      "name": "zhipuimg-queue",
+      "physical_name": "zhipuimg-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
+    },
+    {
+      "id": "q.zhipuvid-queue",
+      "type": "queue",
+      "name": "zhipuvid-queue",
+      "physical_name": "zhipuvid-${self:custom.T.STAGE}-queue.fifo",
+      "fifo": true
     },
     {
       "id": "tbl.dynamodb.resource-resources",
@@ -152,6 +398,13 @@
       }
     },
     {
+      "id": "tbl.dynamodb.relation-relation-generic",
+      "type": "table",
+      "name": "relation-relation-generic",
+      "db": "dynamodb",
+      "physical_name": "relation-${self:custom.T.STAGE}-Relation-Generic"
+    },
+    {
       "id": "evt.resource.resource-available",
       "type": "event",
       "name": "resource.available",
@@ -164,6 +417,12 @@
       "name": "resource.failed",
       "source": "service.resource",
       "detail_type": "resource.failed"
+    },
+    {
+      "id": "ext.wpp-open-project-api",
+      "type": "external",
+      "name": "WPP Open Project API",
+      "url": "/api/projects/{projectId}"
     },
     {
       "id": "fld.resource.resource-available.output",
@@ -276,37 +535,11 @@
       "pii_confidence": 1.0
     },
     {
-      "id": "ext.wpp-open",
-      "type": "external",
-      "name": "WPP Open"
-    },
-    {
-      "id": "test.resource.svc-handlers-http-spec",
-      "type": "test",
-      "name": "http.spec.ts",
-      "file": "Unite/services/resource/src/handlers/http.spec.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.resource.unite-services-resource-tests-integration-tests-sqs-integration-test",
-      "type": "test",
-      "name": "sqs.integration.test.ts",
-      "file": "Unite/services/resource/tests/integration/tests/sqs.integration.test.ts",
-      "framework": "jest"
-    },
-    {
-      "id": "test.resource.unite-services-resource-tests-integration-tests-stream-integration-test",
-      "type": "test",
-      "name": "stream.integration.test.ts",
-      "file": "Unite/services/resource/tests/integration/tests/stream.integration.test.ts",
-      "framework": "jest"
-    },
-    {
       "id": "fld.dynamodb.resource-resources.created",
       "type": "field",
       "name": "created",
       "owner": "tbl.dynamodb.resource-resources",
-      "data_type": "string (ISO date)",
+      "data_type": "string",
       "pii": false,
       "pii_category": "none",
       "pii_confidence": 1.0
@@ -316,7 +549,7 @@
       "type": "field",
       "name": "lastUpdated",
       "owner": "tbl.dynamodb.resource-resources",
-      "data_type": "string (ISO date)",
+      "data_type": "string",
       "pii": false,
       "pii_category": "none",
       "pii_confidence": 1.0
@@ -417,9 +650,9 @@
       "name": "callbacks",
       "owner": "tbl.dynamodb.resource-resources",
       "data_type": "RMResourceCallbacksDoc",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "pii": true,
+      "pii_category": "email",
+      "pii_confidence": 0.6
     },
     {
       "id": "fld.dynamodb.resource-resources.timeout-at",
@@ -488,7 +721,7 @@
       "owner": "tbl.dynamodb.resource-resources",
       "data_type": "ResourceRequestContext",
       "pii": true,
-      "pii_category": "id",
+      "pii_category": "email",
       "pii_confidence": 0.6
     },
     {
@@ -502,284 +735,18 @@
       "pii_confidence": 1.0
     },
     {
-      "id": "q.azureimg-queue",
-      "type": "queue",
-      "name": "azureimg-queue",
-      "physical_name": "azureimg-${STAGE}-queue.fifo",
-      "fifo": true
+      "id": "test.resource.svc-handlers-http-spec",
+      "type": "test",
+      "name": "http.spec.ts",
+      "file": "Unite/services/resource/src/handlers/http.spec.ts",
+      "framework": "jest"
     },
     {
-      "id": "q.echo-queue",
-      "type": "queue",
-      "name": "echo-queue",
-      "physical_name": "echo-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.elevenlabs-queue",
-      "type": "queue",
-      "name": "elevenlabs-queue",
-      "physical_name": "elevenlabs-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.vertexaiimg-queue",
-      "type": "queue",
-      "name": "vertexaiimg-queue",
-      "physical_name": "vertexaiimg-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.firefly-queue",
-      "type": "queue",
-      "name": "firefly-queue",
-      "physical_name": "firefly-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.fileparse-queue",
-      "type": "queue",
-      "name": "fileparse-queue",
-      "physical_name": "fileparse-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.bria-queue",
-      "type": "queue",
-      "name": "bria-queue",
-      "physical_name": "bria-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.fileopt-queue",
-      "type": "queue",
-      "name": "fileopt-queue",
-      "physical_name": "fileopt-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.imageopt-queue",
-      "type": "queue",
-      "name": "imageopt-queue",
-      "physical_name": "imageopt-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.imageopt-crop-queue",
-      "type": "queue",
-      "name": "imageopt-crop-queue",
-      "physical_name": "imageopt-${STAGE}-crop-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.videoextf-queue",
-      "type": "queue",
-      "name": "videoextf-queue",
-      "physical_name": "videoextf-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.videoopt-queue",
-      "type": "queue",
-      "name": "videoopt-queue",
-      "physical_name": "videoopt-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.audioopt-queue",
-      "type": "queue",
-      "name": "audioopt-queue",
-      "physical_name": "audioopt-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.agentexec-queue",
-      "type": "queue",
-      "name": "agentexec-queue",
-      "physical_name": "agentexec-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.bedrockimg-queue",
-      "type": "queue",
-      "name": "bedrockimg-queue",
-      "physical_name": "bedrockimg-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.bedrockvid-queue",
-      "type": "queue",
-      "name": "bedrockvid-queue",
-      "physical_name": "bedrockvid-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.bedrockvect-queue",
-      "type": "queue",
-      "name": "bedrockvect-queue",
-      "physical_name": "bedrockvect-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.vertexaivid-queue",
-      "type": "queue",
-      "name": "vertexaivid-queue",
-      "physical_name": "vertexaivid-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.vertexaivoic-queue",
-      "type": "queue",
-      "name": "vertexaivoic-queue",
-      "physical_name": "vertexaivoic-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.vertexaimus-queue",
-      "type": "queue",
-      "name": "vertexaimus-queue",
-      "physical_name": "vertexaimus-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.podcast-queue",
-      "type": "queue",
-      "name": "podcast-queue",
-      "physical_name": "podcast-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.resourcename-queue",
-      "type": "queue",
-      "name": "resourcename-queue",
-      "physical_name": "resourcename-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.azurevid-queue",
-      "type": "queue",
-      "name": "azurevid-queue",
-      "physical_name": "azurevid-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.ffmpeg-concat-queue",
-      "type": "queue",
-      "name": "ffmpeg-concat-queue",
-      "physical_name": "ffmpeg-${STAGE}-concat-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.ffmpeg-split-queue",
-      "type": "queue",
-      "name": "ffmpeg-split-queue",
-      "physical_name": "ffmpeg-${STAGE}-split-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.ffmpeg-extract-audio-queue",
-      "type": "queue",
-      "name": "ffmpeg-extract-audio-queue",
-      "physical_name": "ffmpeg-${STAGE}-extract-audio-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.ffmpeg-edit-audio-queue",
-      "type": "queue",
-      "name": "ffmpeg-edit-audio-queue",
-      "physical_name": "ffmpeg-${STAGE}-edit-audio-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.bytedanceimg-queue",
-      "type": "queue",
-      "name": "bytedanceimg-queue",
-      "physical_name": "bytedanceimg-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.bytedancevid-queue",
-      "type": "queue",
-      "name": "bytedancevid-queue",
-      "physical_name": "bytedancevid-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.huaweiimg-queue",
-      "type": "queue",
-      "name": "huaweiimg-queue",
-      "physical_name": "huaweiimg-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.huaweivid-queue",
-      "type": "queue",
-      "name": "huaweivid-queue",
-      "physical_name": "huaweivid-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.zhipuimg-queue",
-      "type": "queue",
-      "name": "zhipuimg-queue",
-      "physical_name": "zhipuimg-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.zhipuvid-queue",
-      "type": "queue",
-      "name": "zhipuvid-queue",
-      "physical_name": "zhipuvid-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.minimaxvid-queue",
-      "type": "queue",
-      "name": "minimaxvid-queue",
-      "physical_name": "minimaxvid-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.convsummary-queue",
-      "type": "queue",
-      "name": "convsummary-queue",
-      "physical_name": "convsummary-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.bytedancetts-queue",
-      "type": "queue",
-      "name": "bytedancetts-queue",
-      "physical_name": "bytedancetts-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.renderer-worker-queue",
-      "type": "queue",
-      "name": "renderer-worker-queue",
-      "physical_name": "renderer-${STAGE}-worker-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.renderer-task-queue",
-      "type": "queue",
-      "name": "renderer-task-queue",
-      "physical_name": "renderer-${STAGE}-task-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "q.python-markitdown-queue",
-      "type": "queue",
-      "name": "python-markitdown-queue",
-      "physical_name": "python-markitdown-${STAGE}-queue.fifo",
-      "fifo": true
-    },
-    {
-      "id": "tbl.dynamodb.relation-relation-generic",
-      "type": "table",
-      "name": "relation-relation-generic",
-      "db": "dynamodb",
-      "physical_name": "relation-${self:custom.T.STAGE}-Relation-Generic"
+      "id": "test.resource.unite-services-resource-tests-integration-tests-sqs-integration-test",
+      "type": "test",
+      "name": "sqs.integration.test.ts",
+      "file": "Unite/services/resource/tests/integration/tests/sqs.integration.test.ts",
+      "framework": "jest"
     }
   ],
   "edges": [
@@ -787,17 +754,8 @@
       "from": "svc.resource",
       "type": "EXPOSES",
       "to": "api.resource.post-v1-resource-request-resource-group-id",
-      "evidence": "Unite/services/resource/serverless.yml:112",
-      "snippet": "/v1/resource/request/{ResourceGroupId}",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.resource",
-      "type": "EXPOSES",
-      "to": "api.resource.options-v1-resource-request-resource-group-id",
-      "evidence": "Unite/services/resource/serverless.yml:119",
-      "snippet": "/v1/resource/request/{ResourceGroupId}",
+      "evidence": "Unite/services/resource/serverless.yml:111",
+      "snippet": "method: POST",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -805,8 +763,8 @@
       "from": "svc.resource",
       "type": "EXPOSES",
       "to": "api.resource.post-v1-okta-resource-request-resource-group-id",
-      "evidence": "Unite/services/resource/serverless.yml:123",
-      "snippet": "/v1/okta/resource/request/{ResourceGroupId}",
+      "evidence": "Unite/services/resource/serverless.yml:122",
+      "snippet": "method: POST",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -814,8 +772,8 @@
       "from": "svc.resource",
       "type": "EXPOSES",
       "to": "api.resource.delete-v1-okta-resource-request-resource-group-id-resource-id",
-      "evidence": "Unite/services/resource/serverless.yml:140",
-      "snippet": "/v1/okta/resource/request/{ResourceGroupId}/{resourceId}",
+      "evidence": "Unite/services/resource/serverless.yml:139",
+      "snippet": "method: DELETE",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -823,17 +781,8 @@
       "from": "svc.resource",
       "type": "EXPOSES",
       "to": "api.resource.get-v1-resource-id-resource-id",
-      "evidence": "Unite/services/resource/serverless.yml:156",
-      "snippet": "/v1/resource/id/{resourceId}",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.resource",
-      "type": "EXPOSES",
-      "to": "api.resource.options-v1-resource-id-resource-id",
-      "evidence": "Unite/services/resource/serverless.yml:163",
-      "snippet": "/v1/resource/id/{resourceId}",
+      "evidence": "Unite/services/resource/serverless.yml:155",
+      "snippet": "method: GET",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -841,17 +790,8 @@
       "from": "svc.resource",
       "type": "EXPOSES",
       "to": "api.resource.get-v1-resource-resource-group-id-list",
-      "evidence": "Unite/services/resource/serverless.yml:176",
-      "snippet": "/v1/resource/{ResourceGroupId}/list",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.resource",
-      "type": "EXPOSES",
-      "to": "api.resource.options-v1-resource-resource-group-id-list",
-      "evidence": "Unite/services/resource/serverless.yml:187",
-      "snippet": "/v1/resource/{ResourceGroupId}/list",
+      "evidence": "Unite/services/resource/serverless.yml:175",
+      "snippet": "method: GET",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -860,7 +800,7 @@
       "type": "EXPOSES",
       "to": "fn.resource.handle-resource-stream",
       "evidence": "Unite/services/resource/serverless.yml:46",
-      "snippet": "handleResourceStream",
+      "snippet": "handler: src/handlers/stream.handleResourceStream",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -869,7 +809,7 @@
       "type": "EXPOSES",
       "to": "fn.resource.handle-resource-queue",
       "evidence": "Unite/services/resource/serverless.yml:64",
-      "snippet": "handleResourceQueue",
+      "snippet": "handler: src/handlers/sqs.handleResourceQueue",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -878,7 +818,7 @@
       "type": "EXPOSES",
       "to": "fn.resource.external-update-resource",
       "evidence": "Unite/services/resource/serverless.yml:197",
-      "snippet": "updateResourceHandler",
+      "snippet": "handler: src/handlers/external.updateResourceHandler",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -887,106 +827,421 @@
       "type": "CONSUMES",
       "to": "q.resource-queue",
       "evidence": "Unite/services/resource/serverless.yml:94",
-      "snippet": "Queue.Arn",
+      "snippet": "arn: !GetAtt Queue.Arn",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
     {
       "from": "svc.resource",
-      "type": "WRITES",
-      "to": "tbl.dynamodb.resource-resources",
-      "evidence": "Unite/packages/resource-manager/src/resource/create-resource.ts:49",
-      "snippet": "dynamoDb.put",
-      "confidence": 0.8,
+      "type": "PUBLISHES",
+      "to": "q.resource-queue",
+      "evidence": "Unite/services/resource/src/utils/sqs-utils.ts:69",
+      "snippet": "await sqs.sendMessage({",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.resource-queue",
+      "evidence": "Unite/packages/resource-manager/src/resource/create-resource.ts:106",
+      "snippet": "await sqs.sendMessage({",
+      "confidence": 0.6,
       "via": "package:resource-manager"
     },
     {
       "from": "svc.resource",
-      "type": "WRITES",
-      "to": "tbl.dynamodb.resource-resources",
-      "evidence": "Unite/packages/resource-manager/src/resource/update-resource.ts:266",
-      "snippet": "dynamoDb.update",
-      "confidence": 0.8,
-      "via": "package:resource-manager"
+      "type": "PUBLISHES",
+      "to": "q.agentexec-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
     },
     {
       "from": "svc.resource",
-      "type": "WRITES",
-      "to": "tbl.dynamodb.resource-resources",
-      "evidence": "Unite/packages/resource-manager/src/resource/pull-prioritized-resource.ts:186",
-      "snippet": "documentClient.update",
-      "confidence": 0.8,
-      "via": "package:resource-manager"
+      "type": "PUBLISHES",
+      "to": "q.audioopt-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
     },
     {
       "from": "svc.resource",
-      "type": "WRITES",
-      "to": "tbl.dynamodb.resource-resources",
-      "evidence": "Unite/packages/resource-manager/src/resource/delete-resource.ts:20",
-      "snippet": "dynamoDb.delete",
-      "confidence": 0.8,
-      "via": "package:resource-manager"
+      "type": "PUBLISHES",
+      "to": "q.azureimg-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
     },
     {
       "from": "svc.resource",
-      "type": "WRITES",
-      "to": "tbl.dynamodb.resource-resources",
-      "evidence": "Unite/packages/resource-manager/src/resource/index.ts:195",
-      "snippet": "dynamoDb.delete",
-      "confidence": 0.8,
-      "via": "package:resource-manager"
+      "type": "PUBLISHES",
+      "to": "q.azurevid-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.bedrockimg-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.bedrockvect-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.bedrockvid-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.bria-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.bytedanceimg-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.bytedancetts-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.bytedancevid-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.convsummary-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.echo-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.elevenlabs-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.ffmpeg-concat-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.ffmpeg-edit-audio-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.ffmpeg-extract-audio-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.ffmpeg-split-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.fileopt-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.fileparse-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.firefly-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.huaweiimg-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.huaweivid-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.imageopt-crop-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.imageopt-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.python-markitdown-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.minimaxvid-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.podcast-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.renderer-task-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.renderer-worker-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.resourcename-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.vertexaiimg-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.vertexaimus-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.vertexaivid-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.vertexaivoic-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.videoextf-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.videoopt-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.zhipuimg-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "svc.resource",
+      "type": "PUBLISHES",
+      "to": "q.zhipuvid-queue",
+      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
+      "snippet": "await sqs.sendMessage(message);",
+      "confidence": 0.9,
+      "via": "service-code"
     },
     {
       "from": "svc.resource",
       "type": "READS",
       "to": "tbl.dynamodb.resource-resources",
       "evidence": "Unite/packages/resource-manager/src/resource/index.ts:33",
-      "snippet": "dynamoDb.query",
+      "snippet": "dynamoDb.query({",
+      "confidence": 0.8,
+      "via": "package:resource-manager"
+    },
+    {
+      "from": "svc.resource",
+      "type": "WRITES",
+      "to": "tbl.dynamodb.resource-resources",
+      "evidence": "Unite/packages/resource-manager/src/resource/create-resource.ts:49",
+      "snippet": "dynamoDb.put({",
       "confidence": 0.8,
       "via": "package:resource-manager"
     },
     {
       "from": "svc.resource",
       "type": "READS",
-      "to": "tbl.dynamodb.resource-resources",
-      "evidence": "Unite/packages/resource-manager/src/resource/index.ts:75",
-      "snippet": "dynamoDb.query",
-      "confidence": 0.8,
+      "to": "tbl.dynamodb.relation-relation-generic",
+      "evidence": "Unite/packages/resource-manager/src/resource/update-relation-listings.ts:19",
+      "snippet": "listRelationsByObject({",
+      "confidence": 0.6,
       "via": "package:resource-manager"
     },
     {
       "from": "svc.resource",
-      "type": "READS",
-      "to": "tbl.dynamodb.resource-resources",
-      "evidence": "Unite/packages/resource-manager/src/resource/index.ts:144",
-      "snippet": "dynamoDb.query",
-      "confidence": 0.8,
-      "via": "package:resource-manager"
-    },
-    {
-      "from": "svc.resource",
-      "type": "READS",
-      "to": "tbl.dynamodb.resource-resources",
-      "evidence": "Unite/packages/resource-manager/src/resource/index.ts:184",
-      "snippet": "dynamoDb.query",
-      "confidence": 0.8,
-      "via": "package:resource-manager"
-    },
-    {
-      "from": "svc.resource",
-      "type": "READS",
-      "to": "tbl.dynamodb.resource-resources",
-      "evidence": "Unite/packages/resource-manager/src/resource/pull-prioritized-resource.ts:45",
-      "snippet": "documentClient.query",
-      "confidence": 0.8,
+      "type": "WRITES",
+      "to": "tbl.dynamodb.relation-relation-generic",
+      "evidence": "Unite/packages/resource-manager/src/resource/update-relation-listings.ts:31",
+      "snippet": "updateRelationObject(relation, {",
+      "confidence": 0.6,
       "via": "package:resource-manager"
     },
     {
       "from": "svc.resource",
       "type": "PUBLISHES",
       "to": "evt.resource.resource-available",
-      "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:8",
-      "snippet": "RESOURCE_AVAILABLE",
+      "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:70",
+      "snippet": "await eventBridge.send(command);",
       "confidence": 0.8,
       "via": "package:resource-manager"
     },
@@ -994,17 +1249,26 @@
       "from": "svc.resource",
       "type": "PUBLISHES",
       "to": "evt.resource.resource-failed",
-      "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:9",
-      "snippet": "RESOURCE_FAILED",
+      "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:70",
+      "snippet": "await eventBridge.send(command);",
       "confidence": 0.8,
       "via": "package:resource-manager"
+    },
+    {
+      "from": "svc.resource",
+      "type": "CALLS",
+      "to": "ext.wpp-open-project-api",
+      "evidence": "Unite/packages/open-api-client/src/verify-project-access.ts:42",
+      "snippet": "const project = await client.getProjectById(openProjectId, tenantId, {",
+      "confidence": 0.8,
+      "via": "package:open-api-client"
     },
     {
       "from": "evt.resource.resource-available",
       "type": "HAS_FIELD",
       "to": "fld.resource.resource-available.output",
       "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:59",
-      "snippet": "output",
+      "snippet": "output: resource.output,",
       "confidence": 0.8,
       "via": "package:resource-manager"
     },
@@ -1013,7 +1277,7 @@
       "type": "HAS_FIELD",
       "to": "fld.resource.resource-available.resource-id",
       "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:60",
-      "snippet": "resourceId",
+      "snippet": "resourceId:",
       "confidence": 0.8,
       "via": "package:resource-manager"
     },
@@ -1022,7 +1286,7 @@
       "type": "HAS_FIELD",
       "to": "fld.resource.resource-available.resource-group-id",
       "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:61",
-      "snippet": "resourceGroupId",
+      "snippet": "resourceGroupId:",
       "confidence": 0.8,
       "via": "package:resource-manager"
     },
@@ -1031,7 +1295,7 @@
       "type": "HAS_FIELD",
       "to": "fld.resource.resource-available.resource-type",
       "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:62",
-      "snippet": "resourceType",
+      "snippet": "resourceType:",
       "confidence": 0.8,
       "via": "package:resource-manager"
     },
@@ -1040,7 +1304,7 @@
       "type": "HAS_FIELD",
       "to": "fld.resource.resource-available.resource-callback-source",
       "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:63",
-      "snippet": "resourceCallbackSource",
+      "snippet": "resourceCallbackSource:",
       "confidence": 0.8,
       "via": "package:resource-manager"
     },
@@ -1049,7 +1313,7 @@
       "type": "HAS_FIELD",
       "to": "fld.resource.resource-failed.output",
       "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:59",
-      "snippet": "output",
+      "snippet": "output: resource.output,",
       "confidence": 0.8,
       "via": "package:resource-manager"
     },
@@ -1058,7 +1322,7 @@
       "type": "HAS_FIELD",
       "to": "fld.resource.resource-failed.resource-id",
       "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:60",
-      "snippet": "resourceId",
+      "snippet": "resourceId:",
       "confidence": 0.8,
       "via": "package:resource-manager"
     },
@@ -1067,7 +1331,7 @@
       "type": "HAS_FIELD",
       "to": "fld.resource.resource-failed.resource-group-id",
       "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:61",
-      "snippet": "resourceGroupId",
+      "snippet": "resourceGroupId:",
       "confidence": 0.8,
       "via": "package:resource-manager"
     },
@@ -1076,7 +1340,7 @@
       "type": "HAS_FIELD",
       "to": "fld.resource.resource-failed.resource-type",
       "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:62",
-      "snippet": "resourceType",
+      "snippet": "resourceType:",
       "confidence": 0.8,
       "via": "package:resource-manager"
     },
@@ -1085,90 +1349,18 @@
       "type": "HAS_FIELD",
       "to": "fld.resource.resource-failed.resource-callback-source",
       "evidence": "Unite/packages/resource-manager/src/callbacks/process-event-bridge.ts:63",
-      "snippet": "resourceCallbackSource",
+      "snippet": "resourceCallbackSource:",
       "confidence": 0.8,
       "via": "package:resource-manager"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.resource-queue",
-      "evidence": "Unite/packages/resource-manager/src/resource/create-resource.ts:106",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.8,
-      "via": "package:resource-manager"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.resource-queue",
-      "evidence": "Unite/services/resource/src/utils/sqs-utils.ts:69",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
     },
     {
       "from": "q.resource-queue",
       "type": "HAS_FIELD",
       "to": "fld.resource-queue.resource-type",
       "evidence": "Unite/packages/resource-types/src/types.ts:305",
-      "snippet": "resourceType",
+      "snippet": "resourceType: RMResourceType;",
       "confidence": 0.8,
       "via": "package:resource-types"
-    },
-    {
-      "from": "svc.resource",
-      "type": "CALLS",
-      "to": "ext.wpp-open",
-      "evidence": "Unite/services/resource/src/handlers/http.ts:131",
-      "snippet": "requireVerifiedOpenProjectId",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.resource.svc-handlers-http-spec",
-      "type": "TESTS",
-      "to": "api.resource.post-v1-resource-request-resource-group-id",
-      "evidence": "Unite/services/resource/src/handlers/http.spec.ts:6",
-      "snippet": "requestHandler",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.resource.svc-handlers-http-spec",
-      "type": "TESTS",
-      "to": "api.resource.options-v1-resource-request-resource-group-id",
-      "evidence": "Unite/services/resource/src/handlers/http.spec.ts:6",
-      "snippet": "requestHandler",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.resource.svc-handlers-http-spec",
-      "type": "TESTS",
-      "to": "api.resource.post-v1-okta-resource-request-resource-group-id",
-      "evidence": "Unite/services/resource/src/handlers/http.spec.ts:6",
-      "snippet": "requestHandler",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.resource.unite-services-resource-tests-integration-tests-sqs-integration-test",
-      "type": "TESTS",
-      "to": "fn.resource.handle-resource-queue",
-      "evidence": "Unite/services/resource/tests/integration/tests/sqs.integration.test.ts:10",
-      "snippet": "handleResourceQueue",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "test.resource.unite-services-resource-tests-integration-tests-stream-integration-test",
-      "type": "TESTS",
-      "to": "svc.resource",
-      "evidence": "Unite/services/resource/tests/integration/tests/stream.integration.test.ts:8",
-      "snippet": "stream handler",
-      "confidence": 0.9,
-      "via": "service-code"
     },
     {
       "from": "tbl.dynamodb.resource-resources",
@@ -1351,372 +1543,30 @@
       "via": "package:resource-types"
     },
     {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.azureimg-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
+      "from": "test.resource.svc-handlers-http-spec",
+      "type": "TESTS",
+      "to": "api.resource.post-v1-resource-request-resource-group-id",
+      "evidence": "Unite/services/resource/src/handlers/http.spec.ts:6",
+      "snippet": "import { requestHandler } from \"./http\";",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.echo-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
+      "from": "test.resource.svc-handlers-http-spec",
+      "type": "TESTS",
+      "to": "api.resource.post-v1-okta-resource-request-resource-group-id",
+      "evidence": "Unite/services/resource/src/handlers/http.spec.ts:6",
+      "snippet": "import { requestHandler } from \"./http\";",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.elevenlabs-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
+      "from": "test.resource.unite-services-resource-tests-integration-tests-sqs-integration-test",
+      "type": "TESTS",
+      "to": "fn.resource.handle-resource-queue",
+      "evidence": "Unite/services/resource/tests/integration/tests/sqs.integration.test.ts:10",
+      "snippet": "import { handleResourceQueue } from \"resource-service/src/handlers/sqs\";",
       "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.vertexaiimg-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.firefly-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.fileparse-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.bria-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.fileopt-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.imageopt-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.imageopt-crop-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.videoextf-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.videoopt-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.audioopt-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.agentexec-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.bedrockimg-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.bedrockvid-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.bedrockvect-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.vertexaivid-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.vertexaivoic-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.vertexaimus-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.podcast-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.resourcename-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.azurevid-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.ffmpeg-concat-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.ffmpeg-split-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.ffmpeg-extract-audio-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.ffmpeg-edit-audio-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.bytedanceimg-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.bytedancevid-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.huaweiimg-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.huaweivid-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.zhipuimg-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.zhipuvid-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.minimaxvid-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.convsummary-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.bytedancetts-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.renderer-worker-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.renderer-task-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "PUBLISHES",
-      "to": "q.python-markitdown-queue",
-      "evidence": "Unite/services/resource/src/handlers/sqs.ts:357",
-      "snippet": "sqs.sendMessage",
-      "confidence": 0.9,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "READS",
-      "to": "tbl.dynamodb.relation-relation-generic",
-      "evidence": "Unite/services/resource/src/handlers/stream.ts:92",
-      "snippet": "updateEntityRelations({",
-      "confidence": 0.6,
-      "via": "service-code"
-    },
-    {
-      "from": "svc.resource",
-      "type": "WRITES",
-      "to": "tbl.dynamodb.relation-relation-generic",
-      "evidence": "Unite/services/resource/src/handlers/stream.ts:92",
-      "snippet": "updateEntityRelations({",
-      "confidence": 0.6,
       "via": "service-code"
     }
   ]

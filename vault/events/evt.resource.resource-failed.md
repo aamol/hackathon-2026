@@ -4,7 +4,7 @@ type: event
 name: resource.failed
 detail_type: resource.failed
 source: service.resource
-generated_at: '2026-09-28T09:36:30Z'
+generated_at: '2026-09-28T10:17:01Z'
 contract_version: '0.2'
 sources:
 - asset

@@ -2,13 +2,14 @@
   "facts_version": "0.2",
   "service": "asset",
   "source_commit": "1207f6f735f0",
-  "extracted_at": "2026-09-28T09:36:30Z",
+  "extracted_at": "2026-09-28T10:17:00Z",
   "nodes": [
     {
       "id": "svc.asset",
       "type": "service",
       "name": "asset",
       "path": "Unite/services/asset",
+      "summary": "Owns asset CRUD, tagging and usage lookups; syncs assets and creative versions to PMH and enriches assets via an agent worker.",
       "packages": [
         "access-layer-security",
         "agentexec",
@@ -44,8 +45,153 @@
         "validator",
         "wss",
         "wssbrandx-types"
-      ],
-      "summary": "Digital asset management service: CRUD/listing/tagging/bulk APIs for assets, ingests resource-manager and rasterizer outputs into persistent asset records via EventBridge/SQS, and syncs assets and creative versions to the WSS-only PMH integration."
+      ]
+    },
+    {
+      "id": "api.asset.post-v1-asset",
+      "type": "api",
+      "name": "POST /v1/asset",
+      "service": "asset",
+      "method": "POST",
+      "path": "/v1/asset",
+      "handler": "Unite/services/asset/src/handlers/create-asset.ts:15"
+    },
+    {
+      "id": "api.asset.get-v1-asset-asset-id",
+      "type": "api",
+      "name": "GET /v1/asset/{assetId}",
+      "service": "asset",
+      "method": "GET",
+      "path": "/v1/asset/{assetId}",
+      "handler": "Unite/services/asset/src/handlers/get-asset-by-id.ts:15"
+    },
+    {
+      "id": "api.asset.get-v1-asset-asset-id-file",
+      "type": "api",
+      "name": "GET /v1/asset/{assetId}/file",
+      "service": "asset",
+      "method": "GET",
+      "path": "/v1/asset/{assetId}/file",
+      "handler": "Unite/services/asset/src/handlers/get-asset-file.ts:62"
+    },
+    {
+      "id": "api.asset.get-v1-asset-asset-id-usage",
+      "type": "api",
+      "name": "GET /v1/asset/{assetId}/usage",
+      "service": "asset",
+      "method": "GET",
+      "path": "/v1/asset/{assetId}/usage",
+      "handler": "Unite/services/asset/src/handlers/get-asset-usage.ts:24"
+    },
+    {
+      "id": "api.asset.get-v1-asset-source",
+      "type": "api",
+      "name": "GET /v1/asset/source",
+      "service": "asset",
+      "method": "GET",
+      "path": "/v1/asset/source",
+      "handler": "Unite/services/asset/src/handlers/get-asset-by-source-id.ts:31"
+    },
+    {
+      "id": "api.asset.put-v1-asset-asset-id",
+      "type": "api",
+      "name": "PUT /v1/asset/{assetId}",
+      "service": "asset",
+      "method": "PUT",
+      "path": "/v1/asset/{assetId}",
+      "handler": "Unite/services/asset/src/handlers/update-asset.ts:51"
+    },
+    {
+      "id": "api.asset.delete-v1-asset-asset-id",
+      "type": "api",
+      "name": "DELETE /v1/asset/{assetId}",
+      "service": "asset",
+      "method": "DELETE",
+      "path": "/v1/asset/{assetId}",
+      "handler": "Unite/services/asset/src/handlers/delete-asset.ts:14"
+    },
+    {
+      "id": "api.asset.get-v1-asset",
+      "type": "api",
+      "name": "GET /v1/asset",
+      "service": "asset",
+      "method": "GET",
+      "path": "/v1/asset",
+      "handler": "Unite/services/asset/src/handlers/get-assets.ts:87"
+    },
+    {
+      "id": "api.asset.get-v1-tag",
+      "type": "api",
+      "name": "GET /v1/tag",
+      "service": "asset",
+      "method": "GET",
+      "path": "/v1/tag",
+      "handler": "Unite/services/asset/src/handlers/get-tags.ts:12"
+    },
+    {
+      "id": "api.asset.put-v1-asset-bulk-update",
+      "type": "api",
+      "name": "PUT /v1/asset/bulk-update",
+      "service": "asset",
+      "method": "PUT",
+      "path": "/v1/asset/bulk-update",
+      "handler": "Unite/services/asset/src/handlers/bulk-update-asset.ts:30"
+    },
+    {
+      "id": "api.asset.delete-v1-asset-bulk-delete",
+      "type": "api",
+      "name": "DELETE /v1/asset/bulk-delete",
+      "service": "asset",
+      "method": "DELETE",
+      "path": "/v1/asset/bulk-delete",
+      "handler": "Unite/services/asset/src/handlers/bulk-delete-asset.ts:31"
+    },
+    {
+      "id": "api.asset.post-v1-asset-bulk-download",
+      "type": "api",
+      "name": "POST /v1/asset/bulk-download",
+      "service": "asset",
+      "method": "POST",
+      "path": "/v1/asset/bulk-download",
+      "handler": "Unite/services/asset/src/handlers/bulk-download-assets.ts:21"
+    },
+    {
+      "id": "api.asset.post-v1-assets-proxy",
+      "type": "api",
+      "name": "POST /v1/assets/{proxy+}",
+      "service": "asset",
+      "method": "POST",
+      "path": "/v1/assets/{proxy+}",
+      "handler": "Unite/services/asset/src/application/handlers/api/route-post-handler.ts:25",
+      "proxy": true
+    },
+    {
+      "id": "api.asset.get-v1-assets-proxy",
+      "type": "api",
+      "name": "GET /v1/assets/{proxy+}",
+      "service": "asset",
+      "method": "GET",
+      "path": "/v1/assets/{proxy+}",
+      "handler": "Unite/services/asset/src/application/handlers/api/route-get-handler.ts:23",
+      "proxy": true
+    },
+    {
+      "id": "api.creative.get-v1-creative-creative-id",
+      "type": "api",
+      "name": "GET /v1/creative/{creativeId}",
+      "service": "creative",
+      "method": "GET",
+      "path": "/v1/creative/{creativeId}",
+      "handler": "Unite/services/creative/src/handlers/creative/get-creative.ts:81"
+    },
+    {
+      "id": "api.creative.get-v1-creative-version-version-id",
+      "type": "api",
+      "name": "GET /v1/creative-version/{versionId}",
+      "service": "creative",
+      "method": "GET",
+      "path": "/v1/creative-version/{versionId}",
+      "handler": "Unite/services/creative/src/handlers/creative-version/get-creative-version.ts:14"
     },
     {
       "id": "fn.asset.create-asset-from-resource-id",
@@ -136,618 +282,67 @@
       "handler": "Unite/services/asset/src/events/rasterizer-events.ts:66"
     },
     {
-      "id": "api.asset.post-v1-asset",
-      "type": "api",
-      "name": "POST /v1/asset",
-      "service": "asset",
-      "method": "POST",
-      "path": "/v1/asset",
-      "handler": "Unite/services/asset/src/handlers/create-asset.ts:15",
-      "authorizer": "CUSTOM"
+      "id": "fn.thumbnailgen.thumbnail-generator",
+      "type": "function",
+      "name": "thumbnailGenerator",
+      "service": "thumbnailgen",
+      "function_key": "thumbnailGenerator"
     },
     {
-      "id": "api.asset.get-v1-asset-asset-id",
-      "type": "api",
-      "name": "GET /v1/asset/{assetId}",
-      "service": "asset",
-      "method": "GET",
-      "path": "/v1/asset/{assetId}",
-      "handler": "Unite/services/asset/src/handlers/get-asset-by-id.ts:15",
-      "authorizer": "CUSTOM"
+      "id": "evt.asset.asset-created",
+      "type": "event",
+      "name": "AssetCreated",
+      "source": "service.asset",
+      "detail_type": "AssetCreated"
     },
     {
-      "id": "api.asset.get-v1-asset-asset-id-file",
-      "type": "api",
-      "name": "GET /v1/asset/{assetId}/file",
-      "service": "asset",
-      "method": "GET",
-      "path": "/v1/asset/{assetId}/file",
-      "handler": "Unite/services/asset/src/handlers/get-asset-file.ts:62",
-      "authorizer": "CUSTOM"
+      "id": "evt.asset.asset-updated",
+      "type": "event",
+      "name": "AssetUpdated",
+      "source": "service.asset",
+      "detail_type": "AssetUpdated"
     },
     {
-      "id": "api.asset.get-v1-asset-asset-id-usage",
-      "type": "api",
-      "name": "GET /v1/asset/{assetId}/usage",
-      "service": "asset",
-      "method": "GET",
-      "path": "/v1/asset/{assetId}/usage",
-      "handler": "Unite/services/asset/src/handlers/get-asset-usage.ts:24",
-      "authorizer": "CUSTOM"
+      "id": "evt.asset.asset-deleted",
+      "type": "event",
+      "name": "AssetDeleted",
+      "source": "service.asset",
+      "detail_type": "AssetDeleted"
     },
     {
-      "id": "api.asset.get-v1-asset-source",
-      "type": "api",
-      "name": "GET /v1/asset/source",
-      "service": "asset",
-      "method": "GET",
-      "path": "/v1/asset/source",
-      "handler": "Unite/services/asset/src/handlers/get-asset-by-source-id.ts:31",
-      "authorizer": "CUSTOM"
+      "id": "evt.asset.asset-hard-deleted",
+      "type": "event",
+      "name": "AssetHardDeleted",
+      "source": "service.asset",
+      "detail_type": "AssetHardDeleted"
     },
     {
-      "id": "api.asset.put-v1-asset-asset-id",
-      "type": "api",
-      "name": "PUT /v1/asset/{assetId}",
-      "service": "asset",
-      "method": "PUT",
-      "path": "/v1/asset/{assetId}",
-      "handler": "Unite/services/asset/src/handlers/update-asset.ts:51",
-      "authorizer": "CUSTOM"
+      "id": "evt.asset.asset-pmh-sync-started",
+      "type": "event",
+      "name": "AssetPmhSyncStarted",
+      "source": "service.asset",
+      "detail_type": "AssetPmhSyncStarted"
     },
     {
-      "id": "api.asset.delete-v1-asset-asset-id",
-      "type": "api",
-      "name": "DELETE /v1/asset/{assetId}",
-      "service": "asset",
-      "method": "DELETE",
-      "path": "/v1/asset/{assetId}",
-      "handler": "Unite/services/asset/src/handlers/delete-asset.ts:14",
-      "authorizer": "CUSTOM"
+      "id": "evt.asset.asset-pmh-sync-completed",
+      "type": "event",
+      "name": "AssetPmhSyncCompleted",
+      "source": "service.asset",
+      "detail_type": "AssetPmhSyncCompleted"
     },
     {
-      "id": "api.asset.get-v1-asset",
-      "type": "api",
-      "name": "GET /v1/asset",
-      "service": "asset",
-      "method": "GET",
-      "path": "/v1/asset",
-      "handler": "Unite/services/asset/src/handlers/get-assets.ts:87",
-      "authorizer": "CUSTOM"
+      "id": "evt.asset.creative-version-pmh-sync-started",
+      "type": "event",
+      "name": "CreativeVersionPmhSyncStarted",
+      "source": "service.asset",
+      "detail_type": "CreativeVersionPmhSyncStarted"
     },
     {
-      "id": "api.asset.get-v1-tag",
-      "type": "api",
-      "name": "GET /v1/tag",
-      "service": "asset",
-      "method": "GET",
-      "path": "/v1/tag",
-      "handler": "Unite/services/asset/src/handlers/get-tags.ts:12",
-      "authorizer": "CUSTOM"
-    },
-    {
-      "id": "api.asset.put-v1-asset-bulk-update",
-      "type": "api",
-      "name": "PUT /v1/asset/bulk-update",
-      "service": "asset",
-      "method": "PUT",
-      "path": "/v1/asset/bulk-update",
-      "handler": "Unite/services/asset/src/handlers/bulk-update-asset.ts:30",
-      "authorizer": "CUSTOM"
-    },
-    {
-      "id": "api.asset.delete-v1-asset-bulk-delete",
-      "type": "api",
-      "name": "DELETE /v1/asset/bulk-delete",
-      "service": "asset",
-      "method": "DELETE",
-      "path": "/v1/asset/bulk-delete",
-      "handler": "Unite/services/asset/src/handlers/bulk-delete-asset.ts:31",
-      "authorizer": "CUSTOM"
-    },
-    {
-      "id": "api.asset.post-v1-asset-bulk-download",
-      "type": "api",
-      "name": "POST /v1/asset/bulk-download",
-      "service": "asset",
-      "method": "POST",
-      "path": "/v1/asset/bulk-download",
-      "handler": "Unite/services/asset/src/handlers/bulk-download-assets.ts:21",
-      "authorizer": "CUSTOM"
-    },
-    {
-      "id": "api.asset.post-v1-assets-proxy",
-      "type": "api",
-      "name": "POST /v1/assets/{proxy+}",
-      "service": "asset",
-      "method": "POST",
-      "path": "/v1/assets/{proxy+}",
-      "handler": "Unite/services/asset/src/application/handlers/api/route-post-handler.ts:25",
-      "authorizer": "CUSTOM",
-      "proxy": true
-    },
-    {
-      "id": "api.asset.get-v1-assets-proxy",
-      "type": "api",
-      "name": "GET /v1/assets/{proxy+}",
-      "service": "asset",
-      "method": "GET",
-      "path": "/v1/assets/{proxy+}",
-      "handler": "Unite/services/asset/src/application/handlers/api/route-get-handler.ts:23",
-      "authorizer": "CUSTOM",
-      "proxy": true
-    },
-    {
-      "id": "tbl.dynamodb.asset-assets",
-      "type": "table",
-      "name": "asset-assets",
-      "db": "dynamodb",
-      "physical_name": "asset-${self:custom.T.STAGE}-Assets",
-      "defined_in": "Unite/services/asset/serverless.yml:511",
-      "keys": {
-        "partition": "pk",
-        "sort": "sk"
-      }
-    },
-    {
-      "id": "tbl.dynamodb.resource-resources",
-      "type": "table",
-      "name": "resource-resources",
-      "db": "dynamodb",
-      "physical_name": "resource-${self:custom.T.STAGE}-Resources",
-      "defined_in": "Unite/services/resource/serverless.yml:314",
-      "keys": {
-        "partition": "resourceGroupId",
-        "sort": "resourceId"
-      }
-    },
-    {
-      "id": "tbl.dynamodb.user-user-table",
-      "type": "table",
-      "name": "user-user-table",
-      "db": "dynamodb",
-      "physical_name": "user-${self:custom.T.STAGE}-UserTable"
-    },
-    {
-      "id": "tbl.dynamodb.relation-relation-generic",
-      "type": "table",
-      "name": "relation-relation-generic",
-      "db": "dynamodb",
-      "physical_name": "relation-${self:custom.T.STAGE}-Relation-Generic"
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.pk",
-      "type": "field",
-      "name": "pk",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.sk",
-      "type": "field",
-      "name": "sk",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.gsi1pk",
-      "type": "field",
-      "name": "gsi1pk",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.gsi1sk",
-      "type": "field",
-      "name": "gsi1sk",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.project-id",
-      "type": "field",
-      "name": "projectId",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.asset-id",
-      "type": "field",
-      "name": "assetId",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.et",
-      "type": "field",
-      "name": "_et",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "\"Asset\"",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.asset-type",
-      "type": "field",
-      "name": "assetType",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "AssetType (enum)",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.created-by",
-      "type": "field",
-      "name": "createdBy",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string",
-      "pii": true,
-      "pii_category": "id",
-      "pii_confidence": 0.6
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.created-at",
-      "type": "field",
-      "name": "createdAt",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string (ISO date)",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.last-used-at",
-      "type": "field",
-      "name": "lastUsedAt",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string (ISO date)",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.title",
-      "type": "field",
-      "name": "title",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.source-type",
-      "type": "field",
-      "name": "sourceType",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "SourceType (enum)",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.source-sub-type",
-      "type": "field",
-      "name": "sourceSubType",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.source-group-id",
-      "type": "field",
-      "name": "sourceGroupId",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.source-id",
-      "type": "field",
-      "name": "sourceId",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.format-id",
-      "type": "field",
-      "name": "formatId",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.status",
-      "type": "field",
-      "name": "status",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "AssetStatus (enum)",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.favourite",
-      "type": "field",
-      "name": "favourite",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "boolean",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.user-tags",
-      "type": "field",
-      "name": "userTags",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string[]",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.auto-tags",
-      "type": "field",
-      "name": "autoTags",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "AutoTags[]",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.content",
-      "type": "field",
-      "name": "content",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "AssetPersistentContent",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.preview-content",
-      "type": "field",
-      "name": "previewContent",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "AssetPersistentContent",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.motion-preview-content",
-      "type": "field",
-      "name": "motionPreviewContent",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "AssetPersistentContent",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.metadata",
-      "type": "field",
-      "name": "metadata",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "AssetMetadata",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.hidden",
-      "type": "field",
-      "name": "hidden",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "boolean",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.expiry-date",
-      "type": "field",
-      "name": "expiryDate",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "string (ISO date)",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.brand-check-summaries",
-      "type": "field",
-      "name": "brandCheckSummaries",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "AssetBrandCheckSummary[]",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.pmh-sync-history",
-      "type": "field",
-      "name": "pmhSyncHistory",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "AssetPmhSyncRecord[]",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.asset-assets.pmh-sync",
-      "type": "field",
-      "name": "pmhSync",
-      "owner": "tbl.dynamodb.asset-assets",
-      "data_type": "{status, submittedAt?, displayName?}",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.dynamodb.resource-resources.output",
-      "type": "field",
-      "name": "output",
-      "owner": "tbl.dynamodb.resource-resources",
-      "data_type": "RMResourceOutput",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "q.asset-enrich-asset-queue",
-      "type": "queue",
-      "name": "asset-enrich-asset-queue",
-      "physical_name": "asset-${self:custom.T.STAGE}-EnrichAsset-queue.fifo",
-      "fifo": true,
-      "owner_service": "asset"
-    },
-    {
-      "id": "q.asset-pmh-sync-queue",
-      "type": "queue",
-      "name": "asset-pmh-sync-queue",
-      "physical_name": "asset-${self:custom.T.STAGE}-PmhSync-queue.fifo",
-      "fifo": true,
-      "owner_service": "asset"
-    },
-    {
-      "id": "q.asset-rasterizer-events",
-      "type": "queue",
-      "name": "asset-rasterizer-events",
-      "physical_name": "asset-${self:custom.T.STAGE}-rasterizer-events",
-      "fifo": false,
-      "owner_service": "asset"
-    },
-    {
-      "id": "fld.asset-enrich-asset-queue.pk",
-      "type": "field",
-      "name": "pk",
-      "owner": "q.asset-enrich-asset-queue",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset-enrich-asset-queue.sk",
-      "type": "field",
-      "name": "sk",
-      "owner": "q.asset-enrich-asset-queue",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset-pmh-sync-queue.project-id",
-      "type": "field",
-      "name": "projectId",
-      "owner": "q.asset-pmh-sync-queue",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset-pmh-sync-queue.id",
-      "type": "field",
-      "name": "id",
-      "owner": "q.asset-pmh-sync-queue",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset-pmh-sync-queue.submission-uuid",
-      "type": "field",
-      "name": "submissionUuid",
-      "owner": "q.asset-pmh-sync-queue",
-      "data_type": "string (uuid)",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset-pmh-sync-queue.entity-type",
-      "type": "field",
-      "name": "entityType",
-      "owner": "q.asset-pmh-sync-queue",
-      "data_type": "PmhSyncEntityType (\"ASSET\"|\"CREATIVE_VERSION\")",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset-pmh-sync-queue.created-by",
-      "type": "field",
-      "name": "createdBy",
-      "owner": "q.asset-pmh-sync-queue",
-      "data_type": "string (email)",
-      "pii": true,
-      "pii_category": "email",
-      "pii_confidence": 0.95
-    },
-    {
-      "id": "fld.asset-pmh-sync-queue.creative-id",
-      "type": "field",
-      "name": "creativeId",
-      "owner": "q.asset-pmh-sync-queue",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset-pmh-sync-queue.creative-name",
-      "type": "field",
-      "name": "creativeName",
-      "owner": "q.asset-pmh-sync-queue",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset-pmh-sync-queue.wpp-object-url",
-      "type": "field",
-      "name": "wppObjectUrl",
-      "owner": "q.asset-pmh-sync-queue",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "id": "evt.asset.creative-version-pmh-sync-completed",
+      "type": "event",
+      "name": "CreativeVersionPmhSyncCompleted",
+      "source": "service.asset",
+      "detail_type": "CreativeVersionPmhSyncCompleted"
     },
     {
       "id": "evt.resource.resource-available",
@@ -771,11 +366,360 @@
       "detail_type": "AssetBrandCheckStatusUpdated"
     },
     {
-      "id": "evt.asset.asset-created",
+      "id": "evt.rasterizer-service.motion-rasterized-success",
       "type": "event",
-      "name": "AssetCreated",
-      "source": "service.asset",
-      "detail_type": "AssetCreated"
+      "name": "MotionRasterizedSuccess",
+      "source": "rasterizer.service",
+      "detail_type": "MotionRasterizedSuccess"
+    },
+    {
+      "id": "q.asset-enrich-asset-queue",
+      "type": "queue",
+      "name": "asset-enrich-asset-queue",
+      "physical_name": "asset-${self:custom.T.STAGE}-EnrichAsset-queue.fifo",
+      "fifo": true,
+      "owner_service": "asset"
+    },
+    {
+      "id": "q.asset-pmh-sync-queue",
+      "type": "queue",
+      "name": "asset-pmh-sync-queue",
+      "physical_name": "asset-${self:custom.T.STAGE}-PmhSync-queue.fifo",
+      "fifo": true,
+      "owner_service": "asset"
+    },
+    {
+      "id": "q.asset-rasterizer-events",
+      "type": "queue",
+      "name": "asset-rasterizer-events",
+      "physical_name": "asset-${self:custom.T.STAGE}-rasterizer-events",
+      "owner_service": "asset"
+    },
+    {
+      "id": "tbl.dynamodb.asset-assets",
+      "type": "table",
+      "db": "dynamodb",
+      "name": "asset-assets",
+      "physical_name": "asset-${self:custom.T.STAGE}-Assets",
+      "defined_in": "Unite/services/asset/serverless.yml:510",
+      "keys": {
+        "pk": "HASH",
+        "sk": "RANGE",
+        "gsi1pk": "HASH (gsi1)",
+        "gsi1sk": "RANGE (gsi1)"
+      }
+    },
+    {
+      "id": "tbl.dynamodb.relation-relation-generic",
+      "type": "table",
+      "db": "dynamodb",
+      "name": "relation-relation-generic",
+      "physical_name": "relation-${self:custom.T.STAGE}-Relation-Generic"
+    },
+    {
+      "id": "tbl.dynamodb.resource-resources",
+      "type": "table",
+      "db": "dynamodb",
+      "name": "resource-resources",
+      "physical_name": "resource-${self:custom.T.STAGE}-Resources"
+    },
+    {
+      "id": "ext.pmh-api",
+      "type": "external",
+      "name": "PMH API"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.pk",
+      "type": "field",
+      "name": "pk",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.sk",
+      "type": "field",
+      "name": "sk",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.gsi1pk",
+      "type": "field",
+      "name": "gsi1pk",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.gsi1sk",
+      "type": "field",
+      "name": "gsi1sk",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.project-id",
+      "type": "field",
+      "name": "projectId",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.asset-id",
+      "type": "field",
+      "name": "assetId",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.created-by",
+      "type": "field",
+      "name": "createdBy",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string",
+      "pii": true,
+      "pii_category": "id",
+      "pii_confidence": 0.6
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.et",
+      "type": "field",
+      "name": "_et",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "\"Asset\""
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.asset-type",
+      "type": "field",
+      "name": "assetType",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "AssetType"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.created-at",
+      "type": "field",
+      "name": "createdAt",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.last-used-at",
+      "type": "field",
+      "name": "lastUsedAt",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.title",
+      "type": "field",
+      "name": "title",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.source-type",
+      "type": "field",
+      "name": "sourceType",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "SourceType"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.source-sub-type",
+      "type": "field",
+      "name": "sourceSubType",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.source-group-id",
+      "type": "field",
+      "name": "sourceGroupId",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.source-id",
+      "type": "field",
+      "name": "sourceId",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.format-id",
+      "type": "field",
+      "name": "formatId",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.status",
+      "type": "field",
+      "name": "status",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "AssetStatus"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.favourite",
+      "type": "field",
+      "name": "favourite",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "boolean"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.user-tags",
+      "type": "field",
+      "name": "userTags",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string[]"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.auto-tags",
+      "type": "field",
+      "name": "autoTags",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "AutoTags[]"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.content",
+      "type": "field",
+      "name": "content",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "AssetPersistentContent"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.preview-content",
+      "type": "field",
+      "name": "previewContent",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "AssetPersistentContent"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.motion-preview-content",
+      "type": "field",
+      "name": "motionPreviewContent",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "AssetPersistentContent"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.metadata",
+      "type": "field",
+      "name": "metadata",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "AssetMetadata"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.hidden",
+      "type": "field",
+      "name": "hidden",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "boolean"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.expiry-date",
+      "type": "field",
+      "name": "expiryDate",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.brand-check-summaries",
+      "type": "field",
+      "name": "brandCheckSummaries",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "AssetBrandCheckSummary[]"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.pmh-sync-history",
+      "type": "field",
+      "name": "pmhSyncHistory",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "AssetPmhSyncRecord[]"
+    },
+    {
+      "id": "fld.dynamodb.asset-assets.pmh-sync",
+      "type": "field",
+      "name": "pmhSync",
+      "owner": "tbl.dynamodb.asset-assets",
+      "data_type": "{ status; submittedAt?; displayName? }"
+    },
+    {
+      "id": "fld.dynamodb.resource-resources.output",
+      "type": "field",
+      "name": "output",
+      "owner": "tbl.dynamodb.resource-resources",
+      "data_type": "RMResourceOutput"
+    },
+    {
+      "id": "fld.asset-enrich-asset-queue.pk",
+      "type": "field",
+      "name": "pk",
+      "owner": "q.asset-enrich-asset-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.asset-enrich-asset-queue.sk",
+      "type": "field",
+      "name": "sk",
+      "owner": "q.asset-enrich-asset-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.asset-pmh-sync-queue.project-id",
+      "type": "field",
+      "name": "projectId",
+      "owner": "q.asset-pmh-sync-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.asset-pmh-sync-queue.id",
+      "type": "field",
+      "name": "id",
+      "owner": "q.asset-pmh-sync-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.asset-pmh-sync-queue.entity-type",
+      "type": "field",
+      "name": "entityType",
+      "owner": "q.asset-pmh-sync-queue",
+      "data_type": "PmhSyncEntityType"
+    },
+    {
+      "id": "fld.asset-pmh-sync-queue.submission-uuid",
+      "type": "field",
+      "name": "submissionUuid",
+      "owner": "q.asset-pmh-sync-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.asset-pmh-sync-queue.created-by",
+      "type": "field",
+      "name": "createdBy",
+      "owner": "q.asset-pmh-sync-queue",
+      "data_type": "string",
+      "pii": true,
+      "pii_category": "email",
+      "pii_confidence": 0.95
+    },
+    {
+      "id": "fld.asset-pmh-sync-queue.creative-id",
+      "type": "field",
+      "name": "creativeId",
+      "owner": "q.asset-pmh-sync-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.asset-pmh-sync-queue.creative-name",
+      "type": "field",
+      "name": "creativeName",
+      "owner": "q.asset-pmh-sync-queue",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.asset-pmh-sync-queue.wpp-object-url",
+      "type": "field",
+      "name": "wppObjectUrl",
+      "owner": "q.asset-pmh-sync-queue",
+      "data_type": "string"
     },
     {
       "id": "fld.asset.asset-created.record",
@@ -783,46 +727,30 @@
       "name": "record",
       "owner": "evt.asset.asset-created",
       "data_type": "AssetDynamoDB",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "pii": true,
+      "pii_category": "id",
+      "pii_confidence": 0.6
     },
     {
       "id": "fld.asset.asset-created.entity-type",
       "type": "field",
       "name": "entityType",
       "owner": "evt.asset.asset-created",
-      "data_type": "EntityTypes.ASSET",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "EntityTypes.ASSET"
     },
     {
       "id": "fld.asset.asset-created.entity-ids",
       "type": "field",
       "name": "entityIds",
       "owner": "evt.asset.asset-created",
-      "data_type": "Record<string, string>",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "Record<string, string>"
     },
     {
       "id": "fld.asset.asset-created.asset-public",
       "type": "field",
       "name": "assetPublic",
       "owner": "evt.asset.asset-created",
-      "data_type": "AssetPublic",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "evt.asset.asset-updated",
-      "type": "event",
-      "name": "AssetUpdated",
-      "source": "service.asset",
-      "detail_type": "AssetUpdated"
+      "data_type": "AssetPublic"
     },
     {
       "id": "fld.asset.asset-updated.record",
@@ -830,46 +758,30 @@
       "name": "record",
       "owner": "evt.asset.asset-updated",
       "data_type": "AssetDynamoDB",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "pii": true,
+      "pii_category": "id",
+      "pii_confidence": 0.6
     },
     {
       "id": "fld.asset.asset-updated.entity-type",
       "type": "field",
       "name": "entityType",
       "owner": "evt.asset.asset-updated",
-      "data_type": "EntityTypes.ASSET",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "EntityTypes.ASSET"
     },
     {
       "id": "fld.asset.asset-updated.entity-ids",
       "type": "field",
       "name": "entityIds",
       "owner": "evt.asset.asset-updated",
-      "data_type": "Record<string, string>",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "Record<string, string>"
     },
     {
       "id": "fld.asset.asset-updated.asset-public",
       "type": "field",
       "name": "assetPublic",
       "owner": "evt.asset.asset-updated",
-      "data_type": "AssetPublic",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "evt.asset.asset-deleted",
-      "type": "event",
-      "name": "AssetDeleted",
-      "source": "service.asset",
-      "detail_type": "AssetDeleted"
+      "data_type": "AssetPublic"
     },
     {
       "id": "fld.asset.asset-deleted.record",
@@ -877,46 +789,30 @@
       "name": "record",
       "owner": "evt.asset.asset-deleted",
       "data_type": "AssetDynamoDB",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "pii": true,
+      "pii_category": "id",
+      "pii_confidence": 0.6
     },
     {
       "id": "fld.asset.asset-deleted.entity-type",
       "type": "field",
       "name": "entityType",
       "owner": "evt.asset.asset-deleted",
-      "data_type": "EntityTypes.ASSET",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "EntityTypes.ASSET"
     },
     {
       "id": "fld.asset.asset-deleted.entity-ids",
       "type": "field",
       "name": "entityIds",
       "owner": "evt.asset.asset-deleted",
-      "data_type": "Record<string, string>",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "Record<string, string>"
     },
     {
       "id": "fld.asset.asset-deleted.asset-public",
       "type": "field",
       "name": "assetPublic",
       "owner": "evt.asset.asset-deleted",
-      "data_type": "AssetPublic",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "evt.asset.asset-hard-deleted",
-      "type": "event",
-      "name": "AssetHardDeleted",
-      "source": "service.asset",
-      "detail_type": "AssetHardDeleted"
+      "data_type": "AssetPublic"
     },
     {
       "id": "fld.asset.asset-hard-deleted.record",
@@ -924,86 +820,58 @@
       "name": "record",
       "owner": "evt.asset.asset-hard-deleted",
       "data_type": "AssetDynamoDB",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "pii": true,
+      "pii_category": "id",
+      "pii_confidence": 0.6
     },
     {
       "id": "fld.asset.asset-hard-deleted.entity-type",
       "type": "field",
       "name": "entityType",
       "owner": "evt.asset.asset-hard-deleted",
-      "data_type": "EntityTypes.ASSET",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "EntityTypes.ASSET"
     },
     {
       "id": "fld.asset.asset-hard-deleted.entity-ids",
       "type": "field",
       "name": "entityIds",
       "owner": "evt.asset.asset-hard-deleted",
-      "data_type": "Record<string, string>",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "Record<string, string>"
     },
     {
       "id": "fld.asset.asset-hard-deleted.asset-public",
       "type": "field",
       "name": "assetPublic",
       "owner": "evt.asset.asset-hard-deleted",
-      "data_type": "AssetPublic",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "evt.asset.asset-pmh-sync-started",
-      "type": "event",
-      "name": "AssetPmhSyncStarted",
-      "source": "service.asset",
-      "detail_type": "AssetPmhSyncStarted"
+      "data_type": "AssetPublic"
     },
     {
       "id": "fld.asset.asset-pmh-sync-started.project-id",
       "type": "field",
       "name": "projectId",
       "owner": "evt.asset.asset-pmh-sync-started",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.asset.asset-pmh-sync-started.id",
       "type": "field",
       "name": "id",
       "owner": "evt.asset.asset-pmh-sync-started",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.asset.asset-pmh-sync-started.entity-type",
       "type": "field",
       "name": "entityType",
       "owner": "evt.asset.asset-pmh-sync-started",
-      "data_type": "PmhSyncEntityType (\"ASSET\"|\"CREATIVE_VERSION\")",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "PmhSyncEntityType"
     },
     {
       "id": "fld.asset.asset-pmh-sync-started.submission-uuid",
       "type": "field",
       "name": "submissionUuid",
       "owner": "evt.asset.asset-pmh-sync-started",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.asset.asset-pmh-sync-started.created-by",
@@ -1020,20 +888,14 @@
       "type": "field",
       "name": "creativeId",
       "owner": "evt.asset.asset-pmh-sync-started",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.asset.asset-pmh-sync-started.results",
       "type": "field",
       "name": "results",
       "owner": "evt.asset.asset-pmh-sync-started",
-      "data_type": "SyncAssetToPmhAssetResult[]",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "SyncAssetToPmhAssetResult[]"
     },
     {
       "id": "fld.asset.asset-pmh-sync-started.display-name",
@@ -1041,163 +903,44 @@
       "name": "displayName",
       "owner": "evt.asset.asset-pmh-sync-started",
       "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "pii": true,
+      "pii_category": "name",
+      "pii_confidence": 0.85
     },
     {
       "id": "fld.asset.asset-pmh-sync-started.status",
       "type": "field",
       "name": "status",
       "owner": "evt.asset.asset-pmh-sync-started",
-      "data_type": "PmhSyncStatus (enum)",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "evt.asset.creative-version-pmh-sync-started",
-      "type": "event",
-      "name": "CreativeVersionPmhSyncStarted",
-      "source": "service.asset",
-      "detail_type": "CreativeVersionPmhSyncStarted"
-    },
-    {
-      "id": "fld.asset.creative-version-pmh-sync-started.project-id",
-      "type": "field",
-      "name": "projectId",
-      "owner": "evt.asset.creative-version-pmh-sync-started",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset.creative-version-pmh-sync-started.id",
-      "type": "field",
-      "name": "id",
-      "owner": "evt.asset.creative-version-pmh-sync-started",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset.creative-version-pmh-sync-started.entity-type",
-      "type": "field",
-      "name": "entityType",
-      "owner": "evt.asset.creative-version-pmh-sync-started",
-      "data_type": "PmhSyncEntityType (\"ASSET\"|\"CREATIVE_VERSION\")",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset.creative-version-pmh-sync-started.submission-uuid",
-      "type": "field",
-      "name": "submissionUuid",
-      "owner": "evt.asset.creative-version-pmh-sync-started",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset.creative-version-pmh-sync-started.created-by",
-      "type": "field",
-      "name": "createdBy",
-      "owner": "evt.asset.creative-version-pmh-sync-started",
-      "data_type": "string",
-      "pii": true,
-      "pii_category": "id",
-      "pii_confidence": 0.6
-    },
-    {
-      "id": "fld.asset.creative-version-pmh-sync-started.creative-id",
-      "type": "field",
-      "name": "creativeId",
-      "owner": "evt.asset.creative-version-pmh-sync-started",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset.creative-version-pmh-sync-started.results",
-      "type": "field",
-      "name": "results",
-      "owner": "evt.asset.creative-version-pmh-sync-started",
-      "data_type": "SyncAssetToPmhAssetResult[]",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset.creative-version-pmh-sync-started.display-name",
-      "type": "field",
-      "name": "displayName",
-      "owner": "evt.asset.creative-version-pmh-sync-started",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "fld.asset.creative-version-pmh-sync-started.status",
-      "type": "field",
-      "name": "status",
-      "owner": "evt.asset.creative-version-pmh-sync-started",
-      "data_type": "PmhSyncStatus (enum)",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
-    },
-    {
-      "id": "evt.asset.asset-pmh-sync-completed",
-      "type": "event",
-      "name": "AssetPmhSyncCompleted",
-      "source": "service.asset",
-      "detail_type": "AssetPmhSyncCompleted"
+      "data_type": "PmhSyncStatus"
     },
     {
       "id": "fld.asset.asset-pmh-sync-completed.project-id",
       "type": "field",
       "name": "projectId",
       "owner": "evt.asset.asset-pmh-sync-completed",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.asset.asset-pmh-sync-completed.id",
       "type": "field",
       "name": "id",
       "owner": "evt.asset.asset-pmh-sync-completed",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.asset.asset-pmh-sync-completed.entity-type",
       "type": "field",
       "name": "entityType",
       "owner": "evt.asset.asset-pmh-sync-completed",
-      "data_type": "PmhSyncEntityType (\"ASSET\"|\"CREATIVE_VERSION\")",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "PmhSyncEntityType"
     },
     {
       "id": "fld.asset.asset-pmh-sync-completed.submission-uuid",
       "type": "field",
       "name": "submissionUuid",
       "owner": "evt.asset.asset-pmh-sync-completed",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.asset.asset-pmh-sync-completed.created-by",
@@ -1214,20 +957,14 @@
       "type": "field",
       "name": "creativeId",
       "owner": "evt.asset.asset-pmh-sync-completed",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.asset.asset-pmh-sync-completed.results",
       "type": "field",
       "name": "results",
       "owner": "evt.asset.asset-pmh-sync-completed",
-      "data_type": "SyncAssetToPmhAssetResult[]",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "SyncAssetToPmhAssetResult[]"
     },
     {
       "id": "fld.asset.asset-pmh-sync-completed.display-name",
@@ -1235,66 +972,113 @@
       "name": "displayName",
       "owner": "evt.asset.asset-pmh-sync-completed",
       "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "pii": true,
+      "pii_category": "name",
+      "pii_confidence": 0.85
     },
     {
       "id": "fld.asset.asset-pmh-sync-completed.status",
       "type": "field",
       "name": "status",
       "owner": "evt.asset.asset-pmh-sync-completed",
-      "data_type": "PmhSyncStatus (enum)",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "PmhSyncStatus"
     },
     {
-      "id": "evt.asset.creative-version-pmh-sync-completed",
-      "type": "event",
-      "name": "CreativeVersionPmhSyncCompleted",
-      "source": "service.asset",
-      "detail_type": "CreativeVersionPmhSyncCompleted"
+      "id": "fld.asset.creative-version-pmh-sync-started.project-id",
+      "type": "field",
+      "name": "projectId",
+      "owner": "evt.asset.creative-version-pmh-sync-started",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.asset.creative-version-pmh-sync-started.id",
+      "type": "field",
+      "name": "id",
+      "owner": "evt.asset.creative-version-pmh-sync-started",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.asset.creative-version-pmh-sync-started.entity-type",
+      "type": "field",
+      "name": "entityType",
+      "owner": "evt.asset.creative-version-pmh-sync-started",
+      "data_type": "PmhSyncEntityType"
+    },
+    {
+      "id": "fld.asset.creative-version-pmh-sync-started.submission-uuid",
+      "type": "field",
+      "name": "submissionUuid",
+      "owner": "evt.asset.creative-version-pmh-sync-started",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.asset.creative-version-pmh-sync-started.created-by",
+      "type": "field",
+      "name": "createdBy",
+      "owner": "evt.asset.creative-version-pmh-sync-started",
+      "data_type": "string",
+      "pii": true,
+      "pii_category": "id",
+      "pii_confidence": 0.6
+    },
+    {
+      "id": "fld.asset.creative-version-pmh-sync-started.creative-id",
+      "type": "field",
+      "name": "creativeId",
+      "owner": "evt.asset.creative-version-pmh-sync-started",
+      "data_type": "string"
+    },
+    {
+      "id": "fld.asset.creative-version-pmh-sync-started.results",
+      "type": "field",
+      "name": "results",
+      "owner": "evt.asset.creative-version-pmh-sync-started",
+      "data_type": "SyncAssetToPmhAssetResult[]"
+    },
+    {
+      "id": "fld.asset.creative-version-pmh-sync-started.display-name",
+      "type": "field",
+      "name": "displayName",
+      "owner": "evt.asset.creative-version-pmh-sync-started",
+      "data_type": "string",
+      "pii": true,
+      "pii_category": "name",
+      "pii_confidence": 0.85
+    },
+    {
+      "id": "fld.asset.creative-version-pmh-sync-started.status",
+      "type": "field",
+      "name": "status",
+      "owner": "evt.asset.creative-version-pmh-sync-started",
+      "data_type": "PmhSyncStatus"
     },
     {
       "id": "fld.asset.creative-version-pmh-sync-completed.project-id",
       "type": "field",
       "name": "projectId",
       "owner": "evt.asset.creative-version-pmh-sync-completed",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.asset.creative-version-pmh-sync-completed.id",
       "type": "field",
       "name": "id",
       "owner": "evt.asset.creative-version-pmh-sync-completed",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.asset.creative-version-pmh-sync-completed.entity-type",
       "type": "field",
       "name": "entityType",
       "owner": "evt.asset.creative-version-pmh-sync-completed",
-      "data_type": "PmhSyncEntityType (\"ASSET\"|\"CREATIVE_VERSION\")",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "PmhSyncEntityType"
     },
     {
       "id": "fld.asset.creative-version-pmh-sync-completed.submission-uuid",
       "type": "field",
       "name": "submissionUuid",
       "owner": "evt.asset.creative-version-pmh-sync-completed",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.asset.creative-version-pmh-sync-completed.created-by",
@@ -1311,20 +1095,14 @@
       "type": "field",
       "name": "creativeId",
       "owner": "evt.asset.creative-version-pmh-sync-completed",
-      "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "string"
     },
     {
       "id": "fld.asset.creative-version-pmh-sync-completed.results",
       "type": "field",
       "name": "results",
       "owner": "evt.asset.creative-version-pmh-sync-completed",
-      "data_type": "SyncAssetToPmhAssetResult[]",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "SyncAssetToPmhAssetResult[]"
     },
     {
       "id": "fld.asset.creative-version-pmh-sync-completed.display-name",
@@ -1332,46 +1110,44 @@
       "name": "displayName",
       "owner": "evt.asset.creative-version-pmh-sync-completed",
       "data_type": "string",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "pii": true,
+      "pii_category": "name",
+      "pii_confidence": 0.85
     },
     {
       "id": "fld.asset.creative-version-pmh-sync-completed.status",
       "type": "field",
       "name": "status",
       "owner": "evt.asset.creative-version-pmh-sync-completed",
-      "data_type": "PmhSyncStatus (enum)",
-      "pii": false,
-      "pii_category": "none",
-      "pii_confidence": 1.0
+      "data_type": "PmhSyncStatus"
     },
     {
-      "id": "fn.thumbnailgen.thumbnail-generator",
-      "type": "function",
-      "name": "thumbnailGenerator",
-      "service": "thumbnailgen",
-      "function_key": "thumbnailGenerator"
+      "id": "test.asset.svc-application-handlers-api-pmh-get-pmh-submissions-spec",
+      "type": "test",
+      "name": "get-pmh-submissions.spec.ts",
+      "file": "Unite/services/asset/src/application/handlers/api/pmh/get-pmh-submissions.spec.ts",
+      "framework": "jest"
     },
     {
-      "id": "api.creative.get-v1-creative-creative-id",
-      "type": "api",
-      "name": "GET /v1/creative/{creativeId}",
-      "service": "creative",
-      "method": "GET",
-      "path": "/v1/creative/{creativeId}",
-      "handler": "Unite/services/creative/src/handlers/creative/get-creative.ts:81",
-      "authorizer": "CUSTOM"
+      "id": "test.asset.svc-application-handlers-api-pmh-sync-asset-to-pmh-spec",
+      "type": "test",
+      "name": "sync-asset-to-pmh.spec.ts",
+      "file": "Unite/services/asset/src/application/handlers/api/pmh/sync-asset-to-pmh.spec.ts",
+      "framework": "jest"
     },
     {
-      "id": "api.creative.get-v1-creative-version-version-id",
-      "type": "api",
-      "name": "GET /v1/creative-version/{versionId}",
-      "service": "creative",
-      "method": "GET",
-      "path": "/v1/creative-version/{versionId}",
-      "handler": "Unite/services/creative/src/handlers/creative-version/get-creative-version.ts:14",
-      "authorizer": "CUSTOM"
+      "id": "test.asset.svc-application-handlers-sqs-enrich-asset-worker-spec",
+      "type": "test",
+      "name": "enrich-asset-worker.spec.ts",
+      "file": "Unite/services/asset/src/application/handlers/sqs/enrich-asset-worker.spec.ts",
+      "framework": "jest"
+    },
+    {
+      "id": "test.asset.svc-application-handlers-sqs-pmh-sync-worker-spec",
+      "type": "test",
+      "name": "pmh-sync-worker.spec.ts",
+      "file": "Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.spec.ts",
+      "framework": "jest"
     },
     {
       "id": "test.asset.svc-handlers-bulk-delete-asset-spec",
@@ -1472,6 +1248,13 @@
       "framework": "jest"
     },
     {
+      "id": "test.asset.svc-handlers-internal-create-asset-spec",
+      "type": "test",
+      "name": "create-asset.spec.ts",
+      "file": "Unite/services/asset/src/handlers/internal/create-asset.spec.ts",
+      "framework": "jest"
+    },
+    {
       "id": "test.asset.svc-handlers-internal-get-asset-location-spec",
       "type": "test",
       "name": "get-asset-location.spec.ts",
@@ -1500,152 +1283,55 @@
       "framework": "jest"
     },
     {
-      "id": "test.asset.svc-application-handlers-sqs-enrich-asset-worker-spec",
+      "id": "test.asset.svc-infra-adapters-agent-asset-title-agent-adapter-spec",
       "type": "test",
-      "name": "enrich-asset-worker.spec.ts",
-      "file": "Unite/services/asset/src/application/handlers/sqs/enrich-asset-worker.spec.ts",
+      "name": "asset-title-agent.adapter.spec.ts",
+      "file": "Unite/services/asset/src/infra/adapters/agent/asset-title-agent.adapter.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.svc-application-handlers-sqs-pmh-sync-worker-spec",
+      "id": "test.asset.svc-models-create-asset-body-dto-spec",
       "type": "test",
-      "name": "pmh-sync-worker.spec.ts",
-      "file": "Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.spec.ts",
+      "name": "create-asset-body-dto.spec.ts",
+      "file": "Unite/services/asset/src/models/create-asset-body-dto.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.svc-application-handlers-api-pmh-get-pmh-submissions-spec",
+      "id": "test.asset.svc-models-get-asset-file-query-string-parameters-dto-spec",
       "type": "test",
-      "name": "get-pmh-submissions.spec.ts",
-      "file": "Unite/services/asset/src/application/handlers/api/pmh/get-pmh-submissions.spec.ts",
+      "name": "get-asset-file-query-string-parameters.dto.spec.ts",
+      "file": "Unite/services/asset/src/models/get-asset-file-query-string-parameters.dto.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.svc-application-handlers-api-pmh-sync-asset-to-pmh-spec",
+      "id": "test.asset.svc-models-process-rasterizer-events-dto-spec",
       "type": "test",
-      "name": "sync-asset-to-pmh.spec.ts",
-      "file": "Unite/services/asset/src/application/handlers/api/pmh/sync-asset-to-pmh.spec.ts",
+      "name": "process-rasterizer-events.dto.spec.ts",
+      "file": "Unite/services/asset/src/models/process-rasterizer-events.dto.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "test.asset.svc-handlers-internal-create-asset-spec",
+      "id": "test.asset.svc-utils-can-manage-asset-expiry-spec",
       "type": "test",
-      "name": "create-asset.spec.ts",
-      "file": "Unite/services/asset/src/handlers/internal/create-asset.spec.ts",
+      "name": "can-manage-asset-expiry.spec.ts",
+      "file": "Unite/services/asset/src/utils/can-manage-asset-expiry.spec.ts",
       "framework": "jest"
     },
     {
-      "id": "ext.pmh-api",
-      "type": "external",
-      "name": "PMH API"
+      "id": "test.asset.svc-utils-schema-validator-spec",
+      "type": "test",
+      "name": "schema-validator.spec.ts",
+      "file": "Unite/services/asset/src/utils/schema-validator.spec.ts",
+      "framework": "jest"
     }
   ],
   "edges": [
     {
       "from": "svc.asset",
       "type": "EXPOSES",
-      "to": "fn.asset.create-asset-from-resource-id",
-      "evidence": "Unite/services/asset/serverless.yml:55",
-      "snippet": "createAssetFromResourceId",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.process-enrich-asset-queue",
-      "evidence": "Unite/services/asset/serverless.yml:188",
-      "snippet": "processEnrichAssetQueue",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.process-pmh-sync-queue",
-      "evidence": "Unite/services/asset/serverless.yml:215",
-      "snippet": "processPmhSyncQueue",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.resource-finished-handler",
-      "evidence": "Unite/services/asset/serverless.yml:238",
-      "snippet": "resourceFinishedHandler",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.asset-brand-check-status-updated-handler",
-      "evidence": "Unite/services/asset/serverless.yml:258",
-      "snippet": "assetBrandCheckStatusUpdatedHandler",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.get-creative-export-assets-internal",
-      "evidence": "Unite/services/asset/serverless.yml:307",
-      "snippet": "getCreativeExportAssetsInternal",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.copy-asset-internal",
-      "evidence": "Unite/services/asset/serverless.yml:316",
-      "snippet": "copyAssetInternal",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.get-asset-location-by-id-internal",
-      "evidence": "Unite/services/asset/serverless.yml:324",
-      "snippet": "getAssetLocationByIdInternal",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.create-asset-internal",
-      "evidence": "Unite/services/asset/serverless.yml:333",
-      "snippet": "createAssetInternal",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.dynamo-router-handler",
-      "evidence": "Unite/services/asset/serverless.yml:409",
-      "snippet": "dynamoRouterHandler",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
-      "to": "fn.asset.process-rasterizer-events",
-      "evidence": "Unite/services/asset/serverless.yml:439",
-      "snippet": "processRasterizerEvents",
-      "confidence": 1.0,
-      "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "EXPOSES",
       "to": "api.asset.post-v1-asset",
       "evidence": "Unite/services/asset/serverless.yml:51",
-      "snippet": "/v1/asset",
+      "snippet": "path: /v1/asset",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1654,7 +1340,7 @@
       "type": "EXPOSES",
       "to": "api.asset.get-v1-asset-asset-id",
       "evidence": "Unite/services/asset/serverless.yml:80",
-      "snippet": "/v1/asset/{assetId}",
+      "snippet": "path: /v1/asset/{assetId}",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1663,7 +1349,7 @@
       "type": "EXPOSES",
       "to": "api.asset.get-v1-asset-asset-id-file",
       "evidence": "Unite/services/asset/serverless.yml:94",
-      "snippet": "/v1/asset/{assetId}/file",
+      "snippet": "path: /v1/asset/{assetId}/file",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1672,7 +1358,7 @@
       "type": "EXPOSES",
       "to": "api.asset.get-v1-asset-asset-id-usage",
       "evidence": "Unite/services/asset/serverless.yml:108",
-      "snippet": "/v1/asset/{assetId}/usage",
+      "snippet": "path: /v1/asset/{assetId}/usage",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1681,7 +1367,7 @@
       "type": "EXPOSES",
       "to": "api.asset.get-v1-asset-source",
       "evidence": "Unite/services/asset/serverless.yml:122",
-      "snippet": "/v1/asset/source",
+      "snippet": "path: /v1/asset/source",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1690,7 +1376,7 @@
       "type": "EXPOSES",
       "to": "api.asset.put-v1-asset-asset-id",
       "evidence": "Unite/services/asset/serverless.yml:139",
-      "snippet": "/v1/asset/{assetId}",
+      "snippet": "path: /v1/asset/{assetId}",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1699,7 +1385,7 @@
       "type": "EXPOSES",
       "to": "api.asset.delete-v1-asset-asset-id",
       "evidence": "Unite/services/asset/serverless.yml:154",
-      "snippet": "/v1/asset/{assetId}",
+      "snippet": "path: /v1/asset/{assetId}",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1708,7 +1394,7 @@
       "type": "EXPOSES",
       "to": "api.asset.get-v1-asset",
       "evidence": "Unite/services/asset/serverless.yml:169",
-      "snippet": "/v1/asset",
+      "snippet": "path: /v1/asset",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1717,7 +1403,7 @@
       "type": "EXPOSES",
       "to": "api.asset.get-v1-tag",
       "evidence": "Unite/services/asset/serverless.yml:183",
-      "snippet": "/v1/tag",
+      "snippet": "path: /v1/tag",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1726,7 +1412,7 @@
       "type": "EXPOSES",
       "to": "api.asset.put-v1-asset-bulk-update",
       "evidence": "Unite/services/asset/serverless.yml:284",
-      "snippet": "/v1/asset/bulk-update",
+      "snippet": "path: /v1/asset/bulk-update",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1735,7 +1421,7 @@
       "type": "EXPOSES",
       "to": "api.asset.delete-v1-asset-bulk-delete",
       "evidence": "Unite/services/asset/serverless.yml:301",
-      "snippet": "/v1/asset/bulk-delete",
+      "snippet": "path: /v1/asset/bulk-delete",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1744,7 +1430,7 @@
       "type": "EXPOSES",
       "to": "api.asset.post-v1-asset-bulk-download",
       "evidence": "Unite/services/asset/serverless.yml:360",
-      "snippet": "/v1/asset/bulk-download",
+      "snippet": "path: /v1/asset/bulk-download",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1753,7 +1439,7 @@
       "type": "EXPOSES",
       "to": "api.asset.post-v1-assets-proxy",
       "evidence": "Unite/services/asset/serverless.yml:382",
-      "snippet": "/v1/assets/{proxy+}",
+      "snippet": "path: /v1/assets/{proxy+}",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -1762,349 +1448,115 @@
       "type": "EXPOSES",
       "to": "api.asset.get-v1-assets-proxy",
       "evidence": "Unite/services/asset/serverless.yml:402",
-      "snippet": "/v1/assets/{proxy+}",
+      "snippet": "path: /v1/assets/{proxy+}",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
     {
       "from": "svc.asset",
-      "type": "READS",
-      "to": "tbl.dynamodb.asset-assets",
-      "evidence": "Unite/packages/asset/src/db/get-asset-by-id.ts:12",
-      "snippet": "dynamoDb.get(",
-      "confidence": 0.8,
-      "via": "package:asset"
+      "type": "EXPOSES",
+      "to": "fn.asset.create-asset-from-resource-id",
+      "evidence": "Unite/services/asset/serverless.yml:56",
+      "snippet": "handler: app.createAssetFromResourceIdHandler",
+      "confidence": 1.0,
+      "via": "serverless.yml"
     },
     {
       "from": "svc.asset",
-      "type": "WRITES",
-      "to": "tbl.dynamodb.asset-assets",
-      "evidence": "Unite/packages/asset/src/db/create-asset.ts:301",
-      "snippet": "dynamoDb.put(",
-      "confidence": 0.8,
-      "via": "package:asset"
+      "type": "EXPOSES",
+      "to": "fn.asset.process-enrich-asset-queue",
+      "evidence": "Unite/services/asset/serverless.yml:189",
+      "snippet": "handler: app.enrichAssetWorker",
+      "confidence": 1.0,
+      "via": "serverless.yml"
     },
     {
       "from": "svc.asset",
-      "type": "READS",
-      "to": "tbl.dynamodb.resource-resources",
-      "evidence": "Unite/packages/resource-manager/src/resource/index.ts:33",
-      "snippet": "dynamoDb.query({",
-      "confidence": 0.8,
-      "via": "package:resource-manager"
+      "type": "EXPOSES",
+      "to": "fn.asset.process-pmh-sync-queue",
+      "evidence": "Unite/services/asset/serverless.yml:216",
+      "snippet": "handler: app.pmhSyncWorker",
+      "confidence": 1.0,
+      "via": "serverless.yml"
     },
     {
       "from": "svc.asset",
-      "type": "WRITES",
-      "to": "tbl.dynamodb.resource-resources",
-      "evidence": "Unite/packages/resource-manager/src/resource/update-resource.ts:266",
-      "snippet": "dynamoDb.update(params)",
-      "confidence": 0.8,
-      "via": "package:resource-manager"
+      "type": "EXPOSES",
+      "to": "fn.asset.resource-finished-handler",
+      "evidence": "Unite/services/asset/serverless.yml:239",
+      "snippet": "handler: app.resourceFinishedHandler",
+      "confidence": 1.0,
+      "via": "serverless.yml"
     },
     {
       "from": "svc.asset",
-      "type": "READS",
-      "to": "tbl.dynamodb.user-user-table",
-      "evidence": "Unite/packages/user/src/db/user-entity/repository.ts:152",
-      "snippet": ".build(QueryCommand)",
-      "confidence": 0.8,
-      "via": "package:user"
+      "type": "EXPOSES",
+      "to": "fn.asset.asset-brand-check-status-updated-handler",
+      "evidence": "Unite/services/asset/serverless.yml:259",
+      "snippet": "handler: app.assetBrandCheckStatusUpdatedHandler",
+      "confidence": 1.0,
+      "via": "serverless.yml"
     },
     {
       "from": "svc.asset",
-      "type": "READS",
-      "to": "tbl.dynamodb.relation-relation-generic",
-      "evidence": "Unite/packages/relation/src/get-relations-by-subject-id.ts:71",
-      "snippet": "dynamoDb.query(params)",
-      "confidence": 0.8,
-      "via": "package:relation"
+      "type": "EXPOSES",
+      "to": "fn.asset.get-creative-export-assets-internal",
+      "evidence": "Unite/services/asset/serverless.yml:308",
+      "snippet": "handler: app.getCreativeExportAssetsInternalHandler",
+      "confidence": 1.0,
+      "via": "serverless.yml"
     },
     {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.pk",
-      "evidence": "Unite/packages/asset-types/src/index.ts:732",
-      "snippet": "pk:",
-      "confidence": 0.8,
-      "via": "package:asset-types"
+      "from": "svc.asset",
+      "type": "EXPOSES",
+      "to": "fn.asset.copy-asset-internal",
+      "evidence": "Unite/services/asset/serverless.yml:317",
+      "snippet": "handler: app.copyAssetInternalHandler",
+      "confidence": 1.0,
+      "via": "serverless.yml"
     },
     {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.sk",
-      "evidence": "Unite/packages/asset-types/src/index.ts:733",
-      "snippet": "sk:",
-      "confidence": 0.8,
-      "via": "package:asset-types"
+      "from": "svc.asset",
+      "type": "EXPOSES",
+      "to": "fn.asset.get-asset-location-by-id-internal",
+      "evidence": "Unite/services/asset/serverless.yml:325",
+      "snippet": "handler: app.getAssetLocationByIdInternalHandler",
+      "confidence": 1.0,
+      "via": "serverless.yml"
     },
     {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.gsi1pk",
-      "evidence": "Unite/packages/asset-types/src/index.ts:734",
-      "snippet": "gsi1pk",
-      "confidence": 0.8,
-      "via": "package:asset-types"
+      "from": "svc.asset",
+      "type": "EXPOSES",
+      "to": "fn.asset.create-asset-internal",
+      "evidence": "Unite/services/asset/serverless.yml:334",
+      "snippet": "handler: app.createAssetInternalHandler",
+      "confidence": 1.0,
+      "via": "serverless.yml"
     },
     {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.gsi1sk",
-      "evidence": "Unite/packages/asset-types/src/index.ts:735",
-      "snippet": "gsi1sk",
-      "confidence": 0.8,
-      "via": "package:asset-types"
+      "from": "svc.asset",
+      "type": "EXPOSES",
+      "to": "fn.asset.dynamo-router-handler",
+      "evidence": "Unite/services/asset/serverless.yml:410",
+      "snippet": "handler: app.dynamoRouterHandler",
+      "confidence": 1.0,
+      "via": "serverless.yml"
     },
     {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.project-id",
-      "evidence": "Unite/packages/asset-types/src/index.ts:736",
-      "snippet": "projectId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.asset-id",
-      "evidence": "Unite/packages/asset-types/src/index.ts:737",
-      "snippet": "assetId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.et",
-      "evidence": "Unite/packages/asset-types/src/index.ts:738",
-      "snippet": "_et",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.asset-type",
-      "evidence": "Unite/packages/asset-types/src/index.ts:739",
-      "snippet": "assetType",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.created-by",
-      "evidence": "Unite/packages/asset-types/src/index.ts:740",
-      "snippet": "createdBy",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.created-at",
-      "evidence": "Unite/packages/asset-types/src/index.ts:741",
-      "snippet": "createdAt",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.last-used-at",
-      "evidence": "Unite/packages/asset-types/src/index.ts:746",
-      "snippet": "lastUsedAt",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.title",
-      "evidence": "Unite/packages/asset-types/src/index.ts:747",
-      "snippet": "title",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.source-type",
-      "evidence": "Unite/packages/asset-types/src/index.ts:748",
-      "snippet": "sourceType",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.source-sub-type",
-      "evidence": "Unite/packages/asset-types/src/index.ts:749",
-      "snippet": "sourceSubType",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.source-group-id",
-      "evidence": "Unite/packages/asset-types/src/index.ts:750",
-      "snippet": "sourceGroupId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.source-id",
-      "evidence": "Unite/packages/asset-types/src/index.ts:751",
-      "snippet": "sourceId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.format-id",
-      "evidence": "Unite/packages/asset-types/src/index.ts:756",
-      "snippet": "formatId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.status",
-      "evidence": "Unite/packages/asset-types/src/index.ts:757",
-      "snippet": "status",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.favourite",
-      "evidence": "Unite/packages/asset-types/src/index.ts:758",
-      "snippet": "favourite",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.user-tags",
-      "evidence": "Unite/packages/asset-types/src/index.ts:759",
-      "snippet": "userTags",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.auto-tags",
-      "evidence": "Unite/packages/asset-types/src/index.ts:760",
-      "snippet": "autoTags",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.content",
-      "evidence": "Unite/packages/asset-types/src/index.ts:761",
-      "snippet": "content",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.preview-content",
-      "evidence": "Unite/packages/asset-types/src/index.ts:765",
-      "snippet": "previewContent",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.motion-preview-content",
-      "evidence": "Unite/packages/asset-types/src/index.ts:769",
-      "snippet": "motionPreviewContent",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.metadata",
-      "evidence": "Unite/packages/asset-types/src/index.ts:770",
-      "snippet": "metadata",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.hidden",
-      "evidence": "Unite/packages/asset-types/src/index.ts:771",
-      "snippet": "hidden",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.expiry-date",
-      "evidence": "Unite/packages/asset-types/src/index.ts:776",
-      "snippet": "expiryDate",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.brand-check-summaries",
-      "evidence": "Unite/packages/asset-types/src/index.ts:777",
-      "snippet": "brandCheckSummaries",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.pmh-sync-history",
-      "evidence": "Unite/packages/asset-types/src/index.ts:782",
-      "snippet": "pmhSyncHistory",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.asset-assets",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.asset-assets.pmh-sync",
-      "evidence": "Unite/packages/asset-types/src/index.ts:787",
-      "snippet": "pmhSync",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "tbl.dynamodb.resource-resources",
-      "type": "HAS_FIELD",
-      "to": "fld.dynamodb.resource-resources.output",
-      "evidence": "Unite/packages/asset-core/src/db/create-asset-from-resource-id.ts:249",
-      "snippet": "output:",
-      "confidence": 0.8,
-      "via": "package:asset-core"
+      "from": "svc.asset",
+      "type": "EXPOSES",
+      "to": "fn.asset.process-rasterizer-events",
+      "evidence": "Unite/services/asset/serverless.yml:440",
+      "snippet": "handler: app.rasterizerEventsHandler",
+      "confidence": 1.0,
+      "via": "serverless.yml"
     },
     {
       "from": "svc.asset",
       "type": "CONSUMES",
       "to": "q.asset-enrich-asset-queue",
-      "evidence": "Unite/services/asset/serverless.yml:210",
-      "snippet": "AssetEnrichmentQueue",
+      "evidence": "Unite/services/asset/serverless.yml:208",
+      "snippet": "arn:",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -2112,8 +1564,8 @@
       "from": "svc.asset",
       "type": "CONSUMES",
       "to": "q.asset-pmh-sync-queue",
-      "evidence": "Unite/services/asset/serverless.yml:232",
-      "snippet": "PmhSyncQueue",
+      "evidence": "Unite/services/asset/serverless.yml:230",
+      "snippet": "arn:",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
@@ -2122,117 +1574,9 @@
       "type": "CONSUMES",
       "to": "q.asset-rasterizer-events",
       "evidence": "Unite/services/asset/serverless.yml:450",
-      "snippet": "RasterizerEventsQueue",
+      "snippet": "arn: !GetAtt RasterizerEventsQueue.Arn",
       "confidence": 1.0,
       "via": "serverless.yml"
-    },
-    {
-      "from": "svc.asset",
-      "type": "PUBLISHES",
-      "to": "q.asset-enrich-asset-queue",
-      "evidence": "Unite/packages/asset/src/utils/queue.ts:32",
-      "snippet": "sqs.sendMessage(",
-      "confidence": 0.8,
-      "via": "package:asset"
-    },
-    {
-      "from": "svc.asset",
-      "type": "PUBLISHES",
-      "to": "q.asset-pmh-sync-queue",
-      "evidence": "Unite/packages/asset/src/utils/queue.ts:44",
-      "snippet": "sqs.sendMessage(",
-      "confidence": 0.8,
-      "via": "package:asset"
-    },
-    {
-      "from": "q.asset-enrich-asset-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.asset-enrich-asset-queue.pk",
-      "evidence": "Unite/packages/asset/src/utils/queue.ts:29",
-      "snippet": "pk, sk",
-      "confidence": 0.8,
-      "via": "package:asset"
-    },
-    {
-      "from": "q.asset-enrich-asset-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.asset-enrich-asset-queue.sk",
-      "evidence": "Unite/packages/asset/src/utils/queue.ts:29",
-      "snippet": "pk, sk",
-      "confidence": 0.8,
-      "via": "package:asset"
-    },
-    {
-      "from": "q.asset-pmh-sync-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.asset-pmh-sync-queue.project-id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:57",
-      "snippet": "projectId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "q.asset-pmh-sync-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.asset-pmh-sync-queue.id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:58",
-      "snippet": "id:",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "q.asset-pmh-sync-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.asset-pmh-sync-queue.submission-uuid",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:59",
-      "snippet": "submissionUuid",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "q.asset-pmh-sync-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.asset-pmh-sync-queue.entity-type",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:60",
-      "snippet": "entityType",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "q.asset-pmh-sync-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.asset-pmh-sync-queue.created-by",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:61",
-      "snippet": "createdBy",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "q.asset-pmh-sync-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.asset-pmh-sync-queue.creative-id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:81",
-      "snippet": "creativeId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "q.asset-pmh-sync-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.asset-pmh-sync-queue.creative-name",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:86",
-      "snippet": "creativeName",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "q.asset-pmh-sync-queue",
-      "type": "HAS_FIELD",
-      "to": "fld.asset-pmh-sync-queue.wpp-object-url",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:87",
-      "snippet": "wppObjectUrl",
-      "confidence": 0.8,
-      "via": "package:asset-types"
     },
     {
       "from": "svc.asset",
@@ -2257,558 +1601,161 @@
       "type": "CONSUMES",
       "to": "evt.wssbrandx.asset-brand-check-status-updated",
       "evidence": "Unite/services/asset/serverless.yml:270",
-      "snippet": "AssetBrandCheckStatusUpdated",
+      "snippet": "- AssetBrandCheckStatusUpdated",
       "confidence": 1.0,
       "via": "serverless.yml"
     },
     {
       "from": "svc.asset",
+      "type": "CONSUMES",
+      "to": "evt.rasterizer-service.motion-rasterized-success",
+      "evidence": "Unite/services/asset/serverless.yml:667",
+      "snippet": "- MotionRasterizedSuccess",
+      "confidence": 1.0,
+      "via": "serverless.yml",
+      "filter": {
+        "detail-type": [
+          "MotionRasterizedSuccess"
+        ],
+        "source": [
+          "rasterizer.service.${self:custom.T.STAGE}"
+        ]
+      }
+    },
+    {
+      "from": "svc.asset",
       "type": "PUBLISHES",
       "to": "evt.asset.asset-created",
-      "evidence": "Unite/services/asset/src/handlers/dynamo-router.ts:88",
-      "snippet": "AssetEventDetailType.ASSET_CREATED",
+      "evidence": "Unite/services/asset/src/handlers/dynamo-router.ts:53",
+      "snippet": "sendEventBridge({",
       "confidence": 0.9,
       "via": "service-code"
-    },
-    {
-      "from": "evt.asset.asset-created",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-created.record",
-      "evidence": "Unite/packages/asset-types/src/index.ts:811",
-      "snippet": "record",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-created",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-created.entity-type",
-      "evidence": "Unite/packages/asset-types/src/index.ts:812",
-      "snippet": "entityType",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-created",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-created.entity-ids",
-      "evidence": "Unite/packages/asset-types/src/index.ts:813",
-      "snippet": "entityIds",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-created",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-created.asset-public",
-      "evidence": "Unite/packages/asset-types/src/index.ts:814",
-      "snippet": "assetPublic",
-      "confidence": 0.8,
-      "via": "package:asset-types"
     },
     {
       "from": "svc.asset",
       "type": "PUBLISHES",
       "to": "evt.asset.asset-updated",
-      "evidence": "Unite/services/asset/src/handlers/dynamo-router.ts:92",
-      "snippet": "AssetEventDetailType.ASSET_UPDATED",
+      "evidence": "Unite/services/asset/src/handlers/dynamo-router.ts:53",
+      "snippet": "sendEventBridge({",
       "confidence": 0.9,
       "via": "service-code"
-    },
-    {
-      "from": "evt.asset.asset-updated",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-updated.record",
-      "evidence": "Unite/packages/asset-types/src/index.ts:811",
-      "snippet": "record",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-updated",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-updated.entity-type",
-      "evidence": "Unite/packages/asset-types/src/index.ts:812",
-      "snippet": "entityType",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-updated",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-updated.entity-ids",
-      "evidence": "Unite/packages/asset-types/src/index.ts:813",
-      "snippet": "entityIds",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-updated",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-updated.asset-public",
-      "evidence": "Unite/packages/asset-types/src/index.ts:814",
-      "snippet": "assetPublic",
-      "confidence": 0.8,
-      "via": "package:asset-types"
     },
     {
       "from": "svc.asset",
       "type": "PUBLISHES",
       "to": "evt.asset.asset-deleted",
-      "evidence": "Unite/services/asset/src/handlers/dynamo-router.ts:87",
-      "snippet": "AssetEventDetailType.ASSET_DELETED",
+      "evidence": "Unite/services/asset/src/handlers/dynamo-router.ts:53",
+      "snippet": "sendEventBridge({",
       "confidence": 0.9,
       "via": "service-code"
-    },
-    {
-      "from": "evt.asset.asset-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-deleted.record",
-      "evidence": "Unite/packages/asset-types/src/index.ts:811",
-      "snippet": "record",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-deleted.entity-type",
-      "evidence": "Unite/packages/asset-types/src/index.ts:812",
-      "snippet": "entityType",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-deleted.entity-ids",
-      "evidence": "Unite/packages/asset-types/src/index.ts:813",
-      "snippet": "entityIds",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-deleted.asset-public",
-      "evidence": "Unite/packages/asset-types/src/index.ts:814",
-      "snippet": "assetPublic",
-      "confidence": 0.8,
-      "via": "package:asset-types"
     },
     {
       "from": "svc.asset",
       "type": "PUBLISHES",
       "to": "evt.asset.asset-hard-deleted",
-      "evidence": "Unite/services/asset/src/handlers/dynamo-router.ts:94",
-      "snippet": "AssetEventDetailType.ASSET_HARD_DELETED",
+      "evidence": "Unite/services/asset/src/handlers/dynamo-router.ts:53",
+      "snippet": "sendEventBridge({",
       "confidence": 0.9,
       "via": "service-code"
-    },
-    {
-      "from": "evt.asset.asset-hard-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-hard-deleted.record",
-      "evidence": "Unite/packages/asset-types/src/index.ts:811",
-      "snippet": "record",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-hard-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-hard-deleted.entity-type",
-      "evidence": "Unite/packages/asset-types/src/index.ts:812",
-      "snippet": "entityType",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-hard-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-hard-deleted.entity-ids",
-      "evidence": "Unite/packages/asset-types/src/index.ts:813",
-      "snippet": "entityIds",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-hard-deleted",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-hard-deleted.asset-public",
-      "evidence": "Unite/packages/asset-types/src/index.ts:814",
-      "snippet": "assetPublic",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "svc.asset",
-      "type": "PUBLISHES",
-      "to": "evt.asset.asset-pmh-sync-started",
-      "evidence": "Unite/packages/asset/src/services/pmh/sync-assets-to-pmh.ts:816",
-      "snippet": "PmhSyncEventDetailTypes.ASSET_PMH_SYNC_STARTED",
-      "confidence": 0.8,
-      "via": "package:asset"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-started.project-id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:147",
-      "snippet": "projectId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-started.id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:148",
-      "snippet": "id:",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-started.entity-type",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:149",
-      "snippet": "entityType",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-started.submission-uuid",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:150",
-      "snippet": "submissionUuid",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-started.created-by",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:151",
-      "snippet": "createdBy",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-started.creative-id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:152",
-      "snippet": "creativeId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-started.results",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:153",
-      "snippet": "results",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-started.display-name",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:154",
-      "snippet": "displayName",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-started.status",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:155",
-      "snippet": "status",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "svc.asset",
-      "type": "PUBLISHES",
-      "to": "evt.asset.creative-version-pmh-sync-started",
-      "evidence": "Unite/packages/asset/src/services/pmh/sync-assets-to-pmh.ts:640",
-      "snippet": "PmhSyncEventDetailTypes.CREATIVE_VERSION_PMH_SYNC_STARTED",
-      "confidence": 0.8,
-      "via": "package:asset"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-started.project-id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:147",
-      "snippet": "projectId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-started.id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:148",
-      "snippet": "id:",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-started.entity-type",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:149",
-      "snippet": "entityType",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-started.submission-uuid",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:150",
-      "snippet": "submissionUuid",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-started.created-by",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:151",
-      "snippet": "createdBy",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-started.creative-id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:152",
-      "snippet": "creativeId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-started.results",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:153",
-      "snippet": "results",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-started.display-name",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:154",
-      "snippet": "displayName",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-started",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-started.status",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:155",
-      "snippet": "status",
-      "confidence": 0.8,
-      "via": "package:asset-types"
     },
     {
       "from": "svc.asset",
       "type": "PUBLISHES",
       "to": "evt.asset.asset-pmh-sync-completed",
-      "evidence": "Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.ts:59",
-      "snippet": "PmhSyncEventDetailTypes.ASSET_PMH_SYNC_COMPLETED",
+      "evidence": "Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.ts:74",
+      "snippet": "await sendEventBridge({",
       "confidence": 0.9,
       "via": "service-code"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-completed.project-id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:147",
-      "snippet": "projectId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-completed.id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:148",
-      "snippet": "id:",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-completed.entity-type",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:149",
-      "snippet": "entityType",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-completed.submission-uuid",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:150",
-      "snippet": "submissionUuid",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-completed.created-by",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:151",
-      "snippet": "createdBy",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-completed.creative-id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:152",
-      "snippet": "creativeId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-completed.results",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:153",
-      "snippet": "results",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-completed.display-name",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:154",
-      "snippet": "displayName",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.asset-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.asset-pmh-sync-completed.status",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:155",
-      "snippet": "status",
-      "confidence": 0.8,
-      "via": "package:asset-types"
     },
     {
       "from": "svc.asset",
       "type": "PUBLISHES",
       "to": "evt.asset.creative-version-pmh-sync-completed",
-      "evidence": "Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.ts:60",
-      "snippet": "PmhSyncEventDetailTypes.CREATIVE_VERSION_PMH_SYNC_COMPLETED",
+      "evidence": "Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.ts:74",
+      "snippet": "await sendEventBridge({",
       "confidence": 0.9,
       "via": "service-code"
     },
     {
-      "from": "evt.asset.creative-version-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-completed.project-id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:147",
-      "snippet": "projectId",
+      "from": "svc.asset",
+      "type": "PUBLISHES",
+      "to": "evt.asset.creative-version-pmh-sync-started",
+      "evidence": "Unite/packages/asset/src/services/pmh/sync-assets-to-pmh.ts:638",
+      "snippet": "sendEventBridge({",
       "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-completed.id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:148",
-      "snippet": "id:",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-completed.entity-type",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:149",
-      "snippet": "entityType",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-completed.submission-uuid",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:150",
-      "snippet": "submissionUuid",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-completed.created-by",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:151",
-      "snippet": "createdBy",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-completed.creative-id",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:152",
-      "snippet": "creativeId",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-completed.results",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:153",
-      "snippet": "results",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-completed.display-name",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:154",
-      "snippet": "displayName",
-      "confidence": 0.8,
-      "via": "package:asset-types"
-    },
-    {
-      "from": "evt.asset.creative-version-pmh-sync-completed",
-      "type": "HAS_FIELD",
-      "to": "fld.asset.creative-version-pmh-sync-completed.status",
-      "evidence": "Unite/packages/asset-types/src/pmh.ts:155",
-      "snippet": "status",
-      "confidence": 0.8,
-      "via": "package:asset-types"
+      "via": "package:asset"
     },
     {
       "from": "svc.asset",
-      "type": "CALLS",
-      "to": "fn.thumbnailgen.thumbnail-generator",
-      "evidence": "Unite/packages/asset/src/previews/create-thumbnail-for-image.ts:21",
-      "snippet": "invokeLambda(lambdaPayload, ThumbnailGeneratorFunctionName)",
+      "type": "PUBLISHES",
+      "to": "evt.asset.asset-pmh-sync-started",
+      "evidence": "Unite/packages/asset/src/services/pmh/sync-assets-to-pmh.ts:814",
+      "snippet": "sendEventBridge({",
       "confidence": 0.8,
       "via": "package:asset"
+    },
+    {
+      "from": "svc.asset",
+      "type": "PUBLISHES",
+      "to": "q.asset-enrich-asset-queue",
+      "evidence": "Unite/packages/asset/src/utils/queue.ts:32",
+      "snippet": "await sqs.sendMessage({",
+      "confidence": 0.8,
+      "via": "package:asset"
+    },
+    {
+      "from": "svc.asset",
+      "type": "PUBLISHES",
+      "to": "q.asset-pmh-sync-queue",
+      "evidence": "Unite/packages/asset/src/utils/queue.ts:44",
+      "snippet": "await sqs.sendMessage({",
+      "confidence": 0.8,
+      "via": "package:asset"
+    },
+    {
+      "from": "svc.asset",
+      "type": "READS",
+      "to": "tbl.dynamodb.asset-assets",
+      "evidence": "Unite/packages/asset/src/db/get-asset-by-source-id.ts:77",
+      "snippet": "await dynamoDb.get(params)",
+      "confidence": 0.8,
+      "via": "package:asset"
+    },
+    {
+      "from": "svc.asset",
+      "type": "READS",
+      "to": "tbl.dynamodb.relation-relation-generic",
+      "evidence": "Unite/packages/relation/src/get-relations-by-subject-id.ts:71",
+      "snippet": "await dynamoDb.query(params)",
+      "confidence": 0.8,
+      "via": "package:relation"
+    },
+    {
+      "from": "svc.asset",
+      "type": "READS",
+      "to": "tbl.dynamodb.resource-resources",
+      "evidence": "Unite/packages/resource-manager/src/resource/index.ts:33",
+      "snippet": "await dynamoDb.query({",
+      "confidence": 0.8,
+      "via": "package:resource-manager"
+    },
+    {
+      "from": "svc.asset",
+      "type": "WRITES",
+      "to": "tbl.dynamodb.asset-assets",
+      "evidence": "Unite/packages/asset/src/db/create-asset.ts:301",
+      "snippet": "await dynamoDb.put({",
+      "confidence": 0.8,
+      "via": "package:asset"
+    },
+    {
+      "from": "svc.asset",
+      "type": "WRITES",
+      "to": "tbl.dynamodb.resource-resources",
+      "evidence": "Unite/packages/resource-manager/src/resource/update-resource.ts:266",
+      "snippet": "await dynamoDb.update(params)",
+      "confidence": 0.8,
+      "via": "package:resource-manager"
     },
     {
       "from": "svc.asset",
@@ -2840,207 +1787,864 @@
     {
       "from": "svc.asset",
       "type": "CALLS",
-      "to": "ext.pmh-api",
-      "evidence": "Unite/packages/asset/src/services/pmh/create-upload-url.ts:19",
-      "snippet": "fetch(url, {",
+      "to": "fn.asset.create-asset-from-resource-id",
+      "evidence": "Unite/packages/asset/src/utils/invoke-lambda.ts:8",
+      "snippet": "new InvokeCommand({",
       "confidence": 0.8,
       "via": "package:asset"
     },
     {
       "from": "svc.asset",
       "type": "CALLS",
-      "to": "ext.pmh-api",
-      "evidence": "Unite/packages/asset/src/services/pmh/get-pmh-submissions.ts:44",
-      "snippet": "fetch(url, {",
+      "to": "fn.thumbnailgen.thumbnail-generator",
+      "evidence": "Unite/packages/asset/src/utils/invoke-lambda.ts:8",
+      "snippet": "new InvokeCommand({",
+      "confidence": 0.6,
+      "via": "package:asset"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.pk",
+      "evidence": "Unite/packages/asset-types/src/index.ts:732",
+      "snippet": "pk: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.sk",
+      "evidence": "Unite/packages/asset-types/src/index.ts:733",
+      "snippet": "sk: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.gsi1pk",
+      "evidence": "Unite/packages/asset-types/src/index.ts:734",
+      "snippet": "gsi1pk: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.gsi1sk",
+      "evidence": "Unite/packages/asset-types/src/index.ts:735",
+      "snippet": "gsi1sk: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.project-id",
+      "evidence": "Unite/packages/asset-types/src/index.ts:736",
+      "snippet": "projectId: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.asset-id",
+      "evidence": "Unite/packages/asset-types/src/index.ts:737",
+      "snippet": "assetId: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.created-by",
+      "evidence": "Unite/packages/asset-types/src/index.ts:740",
+      "snippet": "createdBy: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.et",
+      "evidence": "Unite/packages/asset-types/src/index.ts:738",
+      "snippet": "_et: \"Asset\";",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.asset-type",
+      "evidence": "Unite/packages/asset-types/src/index.ts:739",
+      "snippet": "assetType: AssetType;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.created-at",
+      "evidence": "Unite/packages/asset-types/src/index.ts:741",
+      "snippet": "createdAt: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.last-used-at",
+      "evidence": "Unite/packages/asset-types/src/index.ts:746",
+      "snippet": "lastUsedAt?: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.title",
+      "evidence": "Unite/packages/asset-types/src/index.ts:747",
+      "snippet": "title?: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.source-type",
+      "evidence": "Unite/packages/asset-types/src/index.ts:748",
+      "snippet": "sourceType: SourceType;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.source-sub-type",
+      "evidence": "Unite/packages/asset-types/src/index.ts:749",
+      "snippet": "sourceSubType?: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.source-group-id",
+      "evidence": "Unite/packages/asset-types/src/index.ts:750",
+      "snippet": "sourceGroupId?: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.source-id",
+      "evidence": "Unite/packages/asset-types/src/index.ts:751",
+      "snippet": "sourceId?: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.format-id",
+      "evidence": "Unite/packages/asset-types/src/index.ts:756",
+      "snippet": "formatId?: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.status",
+      "evidence": "Unite/packages/asset-types/src/index.ts:757",
+      "snippet": "status: AssetStatus;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.favourite",
+      "evidence": "Unite/packages/asset-types/src/index.ts:758",
+      "snippet": "favourite: boolean;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.user-tags",
+      "evidence": "Unite/packages/asset-types/src/index.ts:759",
+      "snippet": "userTags?: string[];",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.auto-tags",
+      "evidence": "Unite/packages/asset-types/src/index.ts:760",
+      "snippet": "autoTags: AutoTags[];",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.content",
+      "evidence": "Unite/packages/asset-types/src/index.ts:761",
+      "snippet": "content: AssetPersistentContent;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.preview-content",
+      "evidence": "Unite/packages/asset-types/src/index.ts:765",
+      "snippet": "previewContent?: AssetPersistentContent;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.motion-preview-content",
+      "evidence": "Unite/packages/asset-types/src/index.ts:769",
+      "snippet": "motionPreviewContent?: AssetPersistentContent;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.metadata",
+      "evidence": "Unite/packages/asset-types/src/index.ts:770",
+      "snippet": "metadata?: AssetMetadata;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.hidden",
+      "evidence": "Unite/packages/asset-types/src/index.ts:771",
+      "snippet": "hidden?: boolean;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.expiry-date",
+      "evidence": "Unite/packages/asset-types/src/index.ts:776",
+      "snippet": "expiryDate?: string;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.brand-check-summaries",
+      "evidence": "Unite/packages/asset-types/src/index.ts:777",
+      "snippet": "brandCheckSummaries?: AssetBrandCheckSummary[];",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.pmh-sync-history",
+      "evidence": "Unite/packages/asset-types/src/index.ts:782",
+      "snippet": "pmhSyncHistory?: AssetPmhSyncRecord[];",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.asset-assets",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.asset-assets.pmh-sync",
+      "evidence": "Unite/packages/asset-types/src/index.ts:787",
+      "snippet": "pmhSync?: {",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "tbl.dynamodb.resource-resources",
+      "type": "HAS_FIELD",
+      "to": "fld.dynamodb.resource-resources.output",
+      "evidence": "Unite/packages/resource-manager/src/resource/update-resource.ts:21",
+      "snippet": "output?: RMResourceOutput;",
+      "confidence": 0.8,
+      "via": "package:resource-manager"
+    },
+    {
+      "from": "q.asset-enrich-asset-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.asset-enrich-asset-queue.pk",
+      "evidence": "Unite/packages/asset/src/utils/queue.ts:29",
+      "snippet": "const message = { pk, sk };",
       "confidence": 0.8,
       "via": "package:asset"
     },
     {
-      "from": "test.asset.svc-handlers-bulk-delete-asset-spec",
-      "type": "TESTS",
-      "to": "api.asset.delete-v1-asset-bulk-delete",
-      "evidence": "Unite/services/asset/src/handlers/bulk-delete-asset.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "q.asset-enrich-asset-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.asset-enrich-asset-queue.sk",
+      "evidence": "Unite/packages/asset/src/utils/queue.ts:29",
+      "snippet": "const message = { pk, sk };",
+      "confidence": 0.8,
+      "via": "package:asset"
     },
     {
-      "from": "test.asset.svc-handlers-bulk-download-assets-spec",
-      "type": "TESTS",
-      "to": "api.asset.post-v1-asset-bulk-download",
-      "evidence": "Unite/services/asset/src/handlers/bulk-download-assets.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "q.asset-pmh-sync-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.asset-pmh-sync-queue.project-id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:57",
+      "snippet": "projectId: z.string().min(1),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-bulk-update-asset-spec",
-      "type": "TESTS",
-      "to": "api.asset.put-v1-asset-bulk-update",
-      "evidence": "Unite/services/asset/src/handlers/bulk-update-asset.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "q.asset-pmh-sync-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.asset-pmh-sync-queue.id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:58",
+      "snippet": "id: z.string().min(1),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-create-asset-from-resource-id-spec",
-      "type": "TESTS",
-      "to": "fn.asset.create-asset-from-resource-id",
-      "evidence": "Unite/services/asset/src/handlers/create-asset-from-resource-id.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "q.asset-pmh-sync-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.asset-pmh-sync-queue.entity-type",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:60",
+      "snippet": "entityType: pmhSyncEntityTypeSchema,",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-create-asset-spec",
-      "type": "TESTS",
-      "to": "api.asset.post-v1-asset",
-      "evidence": "Unite/services/asset/src/handlers/create-asset.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "q.asset-pmh-sync-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.asset-pmh-sync-queue.submission-uuid",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:59",
+      "snippet": "submissionUuid: z.uuid(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-delete-asset-spec",
-      "type": "TESTS",
-      "to": "api.asset.delete-v1-asset-asset-id",
-      "evidence": "Unite/services/asset/src/handlers/delete-asset.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "q.asset-pmh-sync-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.asset-pmh-sync-queue.created-by",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:61",
+      "snippet": "createdBy: z.email(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-dynamo-router-spec",
-      "type": "TESTS",
-      "to": "fn.asset.dynamo-router-handler",
-      "evidence": "Unite/services/asset/src/handlers/dynamo-router.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "q.asset-pmh-sync-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.asset-pmh-sync-queue.creative-id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:81",
+      "snippet": "creativeId: z.string().optional(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-event-bridge-spec",
-      "type": "TESTS",
-      "to": "fn.asset.asset-brand-check-status-updated-handler",
-      "evidence": "Unite/services/asset/src/handlers/event-bridge.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "q.asset-pmh-sync-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.asset-pmh-sync-queue.creative-name",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:86",
+      "snippet": "creativeName: z.string().min(1).optional(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-get-asset-by-id-spec",
-      "type": "TESTS",
-      "to": "api.asset.get-v1-asset-asset-id",
-      "evidence": "Unite/services/asset/src/handlers/get-asset-by-id.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "q.asset-pmh-sync-queue",
+      "type": "HAS_FIELD",
+      "to": "fld.asset-pmh-sync-queue.wpp-object-url",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:87",
+      "snippet": "wppObjectUrl: z.string().min(1),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-get-asset-file-spec",
-      "type": "TESTS",
-      "to": "api.asset.get-v1-asset-asset-id-file",
-      "evidence": "Unite/services/asset/src/handlers/get-asset-file.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "evt.asset.asset-created",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-created.record",
+      "evidence": "Unite/packages/asset-types/src/index.ts:811",
+      "snippet": "record: AssetDynamoDB;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-get-asset-usage-spec",
-      "type": "TESTS",
-      "to": "api.asset.get-v1-asset-asset-id-usage",
-      "evidence": "Unite/services/asset/src/handlers/get-asset-usage.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "evt.asset.asset-created",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-created.entity-type",
+      "evidence": "Unite/packages/asset-types/src/index.ts:812",
+      "snippet": "entityType: EntityTypes.ASSET;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-get-assets-spec",
-      "type": "TESTS",
-      "to": "api.asset.get-v1-asset",
-      "evidence": "Unite/services/asset/src/handlers/get-assets.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "evt.asset.asset-created",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-created.entity-ids",
+      "evidence": "Unite/packages/asset-types/src/index.ts:813",
+      "snippet": "entityIds: Record<string, string>;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-get-tags-spec",
-      "type": "TESTS",
-      "to": "api.asset.get-v1-tag",
-      "evidence": "Unite/services/asset/src/handlers/get-tags.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "evt.asset.asset-created",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-created.asset-public",
+      "evidence": "Unite/packages/asset-types/src/index.ts:814",
+      "snippet": "assetPublic: AssetPublic;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-internal-copy-asset-spec",
-      "type": "TESTS",
-      "to": "fn.asset.copy-asset-internal",
-      "evidence": "Unite/services/asset/src/handlers/internal/copy-asset.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "evt.asset.asset-updated",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-updated.record",
+      "evidence": "Unite/packages/asset-types/src/index.ts:811",
+      "snippet": "record: AssetDynamoDB;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-internal-get-asset-location-spec",
-      "type": "TESTS",
-      "to": "fn.asset.get-asset-location-by-id-internal",
-      "evidence": "Unite/services/asset/src/handlers/internal/get-asset-location.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "evt.asset.asset-updated",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-updated.entity-type",
+      "evidence": "Unite/packages/asset-types/src/index.ts:812",
+      "snippet": "entityType: EntityTypes.ASSET;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-internal-get-creative-export-assets-spec",
-      "type": "TESTS",
-      "to": "fn.asset.get-creative-export-assets-internal",
-      "evidence": "Unite/services/asset/src/handlers/internal/get-creative-export-assets.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "evt.asset.asset-updated",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-updated.entity-ids",
+      "evidence": "Unite/packages/asset-types/src/index.ts:813",
+      "snippet": "entityIds: Record<string, string>;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-resource-finished-spec",
-      "type": "TESTS",
-      "to": "fn.asset.resource-finished-handler",
-      "evidence": "Unite/services/asset/src/handlers/resource-finished.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "evt.asset.asset-updated",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-updated.asset-public",
+      "evidence": "Unite/packages/asset-types/src/index.ts:814",
+      "snippet": "assetPublic: AssetPublic;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-handlers-update-asset-spec",
-      "type": "TESTS",
-      "to": "api.asset.put-v1-asset-asset-id",
-      "evidence": "Unite/services/asset/src/handlers/update-asset.spec.ts:1",
-      "snippet": "import",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "evt.asset.asset-deleted",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-deleted.record",
+      "evidence": "Unite/packages/asset-types/src/index.ts:811",
+      "snippet": "record: AssetDynamoDB;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-application-handlers-sqs-enrich-asset-worker-spec",
-      "type": "TESTS",
-      "to": "fn.asset.process-enrich-asset-queue",
-      "evidence": "Unite/services/asset/src/application/handlers/sqs/enrich-asset-worker.spec.ts:1",
-      "snippet": "process.env.",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "evt.asset.asset-deleted",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-deleted.entity-type",
+      "evidence": "Unite/packages/asset-types/src/index.ts:812",
+      "snippet": "entityType: EntityTypes.ASSET;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
-      "from": "test.asset.svc-application-handlers-sqs-pmh-sync-worker-spec",
-      "type": "TESTS",
-      "to": "fn.asset.process-pmh-sync-queue",
-      "evidence": "Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.spec.ts:1",
-      "snippet": "process.env.",
-      "confidence": 0.9,
-      "via": "service-code"
+      "from": "evt.asset.asset-deleted",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-deleted.entity-ids",
+      "evidence": "Unite/packages/asset-types/src/index.ts:813",
+      "snippet": "entityIds: Record<string, string>;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-deleted",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-deleted.asset-public",
+      "evidence": "Unite/packages/asset-types/src/index.ts:814",
+      "snippet": "assetPublic: AssetPublic;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-hard-deleted",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-hard-deleted.record",
+      "evidence": "Unite/packages/asset-types/src/index.ts:811",
+      "snippet": "record: AssetDynamoDB;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-hard-deleted",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-hard-deleted.entity-type",
+      "evidence": "Unite/packages/asset-types/src/index.ts:812",
+      "snippet": "entityType: EntityTypes.ASSET;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-hard-deleted",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-hard-deleted.entity-ids",
+      "evidence": "Unite/packages/asset-types/src/index.ts:813",
+      "snippet": "entityIds: Record<string, string>;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-hard-deleted",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-hard-deleted.asset-public",
+      "evidence": "Unite/packages/asset-types/src/index.ts:814",
+      "snippet": "assetPublic: AssetPublic;",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-started.project-id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:147",
+      "snippet": "projectId: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-started.id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:148",
+      "snippet": "id: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-started.entity-type",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:149",
+      "snippet": "entityType: pmhSyncEntityTypeSchema,",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-started.submission-uuid",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:150",
+      "snippet": "submissionUuid: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-started.created-by",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:151",
+      "snippet": "createdBy: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-started.creative-id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:152",
+      "snippet": "creativeId: z.string().optional(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-started.results",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:153",
+      "snippet": "results: z.array(syncAssetToPmhAssetResultSchema),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-started.display-name",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:154",
+      "snippet": "displayName: z.string().optional(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-started.status",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:155",
+      "snippet": "status: pmhSyncStatusSchema,",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-completed.project-id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:147",
+      "snippet": "projectId: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-completed.id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:148",
+      "snippet": "id: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-completed.entity-type",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:149",
+      "snippet": "entityType: pmhSyncEntityTypeSchema,",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-completed.submission-uuid",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:150",
+      "snippet": "submissionUuid: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-completed.created-by",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:151",
+      "snippet": "createdBy: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-completed.creative-id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:152",
+      "snippet": "creativeId: z.string().optional(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-completed.results",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:153",
+      "snippet": "results: z.array(syncAssetToPmhAssetResultSchema),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-completed.display-name",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:154",
+      "snippet": "displayName: z.string().optional(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.asset-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.asset-pmh-sync-completed.status",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:155",
+      "snippet": "status: pmhSyncStatusSchema,",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-started.project-id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:147",
+      "snippet": "projectId: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-started.id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:148",
+      "snippet": "id: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-started.entity-type",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:149",
+      "snippet": "entityType: pmhSyncEntityTypeSchema,",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-started.submission-uuid",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:150",
+      "snippet": "submissionUuid: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-started.created-by",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:151",
+      "snippet": "createdBy: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-started.creative-id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:152",
+      "snippet": "creativeId: z.string().optional(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-started.results",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:153",
+      "snippet": "results: z.array(syncAssetToPmhAssetResultSchema),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-started.display-name",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:154",
+      "snippet": "displayName: z.string().optional(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-started",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-started.status",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:155",
+      "snippet": "status: pmhSyncStatusSchema,",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-completed.project-id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:147",
+      "snippet": "projectId: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-completed.id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:148",
+      "snippet": "id: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-completed.entity-type",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:149",
+      "snippet": "entityType: pmhSyncEntityTypeSchema,",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-completed.submission-uuid",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:150",
+      "snippet": "submissionUuid: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-completed.created-by",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:151",
+      "snippet": "createdBy: z.string(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-completed.creative-id",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:152",
+      "snippet": "creativeId: z.string().optional(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-completed.results",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:153",
+      "snippet": "results: z.array(syncAssetToPmhAssetResultSchema),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-completed.display-name",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:154",
+      "snippet": "displayName: z.string().optional(),",
+      "confidence": 0.8,
+      "via": "package:asset-types"
+    },
+    {
+      "from": "evt.asset.creative-version-pmh-sync-completed",
+      "type": "HAS_FIELD",
+      "to": "fld.asset.creative-version-pmh-sync-completed.status",
+      "evidence": "Unite/packages/asset-types/src/pmh.ts:155",
+      "snippet": "status: pmhSyncStatusSchema,",
+      "confidence": 0.8,
+      "via": "package:asset-types"
     },
     {
       "from": "test.asset.svc-application-handlers-api-pmh-get-pmh-submissions-spec",
       "type": "TESTS",
       "to": "api.asset.get-v1-assets-proxy",
-      "evidence": "Unite/services/asset/src/application/handlers/api/pmh/get-pmh-submissions.spec.ts:1",
-      "snippet": "import",
+      "evidence": "Unite/services/asset/src/application/handlers/api/pmh/get-pmh-submissions.spec.ts:55",
+      "snippet": "describe(\"getPmhSubmissions handler\", () => {",
       "confidence": 0.9,
       "via": "service-code"
     },
@@ -3048,8 +2652,152 @@
       "from": "test.asset.svc-application-handlers-api-pmh-sync-asset-to-pmh-spec",
       "type": "TESTS",
       "to": "api.asset.post-v1-assets-proxy",
-      "evidence": "Unite/services/asset/src/application/handlers/api/pmh/sync-asset-to-pmh.spec.ts:1",
-      "snippet": "import",
+      "evidence": "Unite/services/asset/src/application/handlers/api/pmh/sync-asset-to-pmh.spec.ts:44",
+      "snippet": "describe(\"syncAssetToPmhHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-application-handlers-sqs-enrich-asset-worker-spec",
+      "type": "TESTS",
+      "to": "fn.asset.process-enrich-asset-queue",
+      "evidence": "Unite/services/asset/src/application/handlers/sqs/enrich-asset-worker.spec.ts:104",
+      "snippet": "describe(\"enrich-asset-worker\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-application-handlers-sqs-pmh-sync-worker-spec",
+      "type": "TESTS",
+      "to": "fn.asset.process-pmh-sync-queue",
+      "evidence": "Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.spec.ts:72",
+      "snippet": "describe(\"pmhSyncWorker\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-bulk-delete-asset-spec",
+      "type": "TESTS",
+      "to": "api.asset.delete-v1-asset-bulk-delete",
+      "evidence": "Unite/services/asset/src/handlers/bulk-delete-asset.spec.ts:45",
+      "snippet": "describe(\"bulkDeleteAssetHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-bulk-download-assets-spec",
+      "type": "TESTS",
+      "to": "api.asset.post-v1-asset-bulk-download",
+      "evidence": "Unite/services/asset/src/handlers/bulk-download-assets.spec.ts:90",
+      "snippet": "describe(\"bulkDownloadAssetsHandler - AI Brand Check enforcement\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-bulk-update-asset-spec",
+      "type": "TESTS",
+      "to": "api.asset.put-v1-asset-bulk-update",
+      "evidence": "Unite/services/asset/src/handlers/bulk-update-asset.spec.ts:36",
+      "snippet": "describe(\"bulkUpdateAssetHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-create-asset-from-resource-id-spec",
+      "type": "TESTS",
+      "to": "fn.asset.create-asset-from-resource-id",
+      "evidence": "Unite/services/asset/src/handlers/create-asset-from-resource-id.spec.ts:10",
+      "snippet": "describe(\"createAssetFromResourceIdHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-create-asset-spec",
+      "type": "TESTS",
+      "to": "api.asset.post-v1-asset",
+      "evidence": "Unite/services/asset/src/handlers/create-asset.spec.ts:36",
+      "snippet": "describe(\"createAsset\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-delete-asset-spec",
+      "type": "TESTS",
+      "to": "api.asset.delete-v1-asset-asset-id",
+      "evidence": "Unite/services/asset/src/handlers/delete-asset.spec.ts:43",
+      "snippet": "describe(\"deleteAssetHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-dynamo-router-spec",
+      "type": "TESTS",
+      "to": "fn.asset.dynamo-router-handler",
+      "evidence": "Unite/services/asset/src/handlers/dynamo-router.spec.ts:20",
+      "snippet": "describe(\"dynamoRouterHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-event-bridge-spec",
+      "type": "TESTS",
+      "to": "fn.asset.asset-brand-check-status-updated-handler",
+      "evidence": "Unite/services/asset/src/handlers/event-bridge.spec.ts:15",
+      "snippet": "describe(\"assetBrandCheckStatusUpdatedHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-get-asset-by-id-spec",
+      "type": "TESTS",
+      "to": "api.asset.get-v1-asset-asset-id",
+      "evidence": "Unite/services/asset/src/handlers/get-asset-by-id.spec.ts:40",
+      "snippet": "describe(\"getAssetByIdHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-get-asset-file-spec",
+      "type": "TESTS",
+      "to": "api.asset.get-v1-asset-asset-id-file",
+      "evidence": "Unite/services/asset/src/handlers/get-asset-file.spec.ts:106",
+      "snippet": "describe(\"getAssetFileHandler - AI Brand Check enforcement\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-get-asset-usage-spec",
+      "type": "TESTS",
+      "to": "api.asset.get-v1-asset-asset-id-usage",
+      "evidence": "Unite/services/asset/src/handlers/get-asset-usage.spec.ts:57",
+      "snippet": "describe(\"getAssetUsageHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-get-assets-spec",
+      "type": "TESTS",
+      "to": "api.asset.get-v1-asset",
+      "evidence": "Unite/services/asset/src/handlers/get-assets.spec.ts:37",
+      "snippet": "describe(\"getAssets\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-get-tags-spec",
+      "type": "TESTS",
+      "to": "api.asset.get-v1-tag",
+      "evidence": "Unite/services/asset/src/handlers/get-tags.spec.ts:27",
+      "snippet": "describe(\"getTagsHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-internal-copy-asset-spec",
+      "type": "TESTS",
+      "to": "fn.asset.copy-asset-internal",
+      "evidence": "Unite/services/asset/src/handlers/internal/copy-asset.spec.ts:14",
+      "snippet": "describe(\"copyAssetInternalHandler\", () => {",
       "confidence": 0.9,
       "via": "service-code"
     },
@@ -3057,8 +2805,98 @@
       "from": "test.asset.svc-handlers-internal-create-asset-spec",
       "type": "TESTS",
       "to": "fn.asset.create-asset-internal",
-      "evidence": "Unite/services/asset/src/handlers/internal/create-asset.spec.ts:1",
-      "snippet": "import",
+      "evidence": "Unite/services/asset/src/handlers/internal/create-asset.spec.ts:9",
+      "snippet": "describe(\"createAssetInternalHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-internal-get-asset-location-spec",
+      "type": "TESTS",
+      "to": "fn.asset.get-asset-location-by-id-internal",
+      "evidence": "Unite/services/asset/src/handlers/internal/get-asset-location.spec.ts:9",
+      "snippet": "describe(\"getAssetLocationByIdInternalHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-internal-get-creative-export-assets-spec",
+      "type": "TESTS",
+      "to": "fn.asset.get-creative-export-assets-internal",
+      "evidence": "Unite/services/asset/src/handlers/internal/get-creative-export-assets.spec.ts:22",
+      "snippet": "describe(\"getCreativeExportAssetsInternalHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-resource-finished-spec",
+      "type": "TESTS",
+      "to": "fn.asset.resource-finished-handler",
+      "evidence": "Unite/services/asset/src/handlers/resource-finished.spec.ts:28",
+      "snippet": "describe(\"resourceFinishedHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-handlers-update-asset-spec",
+      "type": "TESTS",
+      "to": "api.asset.put-v1-asset-asset-id",
+      "evidence": "Unite/services/asset/src/handlers/update-asset.spec.ts:49",
+      "snippet": "describe(\"updateAssetHandler\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-infra-adapters-agent-asset-title-agent-adapter-spec",
+      "type": "TESTS",
+      "to": "svc.asset",
+      "evidence": "Unite/services/asset/src/infra/adapters/agent/asset-title-agent.adapter.spec.ts:20",
+      "snippet": "describe(\"createAssetTitleAgentAdapter\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-models-create-asset-body-dto-spec",
+      "type": "TESTS",
+      "to": "svc.asset",
+      "evidence": "Unite/services/asset/src/models/create-asset-body-dto.spec.ts:15",
+      "snippet": "describe(\"CreateAssetBodyDTO formatId\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-models-get-asset-file-query-string-parameters-dto-spec",
+      "type": "TESTS",
+      "to": "svc.asset",
+      "evidence": "Unite/services/asset/src/models/get-asset-file-query-string-parameters.dto.spec.ts:4",
+      "snippet": "describe(\"GetAssetFileQueryStringParameters - download parsing\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-models-process-rasterizer-events-dto-spec",
+      "type": "TESTS",
+      "to": "svc.asset",
+      "evidence": "Unite/services/asset/src/models/process-rasterizer-events.dto.spec.ts:14",
+      "snippet": "describe(\"motionRasterizedSuccessEventSchema\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-utils-can-manage-asset-expiry-spec",
+      "type": "TESTS",
+      "to": "svc.asset",
+      "evidence": "Unite/services/asset/src/utils/can-manage-asset-expiry.spec.ts:10",
+      "snippet": "describe(\"canManageAssetExpiry\", () => {",
+      "confidence": 0.9,
+      "via": "service-code"
+    },
+    {
+      "from": "test.asset.svc-utils-schema-validator-spec",
+      "type": "TESTS",
+      "to": "svc.asset",
+      "evidence": "Unite/services/asset/src/utils/schema-validator.spec.ts:5",
+      "snippet": "describe(\"safeParseSchema\", () => {",
       "confidence": 0.9,
       "via": "service-code"
     }

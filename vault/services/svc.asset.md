@@ -38,7 +38,7 @@ packages:
 - wss
 - wssbrandx-types
 path: Unite/services/asset
-generated_at: '2026-09-28T09:36:30Z'
+generated_at: '2026-09-28T10:17:00Z'
 contract_version: '0.2'
 sources:
 - asset
@@ -55,24 +55,29 @@ edges:
   via: package:asset
 - type: CALLS
   to: ext.pmh-api
-  evidence: Unite/packages/asset/src/services/pmh/create-upload-url.ts:19
-  confidence: 0.8
-  via: package:asset
-- type: CALLS
-  to: ext.pmh-api
-  evidence: Unite/packages/asset/src/services/pmh/get-pmh-submissions.ts:44
-  confidence: 0.8
-  via: package:asset
-- type: CALLS
-  to: ext.pmh-api
   evidence: Unite/packages/asset/src/services/pmh/pmh-auth.ts:25
   confidence: 0.8
   via: package:asset
 - type: CALLS
-  to: fn.thumbnailgen.thumbnail-generator
-  evidence: Unite/packages/asset/src/previews/create-thumbnail-for-image.ts:21
+  to: fn.asset.create-asset-from-resource-id
+  evidence: Unite/packages/asset/src/utils/invoke-lambda.ts:8
   confidence: 0.8
   via: package:asset
+- type: CALLS
+  to: fn.thumbnailgen.thumbnail-generator
+  evidence: Unite/packages/asset/src/utils/invoke-lambda.ts:8
+  confidence: 0.6
+  via: package:asset
+- type: CONSUMES
+  to: evt.rasterizer-service.motion-rasterized-success
+  evidence: Unite/services/asset/serverless.yml:667
+  confidence: 1.0
+  via: serverless.yml
+  filter:
+    detail-type:
+    - MotionRasterizedSuccess
+    source:
+    - rasterizer.service.${self:custom.T.STAGE}
 - type: CONSUMES
   to: evt.resource.resource-available
   evidence: Unite/services/asset/serverless.yml:246
@@ -90,12 +95,12 @@ edges:
   via: serverless.yml
 - type: CONSUMES
   to: q.asset-enrich-asset-queue
-  evidence: Unite/services/asset/serverless.yml:210
+  evidence: Unite/services/asset/serverless.yml:208
   confidence: 1.0
   via: serverless.yml
 - type: CONSUMES
   to: q.asset-pmh-sync-queue
-  evidence: Unite/services/asset/serverless.yml:232
+  evidence: Unite/services/asset/serverless.yml:230
   confidence: 1.0
   via: serverless.yml
 - type: CONSUMES
@@ -175,97 +180,97 @@ edges:
   via: serverless.yml
 - type: EXPOSES
   to: fn.asset.asset-brand-check-status-updated-handler
-  evidence: Unite/services/asset/serverless.yml:258
+  evidence: Unite/services/asset/serverless.yml:259
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: fn.asset.copy-asset-internal
-  evidence: Unite/services/asset/serverless.yml:316
+  evidence: Unite/services/asset/serverless.yml:317
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: fn.asset.create-asset-from-resource-id
-  evidence: Unite/services/asset/serverless.yml:55
+  evidence: Unite/services/asset/serverless.yml:56
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: fn.asset.create-asset-internal
-  evidence: Unite/services/asset/serverless.yml:333
+  evidence: Unite/services/asset/serverless.yml:334
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: fn.asset.dynamo-router-handler
-  evidence: Unite/services/asset/serverless.yml:409
+  evidence: Unite/services/asset/serverless.yml:410
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: fn.asset.get-asset-location-by-id-internal
-  evidence: Unite/services/asset/serverless.yml:324
+  evidence: Unite/services/asset/serverless.yml:325
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: fn.asset.get-creative-export-assets-internal
-  evidence: Unite/services/asset/serverless.yml:307
+  evidence: Unite/services/asset/serverless.yml:308
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: fn.asset.process-enrich-asset-queue
-  evidence: Unite/services/asset/serverless.yml:188
+  evidence: Unite/services/asset/serverless.yml:189
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: fn.asset.process-pmh-sync-queue
-  evidence: Unite/services/asset/serverless.yml:215
+  evidence: Unite/services/asset/serverless.yml:216
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: fn.asset.process-rasterizer-events
-  evidence: Unite/services/asset/serverless.yml:439
+  evidence: Unite/services/asset/serverless.yml:440
   confidence: 1.0
   via: serverless.yml
 - type: EXPOSES
   to: fn.asset.resource-finished-handler
-  evidence: Unite/services/asset/serverless.yml:238
+  evidence: Unite/services/asset/serverless.yml:239
   confidence: 1.0
   via: serverless.yml
 - type: PUBLISHES
   to: evt.asset.asset-created
-  evidence: Unite/services/asset/src/handlers/dynamo-router.ts:88
+  evidence: Unite/services/asset/src/handlers/dynamo-router.ts:53
   confidence: 0.9
   via: service-code
 - type: PUBLISHES
   to: evt.asset.asset-deleted
-  evidence: Unite/services/asset/src/handlers/dynamo-router.ts:87
+  evidence: Unite/services/asset/src/handlers/dynamo-router.ts:53
   confidence: 0.9
   via: service-code
 - type: PUBLISHES
   to: evt.asset.asset-hard-deleted
-  evidence: Unite/services/asset/src/handlers/dynamo-router.ts:94
+  evidence: Unite/services/asset/src/handlers/dynamo-router.ts:53
   confidence: 0.9
   via: service-code
 - type: PUBLISHES
   to: evt.asset.asset-pmh-sync-completed
-  evidence: Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.ts:59
+  evidence: Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.ts:74
   confidence: 0.9
   via: service-code
 - type: PUBLISHES
   to: evt.asset.asset-pmh-sync-started
-  evidence: Unite/packages/asset/src/services/pmh/sync-assets-to-pmh.ts:816
+  evidence: Unite/packages/asset/src/services/pmh/sync-assets-to-pmh.ts:814
   confidence: 0.8
   via: package:asset
 - type: PUBLISHES
   to: evt.asset.asset-updated
-  evidence: Unite/services/asset/src/handlers/dynamo-router.ts:92
+  evidence: Unite/services/asset/src/handlers/dynamo-router.ts:53
   confidence: 0.9
   via: service-code
 - type: PUBLISHES
   to: evt.asset.creative-version-pmh-sync-completed
-  evidence: Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.ts:60
+  evidence: Unite/services/asset/src/application/handlers/sqs/pmh-sync-worker.ts:74
   confidence: 0.9
   via: service-code
 - type: PUBLISHES
   to: evt.asset.creative-version-pmh-sync-started
-  evidence: Unite/packages/asset/src/services/pmh/sync-assets-to-pmh.ts:640
+  evidence: Unite/packages/asset/src/services/pmh/sync-assets-to-pmh.ts:638
   confidence: 0.8
   via: package:asset
 - type: PUBLISHES
@@ -280,7 +285,7 @@ edges:
   via: package:asset
 - type: READS
   to: tbl.dynamodb.asset-assets
-  evidence: Unite/packages/asset/src/db/get-asset-by-id.ts:12
+  evidence: Unite/packages/asset/src/db/get-asset-by-source-id.ts:77
   confidence: 0.8
   via: package:asset
 - type: READS
@@ -293,11 +298,6 @@ edges:
   evidence: Unite/packages/resource-manager/src/resource/index.ts:33
   confidence: 0.8
   via: package:resource-manager
-- type: READS
-  to: tbl.dynamodb.user-user-table
-  evidence: Unite/packages/user/src/db/user-entity/repository.ts:152
-  confidence: 0.8
-  via: package:user
 - type: WRITES
   to: tbl.dynamodb.asset-assets
   evidence: Unite/packages/asset/src/db/create-asset.ts:301
@@ -312,12 +312,12 @@ edges:
 # asset
 
 ## Summary
-Digital asset management service: CRUD/listing/tagging/bulk APIs for assets, ingests resource-manager and rasterizer outputs into persistent asset records via EventBridge/SQS, and syncs assets and creative versions to the WSS-only PMH integration.
+Owns asset CRUD, tagging and usage lookups; syncs assets and creative versions to PMH and enriches assets via an agent worker.
 
 ## Links
-- CALLS [[api.creative.get-v1-creative-creative-id]], [[api.creative.get-v1-creative-version-version-id]], [[ext.pmh-api]], [[fn.thumbnailgen.thumbnail-generator]]
-- CONSUMES [[evt.resource.resource-available]], [[evt.resource.resource-failed]], [[evt.wssbrandx.asset-brand-check-status-updated]], [[q.asset-enrich-asset-queue]], [[q.asset-pmh-sync-queue]], [[q.asset-rasterizer-events]]
+- CALLS [[api.creative.get-v1-creative-creative-id]], [[api.creative.get-v1-creative-version-version-id]], [[ext.pmh-api]], [[fn.asset.create-asset-from-resource-id]], [[fn.thumbnailgen.thumbnail-generator]]
+- CONSUMES [[evt.rasterizer-service.motion-rasterized-success]], [[evt.resource.resource-available]], [[evt.resource.resource-failed]], [[evt.wssbrandx.asset-brand-check-status-updated]], [[q.asset-enrich-asset-queue]], [[q.asset-pmh-sync-queue]], [[q.asset-rasterizer-events]]
 - EXPOSES [[api.asset.delete-v1-asset-asset-id]], [[api.asset.delete-v1-asset-bulk-delete]], [[api.asset.get-v1-asset]], [[api.asset.get-v1-asset-asset-id]], [[api.asset.get-v1-asset-asset-id-file]], [[api.asset.get-v1-asset-asset-id-usage]], [[api.asset.get-v1-asset-source]], [[api.asset.get-v1-assets-proxy]], [[api.asset.get-v1-tag]], [[api.asset.post-v1-asset]], [[api.asset.post-v1-asset-bulk-download]], [[api.asset.post-v1-assets-proxy]], [[api.asset.put-v1-asset-asset-id]], [[api.asset.put-v1-asset-bulk-update]], [[fn.asset.asset-brand-check-status-updated-handler]], [[fn.asset.copy-asset-internal]], [[fn.asset.create-asset-from-resource-id]], [[fn.asset.create-asset-internal]], [[fn.asset.dynamo-router-handler]], [[fn.asset.get-asset-location-by-id-internal]], [[fn.asset.get-creative-export-assets-internal]], [[fn.asset.process-enrich-asset-queue]], [[fn.asset.process-pmh-sync-queue]], [[fn.asset.process-rasterizer-events]], [[fn.asset.resource-finished-handler]]
 - PUBLISHES [[evt.asset.asset-created]], [[evt.asset.asset-deleted]], [[evt.asset.asset-hard-deleted]], [[evt.asset.asset-pmh-sync-completed]], [[evt.asset.asset-pmh-sync-started]], [[evt.asset.asset-updated]], [[evt.asset.creative-version-pmh-sync-completed]], [[evt.asset.creative-version-pmh-sync-started]], [[q.asset-enrich-asset-queue]], [[q.asset-pmh-sync-queue]]
-- READS [[tbl.dynamodb.asset-assets]], [[tbl.dynamodb.relation-relation-generic]], [[tbl.dynamodb.resource-resources]], [[tbl.dynamodb.user-user-table]]
+- READS [[tbl.dynamodb.asset-assets]], [[tbl.dynamodb.relation-relation-generic]], [[tbl.dynamodb.resource-resources]]
 - WRITES [[tbl.dynamodb.asset-assets]], [[tbl.dynamodb.resource-resources]]
